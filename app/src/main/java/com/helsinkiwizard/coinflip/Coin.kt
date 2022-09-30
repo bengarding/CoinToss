@@ -28,10 +28,10 @@ const val FULL_ROTATION = 360
 
 private var rotationAmount = 1
 private var currentSide = CoinSide.HEADS
-private var nextSide = CoinSide.HEADS
+private var nextSide = CoinSide.TAILS
 
 @Composable
-fun CoinAnimation(headsRes: Int, tailsRes: Int) {
+fun CoinAnimation(coinType: CoinType) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         var flipping by remember { mutableStateOf(true) }
 
@@ -55,9 +55,9 @@ fun CoinAnimation(headsRes: Int, tailsRes: Int) {
             FlipAnimation(
                 rotationY = valueFloat * rotationAmount,
                 front = {
-                    if (currentSide == CoinSide.HEADS) Heads(headsRes) else Tails(tailsRes)
+                    if (currentSide == CoinSide.HEADS) Heads(coinType.heads) else Tails(coinType.tails)
                 }, back = {
-                    if (currentSide == CoinSide.HEADS) Tails(tailsRes) else Heads(headsRes)
+                    if (currentSide == CoinSide.HEADS) Tails(coinType.tails) else Heads(coinType.heads)
                 })
         }
     }

@@ -32,7 +32,7 @@ fun CoinFlip() {
                 .background(MaterialTheme.colors.background),
             verticalArrangement = Arrangement.Center
         ) {
-            CoinAnimation(headsRes = R.drawable.euro_heads, tailsRes = R.drawable.euro_tails)
+            CoinAnimation(CoinType.CANADA)
         }
     }
 }
