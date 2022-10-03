@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.wear.compose.material.MaterialTheme
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
 import com.helsinkiwizard.coinflip.theme.CoinFlipTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,6 +25,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun CoinFlip() {
     CoinFlipTheme {
@@ -32,7 +35,12 @@ fun CoinFlip() {
                 .background(MaterialTheme.colors.background),
             verticalArrangement = Arrangement.Center
         ) {
-            CoinAnimation(CoinType.CANADA)
+            HorizontalPager(count = 2) { page ->
+                when (page) {
+                    0 -> CoinAnimation(coinType = CoinType.CANADA)
+                    1 -> CoinList()
+                }
+            }
         }
     }
 }

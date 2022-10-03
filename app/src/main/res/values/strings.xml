@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">Coin Flip</string>
+    <string name="choose_a_coin">Choose a coin</string>
     <string name="heads">heads</string>
     <string name="tails">tails</string>
+    <string name="bitcoin">Bitcoin</string>
+    <string name="canada">Canada</string>
+    <string name="china">China</string>
+    <string name="euro">Euro</string>
+    <string name="india">India</string>
+    <string name="japan">Japan</string>
+    <string name="thailand">Thailand</string>
+    <string name="ukraine">Ukraine</string>
+    <string name="united_kingdom">United Kingdom</string>
+    <string name="united_states">United States</string>
 </resources>
