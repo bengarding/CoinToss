@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.wear.compose.material.MaterialTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.rememberPagerState
 import com.helsinkiwizard.coinflip.theme.CoinFlipTheme
 
 class MainActivity : ComponentActivity() {
@@ -33,6 +34,8 @@ fun CoinFlip() {
     val dataStore = Preferences(LocalContext.current)
     val coinType = CoinType.parse(dataStore.getCoinType.collectAsState(initial = 0).value)
 
+    val pagerState = rememberPagerState()
+
     CoinFlipTheme {
         Column(
             modifier = Modifier
@@ -40,9 +43,9 @@ fun CoinFlip() {
                 .background(MaterialTheme.colors.background),
             verticalArrangement = Arrangement.Center
         ) {
-            HorizontalPager(count = 2) { page ->
+            HorizontalPager(count = 2, state = pagerState) { page ->
                 when (page) {
-                    0 -> CoinAnimation(coinType = coinType)
+                    0 -> CoinAnimation(coinType = coinType, pagerState = pagerState)
                     1 -> CoinList()
                 }
             }
