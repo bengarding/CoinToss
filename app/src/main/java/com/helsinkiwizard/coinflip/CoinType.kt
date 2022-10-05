@@ -17,5 +17,22 @@ enum class CoinType(
     THAILAND(R.drawable.thailand_heads, R.drawable.thailand_tails, R.string.thailand),
     UKRAINE(R.drawable.ukraine_heads, R.drawable.ukraine_tails, R.string.ukraine),
     UNITED_KINGDOM(R.drawable.uk_heads, R.drawable.uk_tails, R.string.united_kingdom),
-    UNITED_STATES(R.drawable.usa_heads, R.drawable.usa_tails, R.string.united_states)
+    UNITED_STATES(R.drawable.usa_heads, R.drawable.usa_tails, R.string.united_states);
+
+    companion object {
+        fun parse(value: Int): CoinType {
+            return when (value) {
+                0 -> BITCOIN
+                1 -> CANADA
+                2 -> CHINA
+                3 -> EURO
+                4 -> INDIA
+                5 -> JAPAN
+                6 -> THAILAND
+                7 -> UKRAINE
+                8 -> UNITED_KINGDOM
+                else -> UNITED_STATES
+            }
+        }
+    }
 }

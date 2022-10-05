@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.wear.compose.material.MaterialTheme
@@ -28,6 +30,9 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun CoinFlip() {
+    val dataStore = Preferences(LocalContext.current)
+    val coinType = CoinType.parse(dataStore.getCoinType.collectAsState(initial = 0).value)
+
     CoinFlipTheme {
         Column(
             modifier = Modifier
@@ -37,7 +42,7 @@ fun CoinFlip() {
         ) {
             HorizontalPager(count = 2) { page ->
                 when (page) {
-                    0 -> CoinAnimation(coinType = CoinType.CANADA)
+                    0 -> CoinAnimation(coinType = coinType)
                     1 -> CoinList()
                 }
             }
