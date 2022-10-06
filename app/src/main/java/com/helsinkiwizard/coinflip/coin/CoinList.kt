@@ -1,4 +1,4 @@
-package com.helsinkiwizard.coinflip
+package com.helsinkiwizard.coinflip.coin
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,16 +23,18 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
-import com.helsinkiwizard.coinflip.CoinType.BITCOIN
-import com.helsinkiwizard.coinflip.CoinType.CANADA
-import com.helsinkiwizard.coinflip.CoinType.CHINA
-import com.helsinkiwizard.coinflip.CoinType.EURO
-import com.helsinkiwizard.coinflip.CoinType.INDIA
-import com.helsinkiwizard.coinflip.CoinType.JAPAN
-import com.helsinkiwizard.coinflip.CoinType.THAILAND
-import com.helsinkiwizard.coinflip.CoinType.UKRAINE
-import com.helsinkiwizard.coinflip.CoinType.UNITED_KINGDOM
-import com.helsinkiwizard.coinflip.CoinType.UNITED_STATES
+import com.helsinkiwizard.coinflip.Repository
+import com.helsinkiwizard.coinflip.R
+import com.helsinkiwizard.coinflip.coin.CoinType.BITCOIN
+import com.helsinkiwizard.coinflip.coin.CoinType.CANADA
+import com.helsinkiwizard.coinflip.coin.CoinType.CHINA
+import com.helsinkiwizard.coinflip.coin.CoinType.EURO
+import com.helsinkiwizard.coinflip.coin.CoinType.INDIA
+import com.helsinkiwizard.coinflip.coin.CoinType.JAPAN
+import com.helsinkiwizard.coinflip.coin.CoinType.THAILAND
+import com.helsinkiwizard.coinflip.coin.CoinType.UKRAINE
+import com.helsinkiwizard.coinflip.coin.CoinType.UNITED_KINGDOM
+import com.helsinkiwizard.coinflip.coin.CoinType.UNITED_STATES
 import com.helsinkiwizard.coinflip.theme.ButtonHeight
 import com.helsinkiwizard.coinflip.theme.HalfSpacing
 import com.helsinkiwizard.coinflip.theme.PercentEighty
@@ -79,7 +81,7 @@ fun ListTitle() {
 @PreviewParameter(SampleCoinProvider::class)
 fun CoinButton(coin: CoinType) {
     val scope = rememberCoroutineScope()
-    val dataStore = Preferences(LocalContext.current)
+    val dataStore = Repository(LocalContext.current)
 
     Button(
         onClick = {

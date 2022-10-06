@@ -1,4 +1,4 @@
-package com.helsinkiwizard.coinflip
+package com.helsinkiwizard.coinflip.coin
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearEasing
@@ -25,6 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.wear.compose.material.Icon
+import com.helsinkiwizard.coinflip.R
 import com.helsinkiwizard.coinflip.theme.DarkTealSemiTransparent
 import com.helsinkiwizard.coinflip.theme.WhiteTransparent
 

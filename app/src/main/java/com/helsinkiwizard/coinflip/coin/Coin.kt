@@ -1,4 +1,4 @@
-package com.helsinkiwizard.coinflip
+package com.helsinkiwizard.coinflip.coin
 
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -21,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
+import com.helsinkiwizard.coinflip.R
 import java.util.Random
 import kotlin.math.abs
 

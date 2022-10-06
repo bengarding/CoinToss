@@ -6,10 +6,11 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.helsinkiwizard.coinflip.coin.CoinType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class Preferences(private val context: Context) {
+class Repository(private val context: Context) {
 
     companion object {
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("preferences")
