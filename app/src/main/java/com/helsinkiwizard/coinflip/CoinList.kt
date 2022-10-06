@@ -76,7 +76,8 @@ fun ListTitle() {
 }
 
 @Composable
-fun CoinButton(@PreviewParameter(SampleCoinProvider::class) coin: CoinType) {
+@PreviewParameter(SampleCoinProvider::class)
+fun CoinButton(coin: CoinType) {
     val scope = rememberCoroutineScope()
     val dataStore = Preferences(LocalContext.current)
 

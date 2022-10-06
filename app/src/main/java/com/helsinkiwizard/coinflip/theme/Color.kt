@@ -8,6 +8,8 @@ val Purple500 = Color(0xFF6200EE)
 val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
 val Red400 = Color(0xFFCF6679)
+val WhiteTransparent = Color(0xAAFFFFFF)
+val DarkTealSemiTransparent = Color(0xCC0F4D31)
 
 internal val wearColorPalette: Colors = Colors(
     primary = Purple200,

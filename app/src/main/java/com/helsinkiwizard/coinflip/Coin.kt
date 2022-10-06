@@ -33,9 +33,15 @@ private var rotationAmount = 1
 private var currentSide = CoinSide.HEADS
 private var nextSide = CoinSide.TAILS
 
+var flipCount = 0
+
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun CoinAnimation(coinType: CoinType, pagerState: PagerState) {
+    var showChevron by remember { mutableStateOf(true) }
+    if (flipCount != 0) showChevron = false
+    Chevron(showChevron)
+
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         var flipping by remember { mutableStateOf(true) }
 
@@ -63,6 +69,7 @@ fun CoinAnimation(coinType: CoinType, pagerState: PagerState) {
                 .fillMaxSize()
                 .align(Alignment.CenterHorizontally)
                 .clickable {
+                    flipCount++
                     randomizeRotationAmount()
                     flipping = !flipping
                 }
