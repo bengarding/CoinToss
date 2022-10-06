@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.PagerState
 import java.util.Random
 import kotlin.math.abs
 
@@ -28,12 +31,24 @@ const val FULL_ROTATION = 360
 
 private var rotationAmount = 1
 private var currentSide = CoinSide.HEADS
-private var nextSide = CoinSide.HEADS
+private var nextSide = CoinSide.TAILS
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
-fun CoinAnimation(headsRes: Int, tailsRes: Int) {
+fun CoinAnimation(coinType: CoinType, pagerState: PagerState) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         var flipping by remember { mutableStateOf(true) }
+
+        LaunchedEffect(coinType) {
+            // When a new coin type is selected, move page to this Composable
+            pagerState.animateScrollToPage(0)
+
+            // If the coin is currently showing tails, rotate so that heads is showing
+            if (currentSide == CoinSide.TAILS) {
+                rotationAmount = 180
+                flipping = !flipping
+            }
+        }
 
         val valueFloat: Float by animateFloatAsState(
             if (flipping) 0f else 1f,
@@ -55,9 +70,9 @@ fun CoinAnimation(headsRes: Int, tailsRes: Int) {
             FlipAnimation(
                 rotationY = valueFloat * rotationAmount,
                 front = {
-                    if (currentSide == CoinSide.HEADS) Heads(headsRes) else Tails(tailsRes)
+                    if (currentSide == CoinSide.HEADS) Heads(coinType.heads) else Tails(coinType.tails)
                 }, back = {
-                    if (currentSide == CoinSide.HEADS) Tails(tailsRes) else Heads(headsRes)
+                    if (currentSide == CoinSide.HEADS) Tails(coinType.tails) else Heads(coinType.heads)
                 })
         }
     }
