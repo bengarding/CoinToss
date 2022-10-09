@@ -17,25 +17,34 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import com.helsinkiwizard.coinflip.Constants.EXTRA_JOURNEY
+import com.helsinkiwizard.coinflip.Constants.EXTRA_JOURNEY_START_FLIPPING
 import com.helsinkiwizard.coinflip.coin.CoinAnimation
 import com.helsinkiwizard.coinflip.coin.CoinList
 import com.helsinkiwizard.coinflip.coin.CoinType
 import com.helsinkiwizard.coinflip.theme.CoinFlipTheme
 
 class MainActivity : ComponentActivity() {
+
+    companion object {
+        const val TAG = "MainActivity"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val startFlipping = intent.extras?.getString(EXTRA_JOURNEY) == EXTRA_JOURNEY_START_FLIPPING
+
         setContent {
-            CoinFlip()
+            CoinFlip(startFlipping)
         }
     }
 }
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun CoinFlip() {
+fun CoinFlip(startFlipping: Boolean) {
     val dataStore = Repository(LocalContext.current)
-    val coinType = CoinType.parse(dataStore.getCoinType.collectAsState(initial = 0).value)
+    val coinType = CoinType.parse(dataStore.getCoinType.collectAsState(initial = -1).value)
 
     val pagerState = rememberPagerState()
 
@@ -48,7 +57,11 @@ fun CoinFlip() {
         ) {
             HorizontalPager(count = 2, state = pagerState) { page ->
                 when (page) {
-                    0 -> CoinAnimation(coinType = coinType, pagerState = pagerState)
+                    0 -> CoinAnimation(
+                        coinType = coinType,
+                        pagerState = pagerState,
+                        startFlipping = startFlipping
+                    )
                     1 -> CoinList()
                 }
             }
@@ -59,5 +72,5 @@ fun CoinFlip() {
 @Preview(device = Devices.WEAR_OS_SMALL_ROUND, showSystemUi = true)
 @Composable
 fun DefaultPreview() {
-    CoinFlip()
+    CoinFlip(false)
 }

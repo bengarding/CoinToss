@@ -15,6 +15,7 @@ class Repository(private val context: Context) {
     companion object {
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("preferences")
         val COIN_TYPE = intPreferencesKey("coin_type")
+        val TILE_RESOURCE_VERSION = intPreferencesKey("tile_resources_version")
     }
 
     val getCoinType: Flow<Int> = context.dataStore.data
@@ -22,9 +23,14 @@ class Repository(private val context: Context) {
             preferences[COIN_TYPE] ?: CoinType.EURO.ordinal
         }
 
-    suspend fun saveCoinType(type: Int) {
+    val getResourceVersion: Flow<Int> = context.dataStore.data
+        .map { preferences ->
+            preferences[TILE_RESOURCE_VERSION] ?: 0
+        }
+
+    suspend fun saveIntPreference(key: Preferences.Key<Int>, value: Int) {
         context.dataStore.edit { preferences ->
-            preferences[COIN_TYPE] = type
+            preferences[key] = value
         }
     }
 }

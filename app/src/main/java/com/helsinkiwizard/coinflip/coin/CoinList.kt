@@ -23,8 +23,10 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
-import com.helsinkiwizard.coinflip.Repository
+import androidx.wear.tiles.TileService
 import com.helsinkiwizard.coinflip.R
+import com.helsinkiwizard.coinflip.Repository
+import com.helsinkiwizard.coinflip.Repository.Companion.COIN_TYPE
 import com.helsinkiwizard.coinflip.coin.CoinType.BITCOIN
 import com.helsinkiwizard.coinflip.coin.CoinType.CANADA
 import com.helsinkiwizard.coinflip.coin.CoinType.CHINA
@@ -39,6 +41,7 @@ import com.helsinkiwizard.coinflip.theme.ButtonHeight
 import com.helsinkiwizard.coinflip.theme.HalfSpacing
 import com.helsinkiwizard.coinflip.theme.PercentEighty
 import com.helsinkiwizard.coinflip.theme.TextLarge
+import com.helsinkiwizard.coinflip.tile.CoinTileService
 import kotlinx.coroutines.launch
 
 @Preview
@@ -80,13 +83,15 @@ fun ListTitle() {
 @Composable
 @PreviewParameter(SampleCoinProvider::class)
 fun CoinButton(coin: CoinType) {
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val dataStore = Repository(LocalContext.current)
+    val dataStore = Repository(context)
 
     Button(
         onClick = {
             scope.launch {
-                dataStore.saveCoinType(coin.ordinal)
+                dataStore.saveIntPreference(COIN_TYPE, coin.ordinal)
+                TileService.getUpdater(context).requestUpdate(CoinTileService::class.java)
             }
         },
         modifier = Modifier

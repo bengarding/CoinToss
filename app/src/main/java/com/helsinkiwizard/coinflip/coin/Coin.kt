@@ -38,7 +38,11 @@ var flipCount = 0
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun CoinAnimation(coinType: CoinType, pagerState: PagerState) {
+fun CoinAnimation(
+    coinType: CoinType,
+    pagerState: PagerState,
+    startFlipping: Boolean
+) {
     var showChevron by remember { mutableStateOf(true) }
     if (flipCount != 0) showChevron = false
     Chevron(showChevron)
@@ -49,12 +53,6 @@ fun CoinAnimation(coinType: CoinType, pagerState: PagerState) {
         LaunchedEffect(coinType) {
             // When a new coin type is selected, move page to this Composable
             pagerState.animateScrollToPage(0)
-
-            // If the coin is currently showing tails, rotate so that heads is showing
-            if (currentSide == CoinSide.TAILS) {
-                rotationAmount = 180
-                flipping = !flipping
-            }
         }
 
         val valueFloat: Float by animateFloatAsState(
