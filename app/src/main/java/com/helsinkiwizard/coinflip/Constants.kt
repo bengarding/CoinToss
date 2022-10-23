@@ -3,5 +3,6 @@ package com.helsinkiwizard.coinflip
 object Constants {
     const val PACKAGE_NAME = "com.helsinkiwizard.coinflip"
     const val EXTRA_JOURNEY = "journey"
-    const val EXTRA_JOURNEY_START_FLIPPING = "journey:conversation"
+    const val EXTRA_JOURNEY_START_FLIPPING = "journey:startFlipping"
+    const val EXTRA_COIN_TYPE = "coinType"
 }

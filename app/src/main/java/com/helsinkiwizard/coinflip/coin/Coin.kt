@@ -6,7 +6,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -47,12 +46,20 @@ fun CoinAnimation(
     if (flipCount != 0) showChevron = false
     Chevron(showChevron)
 
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Box(contentAlignment = Alignment.Center) {
         var flipping by remember { mutableStateOf(true) }
 
-        LaunchedEffect(coinType) {
+        LaunchedEffect(coinType, startFlipping) {
             // When a new coin type is selected, move page to this Composable
-            pagerState.animateScrollToPage(0)
+            if (pagerState.currentPage != 0) {
+                pagerState.animateScrollToPage(0)
+            }
+
+            if (startFlipping && flipCount == 0) {
+                flipCount++
+                randomizeRotationAmount()
+                flipping = !flipping
+            }
         }
 
         val valueFloat: Float by animateFloatAsState(
@@ -66,7 +73,7 @@ fun CoinAnimation(
         Box(
             Modifier
                 .fillMaxSize()
-                .align(Alignment.CenterHorizontally)
+                .align(Alignment.Center)
                 .clickable {
                     flipCount++
                     randomizeRotationAmount()

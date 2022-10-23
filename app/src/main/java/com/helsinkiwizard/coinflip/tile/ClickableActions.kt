@@ -5,7 +5,7 @@ import androidx.wear.tiles.ModifiersBuilders
 import com.helsinkiwizard.coinflip.Constants.EXTRA_JOURNEY
 import com.helsinkiwizard.coinflip.Constants.EXTRA_JOURNEY_START_FLIPPING
 import com.helsinkiwizard.coinflip.Constants.PACKAGE_NAME
-import com.helsinkiwizard.coinflip.MainActivity
+import com.helsinkiwizard.coinflip.SplashActivity
 
 /**
  * Creates a Clickable that can be used to launch an activity.
@@ -32,5 +32,5 @@ internal fun openCoin() = ActionBuilders.AndroidActivity.Builder()
 
 private fun ActionBuilders.AndroidActivity.Builder.setMessagingActivity(): ActionBuilders.AndroidActivity.Builder {
     return setPackageName(PACKAGE_NAME)
-        .setClassName(PACKAGE_NAME.plus(".").plus(MainActivity.TAG))
+        .setClassName(PACKAGE_NAME.plus(".").plus(SplashActivity.TAG))
 }
