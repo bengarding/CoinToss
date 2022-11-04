@@ -40,9 +40,10 @@ var flipCount = 0
 fun CoinAnimation(
     coinType: CoinType,
     pagerState: PagerState,
-    startFlipping: Boolean
+    startFlipping: Boolean,
+    onStartFlipping: () -> Unit
 ) {
-    var showChevron by remember { mutableStateOf(true) }
+    var showChevron by remember { mutableStateOf(startFlipping.not()) }
     if (flipCount != 0) showChevron = false
     Chevron(showChevron)
 
@@ -55,10 +56,11 @@ fun CoinAnimation(
                 pagerState.animateScrollToPage(0)
             }
 
-            if (startFlipping && flipCount == 0) {
+            if (startFlipping) {
                 flipCount++
                 randomizeRotationAmount()
                 flipping = !flipping
+                onStartFlipping.invoke()
             }
         }
 

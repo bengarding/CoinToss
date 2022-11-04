@@ -2,8 +2,7 @@ package com.helsinkiwizard.coinflip.tile
 
 import androidx.wear.tiles.ActionBuilders
 import androidx.wear.tiles.ModifiersBuilders
-import com.helsinkiwizard.coinflip.Constants.EXTRA_JOURNEY
-import com.helsinkiwizard.coinflip.Constants.EXTRA_JOURNEY_START_FLIPPING
+import com.helsinkiwizard.coinflip.Constants.EXTRA_START_FLIPPING
 import com.helsinkiwizard.coinflip.Constants.PACKAGE_NAME
 import com.helsinkiwizard.coinflip.SplashActivity
 
@@ -25,8 +24,8 @@ internal fun launchActivityClickable(
 internal fun openCoin() = ActionBuilders.AndroidActivity.Builder()
     .setMessagingActivity()
     .addKeyToExtraMapping(
-        EXTRA_JOURNEY,
-        ActionBuilders.stringExtra(EXTRA_JOURNEY_START_FLIPPING)
+        EXTRA_START_FLIPPING,
+        ActionBuilders.booleanExtra(true)
     )
     .build()
 

@@ -9,13 +9,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.MaterialTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.helsinkiwizard.coinflip.Constants.EXTRA_COIN_TYPE
-import com.helsinkiwizard.coinflip.Constants.EXTRA_JOURNEY_START_FLIPPING
+import com.helsinkiwizard.coinflip.Constants.EXTRA_START_FLIPPING
 import com.helsinkiwizard.coinflip.coin.CoinAnimation
 import com.helsinkiwizard.coinflip.coin.CoinList
 import com.helsinkiwizard.coinflip.coin.CoinType
@@ -24,26 +28,26 @@ import com.helsinkiwizard.coinflip.theme.CoinFlipTheme
 class MainActivity : ComponentActivity() {
 
     private val repo = Repository(this)
-    private var startFlipping = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        startFlipping = intent.extras?.getBoolean(EXTRA_JOURNEY_START_FLIPPING) ?: false
+        val startFlippingIntent = intent.extras?.getBoolean(EXTRA_START_FLIPPING) ?: false
 
         val initialCoinType = intent.extras?.getInt(EXTRA_COIN_TYPE) ?: 0
         setContent {
-            CoinFlip(initialCoinType)
+            CoinFlip(initialCoinType, startFlippingIntent)
         }
     }
 
     @OptIn(ExperimentalPagerApi::class)
     @Composable
-    fun CoinFlip(initialCoinType: Int) {
+    fun CoinFlip(initialCoinType: Int, startFlippingIntent: Boolean) {
         val coinType = CoinType.parse(
             repo.getCoinType.collectAsState(initial = initialCoinType).value
         )
 
         val pagerState = rememberPagerState()
+        var startFlipping by remember { mutableStateOf(startFlippingIntent) }
 
         CoinFlipTheme {
             Column(
@@ -57,7 +61,10 @@ class MainActivity : ComponentActivity() {
                         0 -> CoinAnimation(
                             coinType = coinType,
                             pagerState = pagerState,
-                            startFlipping = startFlipping
+                            startFlipping = startFlipping,
+                            onStartFlipping = {
+                                startFlipping = false
+                            }
                         )
                         1 -> CoinList()
                     }

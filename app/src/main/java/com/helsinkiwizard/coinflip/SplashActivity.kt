@@ -8,8 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import com.helsinkiwizard.coinflip.Constants.EXTRA_COIN_TYPE
-import com.helsinkiwizard.coinflip.Constants.EXTRA_JOURNEY
-import com.helsinkiwizard.coinflip.Constants.EXTRA_JOURNEY_START_FLIPPING
+import com.helsinkiwizard.coinflip.Constants.EXTRA_START_FLIPPING
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 
@@ -30,13 +29,12 @@ class SplashActivity : ComponentActivity() {
         lifecycleScope.launchWhenCreated {
             val repo = Repository(this@SplashActivity)
             val coinType = repo.getCoinType.filterNotNull().first()
-            val startFlipping =
-                intent.extras?.getString(EXTRA_JOURNEY) == EXTRA_JOURNEY_START_FLIPPING
+            val startFlipping = intent.extras?.getBoolean(EXTRA_START_FLIPPING)
 
             val intent = Intent(this@SplashActivity, MainActivity::class.java).apply {
                 putExtra(EXTRA_COIN_TYPE, coinType)
-                if (startFlipping)
-                    putExtra(EXTRA_JOURNEY_START_FLIPPING, true)
+                if (startFlipping == true)
+                    putExtra(EXTRA_START_FLIPPING, true)
             }
             startActivity(intent)
             finish()
