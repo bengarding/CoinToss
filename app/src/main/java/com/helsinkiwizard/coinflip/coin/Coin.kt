@@ -1,12 +1,12 @@
-package com.helsinkiwizard.coinflip
+package com.helsinkiwizard.coinflip.coin
 
+import android.os.Bundle
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,6 +21,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.helsinkiwizard.coinflip.Constants.FLIP_COUNT
+import com.helsinkiwizard.coinflip.R
 import java.util.Random
 import kotlin.math.abs
 
@@ -37,22 +40,32 @@ var flipCount = 0
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun CoinAnimation(coinType: CoinType, pagerState: PagerState) {
-    var showChevron by remember { mutableStateOf(true) }
+fun CoinAnimation(
+    coinType: CoinType,
+    pagerState: PagerState,
+    analytics: FirebaseAnalytics,
+    startFlipping: Boolean,
+    onStartFlipping: () -> Unit
+) {
+    var showChevron by remember { mutableStateOf(startFlipping.not()) }
     if (flipCount != 0) showChevron = false
     Chevron(showChevron)
 
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Box(contentAlignment = Alignment.Center) {
         var flipping by remember { mutableStateOf(true) }
 
-        LaunchedEffect(coinType) {
+        LaunchedEffect(coinType, startFlipping) {
             // When a new coin type is selected, move page to this Composable
-            pagerState.animateScrollToPage(0)
+            if (pagerState.currentPage != 0) {
+                pagerState.animateScrollToPage(0)
+            }
 
-            // If the coin is currently showing tails, rotate so that heads is showing
-            if (currentSide == CoinSide.TAILS) {
-                rotationAmount = 180
+            if (startFlipping) {
+                flipCount++
+                randomizeRotationAmount()
                 flipping = !flipping
+                onStartFlipping.invoke()
+                sendFlipCountAnalytics(analytics)
             }
         }
 
@@ -67,11 +80,12 @@ fun CoinAnimation(coinType: CoinType, pagerState: PagerState) {
         Box(
             Modifier
                 .fillMaxSize()
-                .align(Alignment.CenterHorizontally)
+                .align(Alignment.Center)
                 .clickable {
                     flipCount++
                     randomizeRotationAmount()
                     flipping = !flipping
+                    sendFlipCountAnalytics(analytics)
                 }
         ) {
             FlipAnimation(
@@ -146,6 +160,13 @@ private fun randomizeRotationAmount() {
 
     currentSide = nextSide
     nextSide = if (randomFlips % 2 == 0) CoinSide.HEADS else CoinSide.TAILS
+}
+
+private fun sendFlipCountAnalytics(analytics: FirebaseAnalytics) {
+    val params = Bundle().apply {
+        putInt(FLIP_COUNT, flipCount)
+    }
+    analytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, params)
 }
 
 enum class CoinSide {

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "726797553836",
+    "project_id": "coin-flip-20dbd",
+    "storage_bucket": "coin-flip-20dbd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726797553836:android:b09a58eb522e84ae18cf09",
+        "android_client_info": {
+          "package_name": "com.helsinkiwizard.coinflip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "726797553836-hd8kedp9fb9jhl00ftgh6bc1srb55sv4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBExB6TFyNFqpPJEXjsa2jXNqMZivboO4Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "726797553836-hd8kedp9fb9jhl00ftgh6bc1srb55sv4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -6,14 +6,16 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.helsinkiwizard.coinflip.coin.CoinType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class Preferences(private val context: Context) {
+class Repository(private val context: Context) {
 
     companion object {
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("preferences")
         val COIN_TYPE = intPreferencesKey("coin_type")
+        val TILE_RESOURCE_VERSION = intPreferencesKey("tile_resources_version")
     }
 
     val getCoinType: Flow<Int> = context.dataStore.data
@@ -21,9 +23,14 @@ class Preferences(private val context: Context) {
             preferences[COIN_TYPE] ?: CoinType.EURO.ordinal
         }
 
-    suspend fun saveCoinType(type: Int) {
+    val getResourceVersion: Flow<Int> = context.dataStore.data
+        .map { preferences ->
+            preferences[TILE_RESOURCE_VERSION] ?: 0
+        }
+
+    suspend fun saveIntPreference(key: Preferences.Key<Int>, value: Int) {
         context.dataStore.edit { preferences ->
-            preferences[COIN_TYPE] = type
+            preferences[key] = value
         }
     }
 }

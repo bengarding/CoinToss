@@ -1,4 +1,4 @@
-package com.helsinkiwizard.coinflip
+package com.helsinkiwizard.coinflip.coin
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearEasing
@@ -25,7 +25,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.wear.compose.material.Icon
-import com.helsinkiwizard.coinflip.theme.DarkTealSemiTransparent
+import com.helsinkiwizard.coinflip.R
+import com.helsinkiwizard.coinflip.theme.TealSemiTransparent
 import com.helsinkiwizard.coinflip.theme.WhiteTransparent
 
 const val OFFSET_ANIMATION_DURATION = 750
@@ -73,7 +74,7 @@ fun Chevron(showChevron: Boolean) {
             Icon(
                 painter = painterResource(id = R.drawable.chevron_right),
                 contentDescription = "",
-                tint = DarkTealSemiTransparent,
+                tint = TealSemiTransparent,
                 modifier = Modifier.background(
                     Brush.radialGradient(
                         colors = listOf(
