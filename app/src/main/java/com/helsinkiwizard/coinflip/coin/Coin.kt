@@ -1,5 +1,6 @@
 package com.helsinkiwizard.coinflip.coin
 
+import android.os.Bundle
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -20,6 +21,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.helsinkiwizard.coinflip.Constants.FLIP_COUNT
 import com.helsinkiwizard.coinflip.R
 import java.util.Random
 import kotlin.math.abs
@@ -40,6 +43,7 @@ var flipCount = 0
 fun CoinAnimation(
     coinType: CoinType,
     pagerState: PagerState,
+    analytics: FirebaseAnalytics,
     startFlipping: Boolean,
     onStartFlipping: () -> Unit
 ) {
@@ -61,6 +65,7 @@ fun CoinAnimation(
                 randomizeRotationAmount()
                 flipping = !flipping
                 onStartFlipping.invoke()
+                sendFlipCountAnalytics(analytics)
             }
         }
 
@@ -80,6 +85,7 @@ fun CoinAnimation(
                     flipCount++
                     randomizeRotationAmount()
                     flipping = !flipping
+                    sendFlipCountAnalytics(analytics)
                 }
         ) {
             FlipAnimation(
@@ -154,6 +160,13 @@ private fun randomizeRotationAmount() {
 
     currentSide = nextSide
     nextSide = if (randomFlips % 2 == 0) CoinSide.HEADS else CoinSide.TAILS
+}
+
+private fun sendFlipCountAnalytics(analytics: FirebaseAnalytics) {
+    val params = Bundle().apply {
+        putInt(FLIP_COUNT, flipCount)
+    }
+    analytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, params)
 }
 
 enum class CoinSide {

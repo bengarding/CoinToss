@@ -1,5 +1,6 @@
 package com.helsinkiwizard.coinflip.coin
 
+import android.os.Bundle
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,14 +17,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ScalingLazyColumn
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
 import androidx.wear.tiles.TileService
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.helsinkiwizard.coinflip.R
 import com.helsinkiwizard.coinflip.Repository
 import com.helsinkiwizard.coinflip.Repository.Companion.COIN_TYPE
@@ -44,9 +43,8 @@ import com.helsinkiwizard.coinflip.theme.TextLarge
 import com.helsinkiwizard.coinflip.tile.CoinTileService
 import kotlinx.coroutines.launch
 
-@Preview
 @Composable
-fun CoinList() {
+fun CoinList(analytics: FirebaseAnalytics) {
     val list = listOf(
         BITCOIN,
         CANADA,
@@ -63,7 +61,10 @@ fun CoinList() {
     ScalingLazyColumn(modifier = Modifier.fillMaxSize()) {
         item { ListTitle() }
         items(list) { item ->
-            CoinButton(coin = item)
+            CoinButton(
+                coin = item,
+                analytics = analytics
+            )
         }
     }
 }
@@ -81,8 +82,10 @@ fun ListTitle() {
 }
 
 @Composable
-@PreviewParameter(SampleCoinProvider::class)
-fun CoinButton(coin: CoinType) {
+fun CoinButton(
+    coin: CoinType,
+    analytics: FirebaseAnalytics
+) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val dataStore = Repository(context)
@@ -90,6 +93,11 @@ fun CoinButton(coin: CoinType) {
     Button(
         onClick = {
             scope.launch {
+                val name = coin.name.lowercase().replaceFirstChar { it.titlecase() }
+                val params = Bundle().apply {
+                    putString(FirebaseAnalytics.Param.CONTENT_TYPE, name)
+                }
+                analytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, params)
                 dataStore.saveIntPreference(COIN_TYPE, coin.ordinal)
                 TileService.getUpdater(context).requestUpdate(CoinTileService::class.java)
             }
@@ -108,8 +116,4 @@ fun CoinButton(coin: CoinType) {
             contentScale = ContentScale.Crop
         )
     }
-}
-
-class SampleCoinProvider : PreviewParameterProvider<CoinType> {
-    override val values = sequenceOf(EURO)
 }

@@ -18,8 +18,11 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.helsinkiwizard.coinflip.Constants.APP_DRAWER
 import com.helsinkiwizard.coinflip.Constants.EXTRA_COIN_TYPE
 import com.helsinkiwizard.coinflip.Constants.EXTRA_START_FLIPPING
+import com.helsinkiwizard.coinflip.Constants.TILE
 import com.helsinkiwizard.coinflip.coin.CoinAnimation
 import com.helsinkiwizard.coinflip.coin.CoinList
 import com.helsinkiwizard.coinflip.coin.CoinType
@@ -27,16 +30,23 @@ import com.helsinkiwizard.coinflip.theme.CoinFlipTheme
 
 class MainActivity : ComponentActivity() {
 
-    private val repo = Repository(this)
+    private lateinit var repo: Repository
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        repo = Repository(this)
+        firebaseAnalytics = FirebaseAnalytics.getInstance(applicationContext)
         val startFlippingIntent = intent.extras?.getBoolean(EXTRA_START_FLIPPING) ?: false
 
         val initialCoinType = intent.extras?.getInt(EXTRA_COIN_TYPE) ?: 0
         setContent {
             CoinFlip(initialCoinType, startFlippingIntent)
         }
+        val params = Bundle().apply {
+            putString(FirebaseAnalytics.Param.ORIGIN, if (startFlippingIntent) TILE else APP_DRAWER)
+        }
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, params)
     }
 
     @OptIn(ExperimentalPagerApi::class)
@@ -61,12 +71,13 @@ class MainActivity : ComponentActivity() {
                         0 -> CoinAnimation(
                             coinType = coinType,
                             pagerState = pagerState,
+                            analytics = firebaseAnalytics,
                             startFlipping = startFlipping,
                             onStartFlipping = {
                                 startFlipping = false
                             }
                         )
-                        1 -> CoinList()
+                        1 -> CoinList(analytics = firebaseAnalytics)
                     }
                 }
             }
