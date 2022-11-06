@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace "com.helsinkiwizard.coinflip"
+    namespace "com.helsinkiwizard.cointoss"
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.helsinkiwizard.coinflip"
+        applicationId "com.helsinkiwizard.cointoss"
         minSdk 26
         targetSdk 33
         versionCode 1

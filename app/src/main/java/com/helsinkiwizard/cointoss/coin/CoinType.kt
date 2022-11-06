@@ -1,8 +1,8 @@
-package com.helsinkiwizard.coinflip.coin
+package com.helsinkiwizard.cointoss.coin
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.helsinkiwizard.coinflip.R
+import com.helsinkiwizard.cointoss.R
 
 enum class CoinType(
     @DrawableRes val heads: Int,

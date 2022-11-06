@@ -1,4 +1,4 @@
-package com.helsinkiwizard.coinflip.coin
+package com.helsinkiwizard.cointoss.coin
 
 import android.os.Bundle
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -22,8 +22,8 @@ import androidx.compose.ui.res.stringResource
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.helsinkiwizard.coinflip.Constants.FLIP_COUNT
-import com.helsinkiwizard.coinflip.R
+import com.helsinkiwizard.cointoss.Constants.FLIP_COUNT
+import com.helsinkiwizard.cointoss.R
 import java.util.Random
 import kotlin.math.abs
 

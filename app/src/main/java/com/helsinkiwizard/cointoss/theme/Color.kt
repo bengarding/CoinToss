@@ -1,4 +1,4 @@
-package com.helsinkiwizard.coinflip.theme
+package com.helsinkiwizard.cointoss.theme
 
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.Colors

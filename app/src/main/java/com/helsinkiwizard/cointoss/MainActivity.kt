@@ -1,4 +1,4 @@
-package com.helsinkiwizard.coinflip
+package com.helsinkiwizard.cointoss
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -19,14 +19,14 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.helsinkiwizard.coinflip.Constants.APP_DRAWER
-import com.helsinkiwizard.coinflip.Constants.EXTRA_COIN_TYPE
-import com.helsinkiwizard.coinflip.Constants.EXTRA_START_FLIPPING
-import com.helsinkiwizard.coinflip.Constants.TILE
-import com.helsinkiwizard.coinflip.coin.CoinAnimation
-import com.helsinkiwizard.coinflip.coin.CoinList
-import com.helsinkiwizard.coinflip.coin.CoinType
-import com.helsinkiwizard.coinflip.theme.CoinFlipTheme
+import com.helsinkiwizard.cointoss.Constants.APP_DRAWER
+import com.helsinkiwizard.cointoss.Constants.EXTRA_COIN_TYPE
+import com.helsinkiwizard.cointoss.Constants.EXTRA_START_FLIPPING
+import com.helsinkiwizard.cointoss.Constants.TILE
+import com.helsinkiwizard.cointoss.coin.CoinAnimation
+import com.helsinkiwizard.cointoss.coin.CoinList
+import com.helsinkiwizard.cointoss.coin.CoinType
+import com.helsinkiwizard.cointoss.theme.CoinTossTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -59,7 +59,7 @@ class MainActivity : ComponentActivity() {
         val pagerState = rememberPagerState()
         var startFlipping by remember { mutableStateOf(startFlippingIntent) }
 
-        CoinFlipTheme {
+        CoinTossTheme {
             Column(
                 modifier = Modifier
                     .fillMaxSize()

@@ -1,10 +1,10 @@
-package com.helsinkiwizard.coinflip.tile
+package com.helsinkiwizard.cointoss.tile
 
 import androidx.wear.tiles.ActionBuilders
 import androidx.wear.tiles.ModifiersBuilders
-import com.helsinkiwizard.coinflip.Constants.EXTRA_START_FLIPPING
-import com.helsinkiwizard.coinflip.Constants.PACKAGE_NAME
-import com.helsinkiwizard.coinflip.SplashActivity
+import com.helsinkiwizard.cointoss.Constants.EXTRA_START_FLIPPING
+import com.helsinkiwizard.cointoss.Constants.PACKAGE_NAME
+import com.helsinkiwizard.cointoss.SplashActivity
 
 /**
  * Creates a Clickable that can be used to launch an activity.

@@ -34,7 +34,7 @@
             android:theme="@style/MainTheme" />
 
         <service
-            android:name="com.helsinkiwizard.coinflip.tile.CoinTileService"
+            android:name="com.helsinkiwizard.cointoss.tile.CoinTileService"
             android:description="@string/app_name"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
