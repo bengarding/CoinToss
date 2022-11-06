@@ -20,7 +20,7 @@ class Repository(private val context: Context) {
 
     val getCoinType: Flow<Int> = context.dataStore.data
         .map { preferences ->
-            preferences[COIN_TYPE] ?: CoinType.EURO.ordinal
+            preferences[COIN_TYPE] ?: CoinType.BITCOIN.ordinal
         }
 
     val getResourceVersion: Flow<Int> = context.dataStore.data
