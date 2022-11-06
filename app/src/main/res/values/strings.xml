@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Coin Flip</string>
+    <string name="app_name">Coin Toss</string>
     <string name="choose_a_coin">Choose a coin</string>
     <string name="heads">heads</string>
     <string name="tails">tails</string>

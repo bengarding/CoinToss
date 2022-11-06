@@ -1,4 +1,4 @@
-package com.helsinkiwizard.coinflip.coin
+package com.helsinkiwizard.cointoss.coin
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearEasing
@@ -25,9 +25,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.wear.compose.material.Icon
-import com.helsinkiwizard.coinflip.R
-import com.helsinkiwizard.coinflip.theme.TealSemiTransparent
-import com.helsinkiwizard.coinflip.theme.WhiteTransparent
+import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.cointoss.theme.TealSemiTransparent
+import com.helsinkiwizard.cointoss.theme.WhiteTransparent
 
 const val OFFSET_ANIMATION_DURATION = 750
 const val OFFSET_ANIMATION_TARGET_VALUE = 5f

@@ -1,4 +1,4 @@
-package com.helsinkiwizard.coinflip.coin
+package com.helsinkiwizard.cointoss.coin
 
 import android.os.Bundle
 import androidx.compose.foundation.Image
@@ -23,24 +23,24 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
 import androidx.wear.tiles.TileService
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.helsinkiwizard.coinflip.R
-import com.helsinkiwizard.coinflip.Repository
-import com.helsinkiwizard.coinflip.Repository.Companion.COIN_TYPE
-import com.helsinkiwizard.coinflip.coin.CoinType.BITCOIN
-import com.helsinkiwizard.coinflip.coin.CoinType.CANADA
-import com.helsinkiwizard.coinflip.coin.CoinType.CHINA
-import com.helsinkiwizard.coinflip.coin.CoinType.EURO
-import com.helsinkiwizard.coinflip.coin.CoinType.INDIA
-import com.helsinkiwizard.coinflip.coin.CoinType.JAPAN
-import com.helsinkiwizard.coinflip.coin.CoinType.THAILAND
-import com.helsinkiwizard.coinflip.coin.CoinType.UKRAINE
-import com.helsinkiwizard.coinflip.coin.CoinType.UNITED_KINGDOM
-import com.helsinkiwizard.coinflip.coin.CoinType.UNITED_STATES
-import com.helsinkiwizard.coinflip.theme.ButtonHeight
-import com.helsinkiwizard.coinflip.theme.HalfSpacing
-import com.helsinkiwizard.coinflip.theme.PercentEighty
-import com.helsinkiwizard.coinflip.theme.TextLarge
-import com.helsinkiwizard.coinflip.tile.CoinTileService
+import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.cointoss.Repository
+import com.helsinkiwizard.cointoss.Repository.Companion.COIN_TYPE
+import com.helsinkiwizard.cointoss.coin.CoinType.BITCOIN
+import com.helsinkiwizard.cointoss.coin.CoinType.CANADA
+import com.helsinkiwizard.cointoss.coin.CoinType.CHINA
+import com.helsinkiwizard.cointoss.coin.CoinType.EURO
+import com.helsinkiwizard.cointoss.coin.CoinType.INDIA
+import com.helsinkiwizard.cointoss.coin.CoinType.JAPAN
+import com.helsinkiwizard.cointoss.coin.CoinType.THAILAND
+import com.helsinkiwizard.cointoss.coin.CoinType.UKRAINE
+import com.helsinkiwizard.cointoss.coin.CoinType.UNITED_KINGDOM
+import com.helsinkiwizard.cointoss.coin.CoinType.UNITED_STATES
+import com.helsinkiwizard.cointoss.theme.ButtonHeight
+import com.helsinkiwizard.cointoss.theme.HalfSpacing
+import com.helsinkiwizard.cointoss.theme.PercentEighty
+import com.helsinkiwizard.cointoss.theme.TextLarge
+import com.helsinkiwizard.cointoss.tile.CoinTileService
 import kotlinx.coroutines.launch
 
 @Composable

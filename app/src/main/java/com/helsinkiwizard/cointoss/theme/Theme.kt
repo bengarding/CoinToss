@@ -1,10 +1,10 @@
-package com.helsinkiwizard.coinflip.theme
+package com.helsinkiwizard.cointoss.theme
 
 import androidx.compose.runtime.Composable
 import androidx.wear.compose.material.MaterialTheme
 
 @Composable
-fun CoinFlipTheme(
+fun CoinTossTheme(
     content: @Composable () -> Unit
 ) {
     MaterialTheme(

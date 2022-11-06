@@ -1,4 +1,4 @@
-package com.helsinkiwizard.coinflip.theme
+package com.helsinkiwizard.cointoss.theme
 
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
