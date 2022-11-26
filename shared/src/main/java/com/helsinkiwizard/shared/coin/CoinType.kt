@@ -2,7 +2,7 @@ package com.helsinkiwizard.shared.coin
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.shared.R
 
 enum class CoinType(
     @DrawableRes val heads: Int,

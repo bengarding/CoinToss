@@ -13,8 +13,8 @@ android {
         applicationId "com.helsinkiwizard.cointoss"
         minSdk 26
         targetSdk 33
-        versionCode 4
-        versionName "1.0.2"
+        versionCode 6
+        versionName "1.0.3"
         vectorDrawables {
             useSupportLibrary true
         }
@@ -69,7 +69,6 @@ dependencies {
 
     implementation platform('com.google.firebase:firebase-bom:31.0.2')
     implementation 'com.google.firebase:firebase-crashlytics'
-    implementation 'com.google.firebase:firebase-analytics'
 
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"

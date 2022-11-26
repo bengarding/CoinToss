@@ -7,8 +7,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
-import com.helsinkiwizard.shared.Constants.EXTRA_COIN_TYPE
-import com.helsinkiwizard.shared.Constants.EXTRA_START_FLIPPING
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 
@@ -19,6 +17,8 @@ abstract class BaseSplashActivity : ComponentActivity() {
         const val TAG = "SplashActivity"
     }
 
+    protected var coinType = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val splashScreen = installSplashScreen()
@@ -27,19 +27,13 @@ abstract class BaseSplashActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launchWhenCreated {
-            val repo = Repository(this@BaseSplashActivity)
-            val coinType = repo.getCoinType.filterNotNull().first()
-            val startFlipping = intent.extras?.getBoolean(EXTRA_START_FLIPPING)
+            val repository = Repository(this@BaseSplashActivity)
+            coinType = repository.getCoinType.filterNotNull().first()
 
-            val intent = getMainActivityIntent().apply {
-                putExtra(EXTRA_COIN_TYPE, coinType)
-                if (startFlipping == true)
-                    putExtra(EXTRA_START_FLIPPING, true)
-            }
-            startActivity(intent)
+            startActivity(getMainActivityIntent())
             finish()
         }
     }
 
-    abstract fun getMainActivityIntent(): Intent
+    abstract suspend fun getMainActivityIntent(): Intent
 }
