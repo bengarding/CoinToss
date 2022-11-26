@@ -12,9 +12,9 @@ import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.TimelineBuilders
 import com.google.android.horologist.tiles.CoroutinesTileService
 import com.google.android.horologist.tiles.images.drawableResToImageResource
-import com.helsinkiwizard.cointoss.Repository
-import com.helsinkiwizard.cointoss.Repository.Companion.TILE_RESOURCE_VERSION
-import com.helsinkiwizard.cointoss.coin.CoinType
+import com.helsinkiwizard.shared.Repository
+import com.helsinkiwizard.shared.Repository.Companion.TILE_RESOURCE_VERSION
+import com.helsinkiwizard.shared.coin.CoinType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first

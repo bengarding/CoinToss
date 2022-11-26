@@ -1,4 +1,4 @@
-package com.helsinkiwizard.cointoss.coin
+package com.helsinkiwizard.cointoss
 
 import android.os.Bundle
 import androidx.compose.foundation.Image
@@ -23,24 +23,24 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.items
 import androidx.wear.tiles.TileService
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.helsinkiwizard.cointoss.R
-import com.helsinkiwizard.cointoss.Repository
-import com.helsinkiwizard.cointoss.Repository.Companion.COIN_TYPE
-import com.helsinkiwizard.cointoss.coin.CoinType.BITCOIN
-import com.helsinkiwizard.cointoss.coin.CoinType.CANADA
-import com.helsinkiwizard.cointoss.coin.CoinType.CHINA
-import com.helsinkiwizard.cointoss.coin.CoinType.EURO
-import com.helsinkiwizard.cointoss.coin.CoinType.INDIA
-import com.helsinkiwizard.cointoss.coin.CoinType.JAPAN
-import com.helsinkiwizard.cointoss.coin.CoinType.THAILAND
-import com.helsinkiwizard.cointoss.coin.CoinType.UKRAINE
-import com.helsinkiwizard.cointoss.coin.CoinType.UNITED_KINGDOM
-import com.helsinkiwizard.cointoss.coin.CoinType.UNITED_STATES
+import com.helsinkiwizard.cointoss.tile.CoinTileService
+import com.helsinkiwizard.shared.Repository
+import com.helsinkiwizard.shared.Repository.Companion.COIN_TYPE
+import com.helsinkiwizard.shared.coin.CoinType
+import com.helsinkiwizard.shared.coin.CoinType.BITCOIN
+import com.helsinkiwizard.shared.coin.CoinType.CANADA
+import com.helsinkiwizard.shared.coin.CoinType.CHINA
+import com.helsinkiwizard.shared.coin.CoinType.EURO
+import com.helsinkiwizard.shared.coin.CoinType.INDIA
+import com.helsinkiwizard.shared.coin.CoinType.JAPAN
+import com.helsinkiwizard.shared.coin.CoinType.THAILAND
+import com.helsinkiwizard.shared.coin.CoinType.UKRAINE
+import com.helsinkiwizard.shared.coin.CoinType.UNITED_KINGDOM
+import com.helsinkiwizard.shared.coin.CoinType.UNITED_STATES
 import com.helsinkiwizard.cointoss.theme.ButtonHeight
 import com.helsinkiwizard.cointoss.theme.HalfSpacing
 import com.helsinkiwizard.cointoss.theme.PercentEighty
 import com.helsinkiwizard.cointoss.theme.TextLarge
-import com.helsinkiwizard.cointoss.tile.CoinTileService
 import kotlinx.coroutines.launch
 
 @Composable

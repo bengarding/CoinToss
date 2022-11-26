@@ -1,4 +1,4 @@
-package com.helsinkiwizard.cointoss.coin
+package com.helsinkiwizard.shared.coin
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

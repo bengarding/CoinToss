@@ -1,4 +1,4 @@
-package com.helsinkiwizard.cointoss.coin
+package com.helsinkiwizard.shared.coin
 
 import android.os.Bundle
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -19,11 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.PagerState
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.helsinkiwizard.cointoss.Constants.FLIP_COUNT
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.shared.Constants.FLIP_COUNT
 import java.util.Random
 import kotlin.math.abs
 
@@ -38,33 +36,24 @@ private var nextSide = CoinSide.TAILS
 
 var flipCount = 0
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun CoinAnimation(
     coinType: CoinType,
-    pagerState: PagerState,
     analytics: FirebaseAnalytics,
     startFlipping: Boolean,
-    onStartFlipping: () -> Unit
+    onStartFlipping: () -> Unit,
+    onFlip: ((Int) -> Unit)? = null
 ) {
-    var showChevron by remember { mutableStateOf(startFlipping.not()) }
-    if (flipCount != 0) showChevron = false
-    Chevron(showChevron)
-
     Box(contentAlignment = Alignment.Center) {
         var flipping by remember { mutableStateOf(true) }
 
         LaunchedEffect(coinType, startFlipping) {
-            // When a new coin type is selected, move page to this Composable
-            if (pagerState.currentPage != 0) {
-                pagerState.animateScrollToPage(0)
-            }
-
             if (startFlipping) {
                 flipCount++
                 randomizeRotationAmount()
                 flipping = !flipping
                 onStartFlipping.invoke()
+                onFlip?.invoke(flipCount)
                 sendFlipCountAnalytics(analytics)
             }
         }
@@ -85,6 +74,7 @@ fun CoinAnimation(
                     flipCount++
                     randomizeRotationAmount()
                     flipping = !flipping
+                    onFlip?.invoke(flipCount)
                     sendFlipCountAnalytics(analytics)
                 }
         ) {
@@ -169,6 +159,6 @@ private fun sendFlipCountAnalytics(analytics: FirebaseAnalytics) {
     analytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, params)
 }
 
-enum class CoinSide {
+private enum class CoinSide {
     HEADS, TAILS
 }

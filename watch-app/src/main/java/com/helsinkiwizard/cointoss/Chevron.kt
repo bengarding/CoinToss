@@ -1,4 +1,4 @@
-package com.helsinkiwizard.cointoss.coin
+package com.helsinkiwizard.cointoss
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearEasing
@@ -20,13 +20,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.wear.compose.material.Icon
-import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.theme.WhiteTransparent
 
 const val OFFSET_ANIMATION_DURATION = 750
@@ -81,7 +80,7 @@ fun Chevron(showChevron: Boolean) {
                             WhiteTransparent,
                             WhiteTransparent,
                             WhiteTransparent,
-                            Color.Transparent
+                            Transparent
                         )
                     )
                 )

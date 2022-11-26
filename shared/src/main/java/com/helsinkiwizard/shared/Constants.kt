@@ -1,4 +1,4 @@
-package com.helsinkiwizard.cointoss
+package com.helsinkiwizard.shared
 
 object Constants {
     const val PACKAGE_NAME = "com.helsinkiwizard.cointoss"

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,14 +20,14 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.helsinkiwizard.cointoss.Constants.APP_DRAWER
-import com.helsinkiwizard.cointoss.Constants.EXTRA_COIN_TYPE
-import com.helsinkiwizard.cointoss.Constants.EXTRA_START_FLIPPING
-import com.helsinkiwizard.cointoss.Constants.TILE
-import com.helsinkiwizard.cointoss.coin.CoinAnimation
-import com.helsinkiwizard.cointoss.coin.CoinList
-import com.helsinkiwizard.cointoss.coin.CoinType
 import com.helsinkiwizard.cointoss.theme.CoinTossTheme
+import com.helsinkiwizard.shared.Constants.APP_DRAWER
+import com.helsinkiwizard.shared.Constants.EXTRA_COIN_TYPE
+import com.helsinkiwizard.shared.Constants.EXTRA_START_FLIPPING
+import com.helsinkiwizard.shared.Constants.TILE
+import com.helsinkiwizard.shared.Repository
+import com.helsinkiwizard.shared.coin.CoinAnimation
+import com.helsinkiwizard.shared.coin.CoinType
 
 class MainActivity : ComponentActivity() {
 
@@ -60,6 +61,12 @@ class MainActivity : ComponentActivity() {
         var startFlipping by remember { mutableStateOf(startFlippingIntent) }
 
         CoinTossTheme {
+            LaunchedEffect(coinType) {
+                // When a new coin type is selected, move page to this Composable
+                if (pagerState.currentPage != 0) {
+                    pagerState.animateScrollToPage(0)
+                }
+            }
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -68,15 +75,21 @@ class MainActivity : ComponentActivity() {
             ) {
                 HorizontalPager(count = 2, state = pagerState) { page ->
                     when (page) {
-                        0 -> CoinAnimation(
-                            coinType = coinType,
-                            pagerState = pagerState,
-                            analytics = firebaseAnalytics,
-                            startFlipping = startFlipping,
-                            onStartFlipping = {
-                                startFlipping = false
-                            }
-                        )
+                        0 -> {
+                            var showChevron by remember { mutableStateOf(startFlipping.not()) }
+                            Chevron(showChevron)
+                            CoinAnimation(
+                                coinType = coinType,
+                                analytics = firebaseAnalytics,
+                                startFlipping = startFlipping,
+                                onStartFlipping = {
+                                    startFlipping = false
+                                },
+                                onFlip = { flipCount ->
+                                    if (flipCount > 0) showChevron = false
+                                }
+                            )
+                        }
                         1 -> CoinList(analytics = firebaseAnalytics)
                     }
                 }
