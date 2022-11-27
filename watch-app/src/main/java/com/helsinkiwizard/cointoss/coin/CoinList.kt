@@ -46,7 +46,6 @@ import androidx.wear.tiles.TileService
 import androidx.wear.tooling.preview.devices.WearDevices
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.helsinkiwizard.cointoss.Repository
-import com.helsinkiwizard.cointoss.Repository.Companion.COIN_TYPE
 import com.helsinkiwizard.core.coin.CoinType.BITCOIN
 import com.helsinkiwizard.core.utils.AutoSizeText
 import com.helsinkiwizard.core.utils.buildTextWithLink
@@ -63,6 +62,7 @@ import com.helsinkiwizard.cointoss.theme.Text20
 import com.helsinkiwizard.cointoss.theme.Thirty
 import com.helsinkiwizard.cointoss.theme.Twelve
 import com.helsinkiwizard.cointoss.tile.CoinTileService
+import com.helsinkiwizard.core.BaseRepository.Companion.COIN_TYPE
 import com.helsinkiwizard.core.CoreConstants.COIN_SELECTED
 import com.helsinkiwizard.core.theme.BlackTransparent
 import kotlinx.coroutines.launch
