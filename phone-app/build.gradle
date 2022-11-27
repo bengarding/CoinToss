@@ -1,15 +1,36 @@
 plugins {
-    id 'com.android.library'
+    id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    namespace 'com.helsinkiwizard.shared'
+    namespace 'com.helsinkiwizard.cointoss'
     compileSdk 33
 
     defaultConfig {
+        applicationId "com.helsinkiwizard.cointoss"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 
     buildFeatures {
@@ -22,10 +43,9 @@ android {
 }
 
 dependencies {
+    implementation project(':shared')
 
-    implementation "androidx.core:core-ktx:1.9.0"
     implementation "androidx.datastore:datastore-preferences:1.0.0"
-    implementation "androidx.core:core-splashscreen:1.0.0"
 
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling:$compose_version"
@@ -33,8 +53,12 @@ dependencies {
     implementation "androidx.compose.animation:animation:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.runtime:runtime:$compose_version"
-    api "androidx.activity:activity-compose:$compose_version_activity"
+
+    implementation platform('com.google.firebase:firebase-bom:31.0.2')
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
 
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
 }
