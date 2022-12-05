@@ -15,6 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.lifecycleScope
 import androidx.wear.compose.material.MaterialTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -45,7 +46,10 @@ class MainActivity : ComponentActivity() {
     @Composable
     private fun CoinFlip(initialCoinType: Int, startFlippingIntent: Boolean) {
         val coinType = CoinType.parse(
-            repo.getCoinType.collectAsState(initial = initialCoinType).value
+            repo.getCoinType.collectAsState(
+                initial = initialCoinType,
+                lifecycleScope.coroutineContext
+            ).value
         )
 
         val pagerState = rememberPagerState()
