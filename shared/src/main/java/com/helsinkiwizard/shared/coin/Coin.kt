@@ -36,8 +36,8 @@ var flipCount = 0
 @Composable
 fun CoinAnimation(
     coinType: CoinType,
-    startFlipping: Boolean,
-    onStartFlipping: () -> Unit,
+    startFlipping: Boolean = false,
+    onStartFlipping: (() -> Unit)? = null,
     onFlip: ((Int) -> Unit)? = null
 ) {
     Box(contentAlignment = Alignment.Center) {
@@ -48,7 +48,7 @@ fun CoinAnimation(
                 flipCount++
                 randomizeRotationAmount()
                 flipping = !flipping
-                onStartFlipping.invoke()
+                onStartFlipping?.invoke()
                 onFlip?.invoke(flipCount)
             }
         }
