@@ -1,5 +1,6 @@
 package com.helsinkiwizard.cointoss.tile
 
+import androidx.wear.protolayout.ResourceBuilders
 import androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters
 import androidx.wear.tiles.DimensionBuilders
 import androidx.wear.tiles.DimensionBuilders.dp
@@ -7,10 +8,10 @@ import androidx.wear.tiles.LayoutElementBuilders
 import androidx.wear.tiles.ModifiersBuilders
 import androidx.wear.tiles.RequestBuilders.ResourcesRequest
 import androidx.wear.tiles.RequestBuilders.TileRequest
-import androidx.wear.tiles.ResourceBuilders
 import androidx.wear.tiles.TileBuilders.Tile
 import androidx.wear.tiles.TimelineBuilders
-import com.google.android.horologist.tiles.CoroutinesTileService
+import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.tiles.SuspendingTileService
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.helsinkiwizard.cointoss.Repository
 import com.helsinkiwizard.cointoss.Repository.Companion.TILE_RESOURCE_VERSION
@@ -20,7 +21,8 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
-class CoinTileService : CoroutinesTileService() {
+@OptIn(ExperimentalHorologistApi::class)
+class CoinTileService : SuspendingTileService() {
 
     companion object {
         private const val SELECTED_COIN = "selected_coin"
@@ -38,8 +40,9 @@ class CoinTileService : CoroutinesTileService() {
         resourceVersionFlow = repo.getResourceVersion
     }
 
-    override suspend fun resourcesRequest(requestParams: ResourcesRequest)
-            : ResourceBuilders.Resources {
+    override suspend fun resourcesRequest(
+        requestParams: ResourcesRequest
+    ): ResourceBuilders.Resources {
         val headsRes = latestTileState().heads
         val resourceVersion = getResourceVersion()
         return ResourceBuilders.Resources.Builder().setVersion(resourceVersion.toString())
