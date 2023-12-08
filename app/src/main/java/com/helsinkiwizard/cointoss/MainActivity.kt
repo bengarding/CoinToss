@@ -15,7 +15,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.MaterialTheme
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -49,7 +48,6 @@ class MainActivity : ComponentActivity() {
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, params)
     }
 
-    @OptIn(ExperimentalPagerApi::class)
     @Composable
     fun CoinFlip(initialCoinType: Int, startFlippingIntent: Boolean) {
         val coinType = CoinType.parse(
@@ -77,7 +75,10 @@ class MainActivity : ComponentActivity() {
                                 startFlipping = false
                             }
                         )
-                        1 -> CoinList(analytics = firebaseAnalytics)
+
+                        1 -> CoinList(
+                            analytics = firebaseAnalytics,
+                            onEmailClick = { intent -> startActivity(intent) })
                     }
                 }
             }

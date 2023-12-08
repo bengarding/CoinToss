@@ -3,6 +3,8 @@
     <string name="choose_a_coin">Elige una moneda</string>
     <string name="heads">cara</string>
     <string name="tails">cruz</string>
+    <string name="request_coin">"¿No ves la moneda que quieres? Envíame un correo electrónico y haré todo lo posible para agregarlo.\ncointossrequest@gmail.com"</string>
+    <string name="email_address">"contossrequest@gmail.com"</string>
     <string name="bitcoin">Bitcoin</string>
     <string name="canada">Canadá</string>
     <string name="china">China</string>
@@ -10,7 +12,10 @@
     <string name="india">India</string>
     <string name="japan">Japón</string>
     <string name="thailand">Tailandia</string>
+    <string name="turkey">"Turquía"</string>
     <string name="ukraine">Ucrania</string>
     <string name="united_kingdom">Reino Unido</string>
     <string name="united_states">Estados Unidos</string>
+    <string name="uzbekistan">"Uzbekistán"</string>
+    <string name="diaper_duty">"Servicio de pañales"</string>
 </resources>
