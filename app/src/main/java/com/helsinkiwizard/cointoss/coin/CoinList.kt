@@ -1,5 +1,11 @@
 package com.helsinkiwizard.cointoss.coin
 
+import android.content.Intent
+import android.content.Intent.ACTION_SENDTO
+import android.content.Intent.EXTRA_EMAIL
+import android.content.Intent.EXTRA_SUBJECT
+import android.content.Intent.EXTRA_TEXT
+import android.net.Uri
 import android.os.Bundle
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -12,6 +18,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -25,8 +32,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Devices.WEAR_OS_LARGE_ROUND
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
@@ -37,7 +42,6 @@ import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import androidx.wear.tiles.TileService
 import androidx.wear.tooling.preview.devices.WearDevices
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -53,12 +57,18 @@ import com.helsinkiwizard.cointoss.theme.PercentEighty
 import com.helsinkiwizard.cointoss.theme.Text16
 import com.helsinkiwizard.cointoss.theme.Text20
 import com.helsinkiwizard.cointoss.theme.Twelve
+import com.helsinkiwizard.cointoss.theme.Thirty
 import com.helsinkiwizard.cointoss.tile.CoinTileService
+import com.helsinkiwizard.cointoss.utils.buildTextWithLink
+import com.helsinkiwizard.cointoss.utils.onLinkClick
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalWearFoundationApi::class)
 @Composable
-fun CoinList(analytics: FirebaseAnalytics?) {
+fun CoinList(
+    analytics: FirebaseAnalytics?,
+    onEmailClick: (Intent) -> Unit
+) {
     val listState = rememberScalingLazyListState()
     Scaffold(
         positionIndicator = { PositionIndicator(scalingLazyListState = listState) }
@@ -88,6 +98,7 @@ fun CoinList(analytics: FirebaseAnalytics?) {
                     analytics = analytics
                 )
             }
+            item { RequestCoin(onEmailClick) }
         }
     }
 }
@@ -154,6 +165,36 @@ fun CoinButton(
     }
 }
 
+@Composable
+private fun RequestCoin(onEmailClick: (Intent) -> Unit) {
+    val emailAddress = stringResource(id = R.string.email_address)
+    val annotatedString = buildTextWithLink(
+        fullText = stringResource(id = R.string.request_coin),
+        linkText = emailAddress
+    )
+    ClickableText(
+        text = annotatedString,
+        modifier = Modifier.padding(top = Thirty),
+        onClick = { offset ->
+            annotatedString.onLinkClick(
+                offset = offset,
+                onClick = {
+                    onEmailClick(getEmailIntent(emailAddress))
+                }
+            )
+        }
+    )
+}
+
+private fun getEmailIntent(email: String): Intent {
+    return Intent(ACTION_SENDTO).apply {
+        data = Uri.parse("mailto:$email")
+        putExtra(EXTRA_EMAIL, arrayOf(email))
+        putExtra(EXTRA_SUBJECT, "Subject") // You can customize the subject
+        putExtra(EXTRA_TEXT, "Body") // You can customize the email body
+    }
+}
+
 @Preview(name = "large round", device = WearDevices.LARGE_ROUND)
 @Preview(name = "square", device = WearDevices.SQUARE)
 @Composable
@@ -165,5 +206,5 @@ private fun CoinButtonPreview() {
 @Preview(name = "square", device = WearDevices.SQUARE)
 @Composable
 private fun CoinListPreview() {
-    CoinList(analytics = null)
+    CoinList(analytics = null, {})
 }
