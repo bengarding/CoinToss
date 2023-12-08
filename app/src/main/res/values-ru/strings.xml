@@ -10,7 +10,10 @@
     <string name="india">Индия</string>
     <string name="japan">Япония</string>
     <string name="thailand">Таиланд</string>
+    <string name="turkey">"Турция"</string>
     <string name="ukraine">Украина</string>
     <string name="united_kingdom">Англия</string>
     <string name="united_states">США</string>
+    <string name="uzbekistan">"Узбекистан"</string>
+    <string name="diaper_duty">"обязанность подгузников"</string>
 </resources>

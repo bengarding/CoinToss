@@ -10,7 +10,10 @@
     <string name="india">India</string>
     <string name="japan">Japan</string>
     <string name="thailand">Thailand</string>
+    <string name="turkey">"Turkey"</string>
     <string name="ukraine">Ukraine</string>
     <string name="united_kingdom">United Kingdom</string>
     <string name="united_states">United States</string>
+    <string name="uzbekistan">"Uzbekistan"</string>
+    <string name="diaper_duty">"Diaper duty"</string>
 </resources>
