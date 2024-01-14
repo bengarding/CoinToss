@@ -16,6 +16,7 @@ enum class CoinType(
     EURO(4, R.drawable.euro_heads, R.drawable.euro_tails, R.string.euro),
     INDIA(5, R.drawable.india_heads, R.drawable.india_tails, R.string.india),
     JAPAN(6, R.drawable.japan_heads, R.drawable.japan_tails, R.string.japan),
+    KUWAIT(14, R.drawable.kuwait_heads, R.drawable.kuwait_tails, R.string.kuwait),
     THAILAND(7, R.drawable.thailand_heads, R.drawable.thailand_tails, R.string.thailand),
     TURKEY(8, R.drawable.turkey_heads, R.drawable.turkey_tails, R.string.turkey),
     UKRAINE(9, R.drawable.ukraine_heads, R.drawable.ukraine_tails, R.string.ukraine),
