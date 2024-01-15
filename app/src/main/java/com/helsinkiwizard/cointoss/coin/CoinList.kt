@@ -5,8 +5,10 @@ import android.content.Intent.ACTION_SENDTO
 import android.content.Intent.EXTRA_EMAIL
 import android.content.Intent.EXTRA_SUBJECT
 import android.content.Intent.EXTRA_TEXT
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.service.quicksettings.TileService
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
@@ -174,7 +176,7 @@ private fun RequestCoin(onEmailClick: (Intent) -> Unit) {
     )
     ClickableText(
         text = annotatedString,
-        modifier = Modifier.padding(top = Thirty),
+        modifier = Modifier.padding(vertical = Thirty, horizontal = Twelve),
         onClick = { offset ->
             annotatedString.onLinkClick(
                 offset = offset,
