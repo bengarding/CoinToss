@@ -46,6 +46,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.tiles.TileService
 import androidx.wear.tooling.preview.devices.WearDevices
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.helsinkiwizard.cointoss.Constants.COIN_SELECTED
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.Repository
 import com.helsinkiwizard.cointoss.Repository.Companion.COIN_TYPE
@@ -134,7 +135,7 @@ fun CoinButton(
             scope.launch {
                 val name = coin.name.lowercase().replaceFirstChar { it.titlecase() }
                 val params = Bundle().apply {
-                    putString(FirebaseAnalytics.Param.CONTENT_TYPE, name)
+                    putString(COIN_SELECTED, name)
                 }
                 analytics?.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, params)
                 dataStore.saveIntPreference(COIN_TYPE, coin.value)

@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.helsinkiwizard.cointoss.Constants.FLIP_COUNT
@@ -38,7 +37,6 @@ private var nextSide = CoinSide.TAILS
 
 var flipCount = 0
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun CoinAnimation(
     coinType: CoinType,
