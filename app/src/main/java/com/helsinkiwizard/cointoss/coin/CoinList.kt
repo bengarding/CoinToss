@@ -155,11 +155,12 @@ fun CoinButton(
                 alignment = Alignment.Center,
                 contentScale = ContentScale.Crop
             )
-            Text(
+            AutoSizeText(
                 text = stringResource(id = coin.nameRes),
                 fontWeight = FontWeight.Normal,
-                fontSize = Text16,
+                maxFontSize = Text16,
                 color = Color.White,
+                maxLines = 1,
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .background(color = BlackTransparent, shape = CircleShape)
