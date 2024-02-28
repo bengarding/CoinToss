@@ -17,6 +17,12 @@
     <string name="ukraine">Ukraine</string>
     <string name="united_kingdom">United Kingdom</string>
     <string name="united_states">United States</string>
-    <string name="uzbekistan">"Uzbekistan"</string>
-    <string name="diaper_duty">"Diaper duty"</string>
+    <string name="uzbekistan">Uzbekistan</string>
+    <string name="diaper_duty">Diaper duty</string>
+    <string name="australia">Australia</string>
+    <string name="sweden">Sweden</string>
+    <string name="russia">Russia</string>
+    <string name="uae">United Arab Emirates</string>
+    <string name="saudi_arabia">Saudi Arabia</string>
+    <string name="jordan">Jordan</string>
 </resources>

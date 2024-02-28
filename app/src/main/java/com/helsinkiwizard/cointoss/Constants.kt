@@ -8,5 +8,6 @@ object Constants {
     // Analytics
     const val FLIP_COUNT = "flip_count"
     const val TILE = "tile"
-    const val APP_DRAWER ="app_drawer"
+    const val APP_DRAWER = "app_drawer"
+    const val COIN_SELECTED = "coin_selected"
 }

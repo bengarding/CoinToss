@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,6 +46,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.tiles.TileService
 import androidx.wear.tooling.preview.devices.WearDevices
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.helsinkiwizard.cointoss.Constants.COIN_SELECTED
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.Repository
 import com.helsinkiwizard.cointoss.Repository.Companion.COIN_TYPE
@@ -59,6 +61,7 @@ import com.helsinkiwizard.cointoss.theme.Text20
 import com.helsinkiwizard.cointoss.theme.Thirty
 import com.helsinkiwizard.cointoss.theme.Twelve
 import com.helsinkiwizard.cointoss.tile.CoinTileService
+import com.helsinkiwizard.cointoss.utils.AutoSizeText
 import com.helsinkiwizard.cointoss.utils.buildTextWithLink
 import com.helsinkiwizard.cointoss.utils.onLinkClick
 import kotlinx.coroutines.launch
@@ -75,6 +78,8 @@ fun CoinList(
     ) {
         val focusRequester = rememberActiveFocusRequester()
         val coroutineScope = rememberCoroutineScope()
+        val context = LocalContext.current
+        val sortedCoins = remember { CoinType.entries.sortedBy { context.getString(it.nameRes) } }
 
         ScalingLazyColumn(
             state = listState,
@@ -92,7 +97,7 @@ fun CoinList(
                 .focusable()
         ) {
             item { ListTitle() }
-            items(CoinType.entries) { item ->
+            items(sortedCoins) { item ->
                 CoinButton(
                     coin = item,
                     analytics = analytics
@@ -130,7 +135,7 @@ fun CoinButton(
             scope.launch {
                 val name = coin.name.lowercase().replaceFirstChar { it.titlecase() }
                 val params = Bundle().apply {
-                    putString(FirebaseAnalytics.Param.CONTENT_TYPE, name)
+                    putString(COIN_SELECTED, name)
                 }
                 analytics?.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, params)
                 dataStore.saveIntPreference(COIN_TYPE, coin.value)
@@ -151,11 +156,12 @@ fun CoinButton(
                 alignment = Alignment.Center,
                 contentScale = ContentScale.Crop
             )
-            Text(
+            AutoSizeText(
                 text = stringResource(id = coin.nameRes),
                 fontWeight = FontWeight.Normal,
-                fontSize = Text16,
+                maxFontSize = Text16,
                 color = Color.White,
+                maxLines = 1,
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .background(color = BlackTransparent, shape = CircleShape)
@@ -190,8 +196,6 @@ private fun getEmailIntent(email: String): Intent {
     return Intent(ACTION_SENDTO).apply {
         data = Uri.parse("mailto:$email")
         putExtra(EXTRA_EMAIL, arrayOf(email))
-        putExtra(EXTRA_SUBJECT, "Subject") // You can customize the subject
-        putExtra(EXTRA_TEXT, "Body") // You can customize the email body
     }
 }
 
@@ -206,5 +210,5 @@ private fun CoinButtonPreview() {
 @Preview(name = "square", device = WearDevices.SQUARE)
 @Composable
 private fun CoinListPreview() {
-    CoinList(analytics = null, {})
+    CoinList(analytics = null) {}
 }
