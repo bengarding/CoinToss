@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,6 +60,7 @@ import com.helsinkiwizard.cointoss.theme.Text20
 import com.helsinkiwizard.cointoss.theme.Thirty
 import com.helsinkiwizard.cointoss.theme.Twelve
 import com.helsinkiwizard.cointoss.tile.CoinTileService
+import com.helsinkiwizard.cointoss.utils.AutoSizeText
 import com.helsinkiwizard.cointoss.utils.buildTextWithLink
 import com.helsinkiwizard.cointoss.utils.onLinkClick
 import kotlinx.coroutines.launch
@@ -75,6 +77,8 @@ fun CoinList(
     ) {
         val focusRequester = rememberActiveFocusRequester()
         val coroutineScope = rememberCoroutineScope()
+        val context = LocalContext.current
+        val sortedCoins = remember { CoinType.entries.sortedBy { context.getString(it.nameRes) } }
 
         ScalingLazyColumn(
             state = listState,
@@ -92,7 +96,7 @@ fun CoinList(
                 .focusable()
         ) {
             item { ListTitle() }
-            items(CoinType.entries) { item ->
+            items(sortedCoins) { item ->
                 CoinButton(
                     coin = item,
                     analytics = analytics
@@ -190,8 +194,6 @@ private fun getEmailIntent(email: String): Intent {
     return Intent(ACTION_SENDTO).apply {
         data = Uri.parse("mailto:$email")
         putExtra(EXTRA_EMAIL, arrayOf(email))
-        putExtra(EXTRA_SUBJECT, "Subject") // You can customize the subject
-        putExtra(EXTRA_TEXT, "Body") // You can customize the email body
     }
 }
 
@@ -206,5 +208,5 @@ private fun CoinButtonPreview() {
 @Preview(name = "square", device = WearDevices.SQUARE)
 @Composable
 private fun CoinListPreview() {
-    CoinList(analytics = null, {})
+    CoinList(analytics = null) {}
 }
