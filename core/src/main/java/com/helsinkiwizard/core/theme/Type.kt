@@ -1,14 +1,15 @@
-package com.helsinkiwizard.cointoss.theme
+package com.helsinkiwizard.core.theme
 
+import androidx.compose.material.Typography
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.wear.compose.material.Typography
+import com.helsinkiwizard.cointoss.theme.Text12
+import com.helsinkiwizard.cointoss.theme.Text16
 
-// Set of Material typography styles to start with
 val Typography = Typography(
     body1 = TextStyle(
         fontFamily = FontFamily.Default,

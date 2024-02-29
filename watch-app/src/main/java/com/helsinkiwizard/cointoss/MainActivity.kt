@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.MaterialTheme
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -22,12 +23,16 @@ import com.helsinkiwizard.cointoss.Constants.APP_DRAWER
 import com.helsinkiwizard.cointoss.Constants.EXTRA_COIN_TYPE
 import com.helsinkiwizard.cointoss.Constants.EXTRA_START_FLIPPING
 import com.helsinkiwizard.cointoss.Constants.TILE
-import com.helsinkiwizard.cointoss.coin.CoinAnimation
+import com.helsinkiwizard.cointoss.coin.Coin
 import com.helsinkiwizard.cointoss.coin.CoinList
-import com.helsinkiwizard.cointoss.coin.CoinType
-import com.helsinkiwizard.cointoss.theme.CoinTossTheme
+import com.helsinkiwizard.core.coin.CoinType
+import com.helsinkiwizard.core.theme.CoinTossTheme
 
 class MainActivity : ComponentActivity() {
+
+    companion object {
+        private const val PAGE_COUNT = 2
+    }
 
     private lateinit var repo: Repository
     private lateinit var firebaseAnalytics: FirebaseAnalytics
@@ -40,7 +45,9 @@ class MainActivity : ComponentActivity() {
 
         val initialCoinType = intent.extras?.getInt(EXTRA_COIN_TYPE) ?: 0
         setContent {
-            CoinFlip(initialCoinType, startFlippingIntent)
+            CoinTossTheme {
+                CoinFlip(initialCoinType, startFlippingIntent)
+            }
         }
         val params = Bundle().apply {
             putString(FirebaseAnalytics.Param.ORIGIN, if (startFlippingIntent) TILE else APP_DRAWER)
@@ -48,6 +55,7 @@ class MainActivity : ComponentActivity() {
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, params)
     }
 
+    @OptIn(ExperimentalPagerApi::class)
     @Composable
     fun CoinFlip(initialCoinType: Int, startFlippingIntent: Boolean) {
         val coinType = CoinType.parse(
@@ -57,29 +65,28 @@ class MainActivity : ComponentActivity() {
         val pagerState = rememberPagerState()
         var startFlipping by remember { mutableStateOf(startFlippingIntent) }
 
-        CoinTossTheme {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colors.background),
-                verticalArrangement = Arrangement.Center
-            ) {
-                HorizontalPager(count = 2, state = pagerState) { page ->
-                    when (page) {
-                        0 -> CoinAnimation(
-                            coinType = coinType,
-                            pagerState = pagerState,
-                            analytics = firebaseAnalytics,
-                            startFlipping = startFlipping,
-                            onStartFlipping = {
-                                startFlipping = false
-                            }
-                        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colors.background),
+            verticalArrangement = Arrangement.Center
+        ) {
+            HorizontalPager(count = 2, state = pagerState) { page ->
+                when (page) {
+                    0 -> Coin(
+                        coinType = coinType,
+                        pagerState = pagerState,
+                        analytics = firebaseAnalytics,
+                        startFlipping = startFlipping,
+                        onStartFlipping = {
+                            startFlipping = false
+                        }
+                    )
 
-                        1 -> CoinList(
-                            analytics = firebaseAnalytics,
-                            onEmailClick = { intent -> startActivity(intent) })
-                    }
+                    1 -> CoinList(
+                        analytics = firebaseAnalytics,
+                        onEmailClick = { intent -> startActivity(intent) }
+                    )
                 }
             }
         }

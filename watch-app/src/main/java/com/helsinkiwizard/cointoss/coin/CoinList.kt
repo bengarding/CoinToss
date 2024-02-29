@@ -3,10 +3,9 @@ package com.helsinkiwizard.cointoss.coin
 import android.content.Intent
 import android.content.Intent.ACTION_SENDTO
 import android.content.Intent.EXTRA_EMAIL
-import android.content.Intent.EXTRA_SUBJECT
-import android.content.Intent.EXTRA_TEXT
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
@@ -46,25 +45,26 @@ import androidx.wear.compose.material.Text
 import androidx.wear.tiles.TileService
 import androidx.wear.tooling.preview.devices.WearDevices
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.helsinkiwizard.cointoss.Constants.COIN_SELECTED
-import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.Repository
 import com.helsinkiwizard.cointoss.Repository.Companion.COIN_TYPE
-import com.helsinkiwizard.cointoss.coin.CoinType.BITCOIN
-import com.helsinkiwizard.cointoss.theme.BlackTransparent
+import com.helsinkiwizard.core.coin.CoinType.BITCOIN
+import com.helsinkiwizard.core.utils.AutoSizeText
+import com.helsinkiwizard.core.utils.buildTextWithLink
+import com.helsinkiwizard.core.utils.onLinkClick
 import com.helsinkiwizard.cointoss.theme.ButtonHeight
 import com.helsinkiwizard.cointoss.theme.Eight
 import com.helsinkiwizard.cointoss.theme.Forty
 import com.helsinkiwizard.cointoss.theme.Four
 import com.helsinkiwizard.cointoss.theme.PercentEighty
+import com.helsinkiwizard.core.R
+import com.helsinkiwizard.core.coin.CoinType
 import com.helsinkiwizard.cointoss.theme.Text16
 import com.helsinkiwizard.cointoss.theme.Text20
 import com.helsinkiwizard.cointoss.theme.Thirty
 import com.helsinkiwizard.cointoss.theme.Twelve
 import com.helsinkiwizard.cointoss.tile.CoinTileService
-import com.helsinkiwizard.cointoss.utils.AutoSizeText
-import com.helsinkiwizard.cointoss.utils.buildTextWithLink
-import com.helsinkiwizard.cointoss.utils.onLinkClick
+import com.helsinkiwizard.core.CoreConstants.COIN_SELECTED
+import com.helsinkiwizard.core.theme.BlackTransparent
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalWearFoundationApi::class)

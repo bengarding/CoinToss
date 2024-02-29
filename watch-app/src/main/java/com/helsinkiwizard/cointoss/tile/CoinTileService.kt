@@ -15,7 +15,7 @@ import com.google.android.horologist.tiles.SuspendingTileService
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.helsinkiwizard.cointoss.Repository
 import com.helsinkiwizard.cointoss.Repository.Companion.TILE_RESOURCE_VERSION
-import com.helsinkiwizard.cointoss.coin.CoinType
+import com.helsinkiwizard.core.coin.CoinType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first

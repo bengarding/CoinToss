@@ -1,7 +1,6 @@
-package com.helsinkiwizard.cointoss.theme
+package com.helsinkiwizard.core.theme
 
 import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.material.Colors
 
 val BlackTransparent = Color(0xB3000000)
 val LightBlue = Color(0xFF579BDB)
@@ -12,14 +11,3 @@ val Teal200 = Color(0xFF03DAC5)
 val Red400 = Color(0xFFCF6679)
 val WhiteTransparent = Color(0xAAFFFFFF)
 val TealSemiTransparent = Color(0xCC2CCFA6)
-
-internal val wearColorPalette: Colors = Colors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200,
-    secondaryVariant = Teal200,
-    error = Red400,
-    onPrimary = Color.Black,
-    onSecondary = Color.Black,
-    onError = Color.Black
-)

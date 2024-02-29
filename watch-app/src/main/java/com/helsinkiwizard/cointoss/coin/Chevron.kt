@@ -1,5 +1,6 @@
 package com.helsinkiwizard.cointoss.coin
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -26,8 +27,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.wear.compose.material.Icon
-import com.helsinkiwizard.cointoss.R
-import com.helsinkiwizard.cointoss.theme.WhiteTransparent
+import com.helsinkiwizard.core.R
+import com.helsinkiwizard.core.theme.WhiteTransparent
 
 const val OFFSET_ANIMATION_DURATION = 750
 const val OFFSET_ANIMATION_TARGET_VALUE = 5f

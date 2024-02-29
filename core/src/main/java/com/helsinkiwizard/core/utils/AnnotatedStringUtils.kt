@@ -1,4 +1,4 @@
-package com.helsinkiwizard.cointoss.utils
+package com.helsinkiwizard.core.utils
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.AnnotatedString
@@ -7,9 +7,9 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.UrlAnnotation
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
-import com.helsinkiwizard.cointoss.theme.LinkText
 import com.helsinkiwizard.cointoss.theme.Text12
-import com.helsinkiwizard.cointoss.theme.Typography
+import com.helsinkiwizard.core.theme.LinkText
+import com.helsinkiwizard.core.theme.Typography
 
 @OptIn(ExperimentalTextApi::class) // UrlAnnotation
 @Composable

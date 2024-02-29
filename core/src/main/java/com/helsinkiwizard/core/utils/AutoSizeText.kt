@@ -1,6 +1,8 @@
-package com.helsinkiwizard.cointoss.utils
+package com.helsinkiwizard.core.utils
 
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.material.LocalTextStyle
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,8 +25,6 @@ import androidx.compose.ui.unit.isFinite
 import androidx.compose.ui.unit.isSpecified
 import androidx.compose.ui.unit.isUnspecified
 import androidx.compose.ui.unit.sp
-import androidx.wear.compose.material.LocalTextStyle
-import androidx.wear.compose.material.Text
 import kotlin.math.absoluteValue
 import kotlin.math.ceil
 
