@@ -54,6 +54,7 @@ import com.helsinkiwizard.cointoss.coin.CoinType.BITCOIN
 import com.helsinkiwizard.cointoss.theme.BlackTransparent
 import com.helsinkiwizard.cointoss.theme.ButtonHeight
 import com.helsinkiwizard.cointoss.theme.Eight
+import com.helsinkiwizard.cointoss.theme.Forty
 import com.helsinkiwizard.cointoss.theme.Four
 import com.helsinkiwizard.cointoss.theme.PercentEighty
 import com.helsinkiwizard.cointoss.theme.Text16
@@ -180,7 +181,7 @@ private fun RequestCoin(onEmailClick: (Intent) -> Unit) {
     )
     ClickableText(
         text = annotatedString,
-        modifier = Modifier.padding(vertical = Thirty, horizontal = Twelve),
+        modifier = Modifier.padding(start = Twelve, top = Thirty, end = Twelve, bottom = Forty),
         onClick = { offset ->
             annotatedString.onLinkClick(
                 offset = offset,
