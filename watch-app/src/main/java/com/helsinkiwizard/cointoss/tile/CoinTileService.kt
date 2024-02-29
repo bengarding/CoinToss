@@ -1,15 +1,15 @@
 package com.helsinkiwizard.cointoss.tile
 
+import androidx.wear.protolayout.DeviceParametersBuilders
+import androidx.wear.protolayout.DimensionBuilders
+import androidx.wear.protolayout.DimensionBuilders.dp
+import androidx.wear.protolayout.LayoutElementBuilders
+import androidx.wear.protolayout.ModifiersBuilders
 import androidx.wear.protolayout.ResourceBuilders
-import androidx.wear.tiles.DeviceParametersBuilders.DeviceParameters
-import androidx.wear.tiles.DimensionBuilders
-import androidx.wear.tiles.DimensionBuilders.dp
-import androidx.wear.tiles.LayoutElementBuilders
-import androidx.wear.tiles.ModifiersBuilders
+import androidx.wear.protolayout.TimelineBuilders
 import androidx.wear.tiles.RequestBuilders.ResourcesRequest
 import androidx.wear.tiles.RequestBuilders.TileRequest
 import androidx.wear.tiles.TileBuilders.Tile
-import androidx.wear.tiles.TimelineBuilders
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.tiles.SuspendingTileService
 import com.google.android.horologist.tiles.images.drawableResToImageResource
@@ -54,7 +54,7 @@ class CoinTileService : SuspendingTileService() {
     }
 
     override suspend fun tileRequest(requestParams: TileRequest): Tile {
-        val dimens = requestParams.deviceParameters!!
+        val dimens = requestParams.deviceConfiguration
 
         val singleTileTimeline = TimelineBuilders.Timeline.Builder()
             .addTimelineEntry(
@@ -75,11 +75,11 @@ class CoinTileService : SuspendingTileService() {
 
         return Tile.Builder()
             .setResourcesVersion(resourceVersion.toString())
-            .setTimeline(singleTileTimeline)
+            .setTileTimeline(singleTileTimeline)
             .build()
     }
 
-    private fun tileLayout(deviceParams: DeviceParameters): LayoutElementBuilders.LayoutElement {
+    private fun tileLayout(deviceParams: DeviceParametersBuilders.DeviceParameters): LayoutElementBuilders.LayoutElement {
         val clickable = launchActivityClickable("coin_button", openCoin())
         return LayoutElementBuilders.Box.Builder()
             .setVerticalAlignment(LayoutElementBuilders.VERTICAL_ALIGN_CENTER)

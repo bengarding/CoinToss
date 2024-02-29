@@ -21,7 +21,8 @@
 
         <activity
             android:name=".SplashActivity"
-            android:exported="true">
+            android:exported="true"
+            android:taskAffinity="com.helsinkiwizard.cointoss">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -31,10 +32,11 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/MainTheme" />
+            android:theme="@style/MainTheme"
+            android:taskAffinity="com.helsinkiwizard.cointoss" />
 
         <service
-            android:name="com.helsinkiwizard.cointoss.com.helsinkiwizard.core.tile.CoinTileService"
+            android:name="com.helsinkiwizard.cointoss.tile.CoinTileService"
             android:description="@string/app_name"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"

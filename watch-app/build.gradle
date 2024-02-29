@@ -58,11 +58,13 @@ dependencies {
     implementation 'androidx.wear:wear:1.3.0'
     implementation "androidx.wear.compose:compose-material:$wear_compose_version"
     implementation "androidx.wear.compose:compose-foundation:$wear_compose_version"
-    implementation "androidx.wear.tiles:tiles-material:$tiles_version"
     implementation 'androidx.wear:wear-tooling-preview:1.0.0'
 
-    implementation "com.google.android.horologist:horologist-compose-tools:$horologist_version"
     implementation "com.google.android.horologist:horologist-tiles:$horologist_version"
+    implementation "androidx.wear.tiles:tiles-material:$tiles_version"
+    implementation "androidx.wear.protolayout:protolayout:1.1.0"
+
+    implementation "com.google.android.horologist:horologist-compose-tools:$horologist_version"
 
     implementation "com.google.accompanist:accompanist-pager:0.25.1"
 
