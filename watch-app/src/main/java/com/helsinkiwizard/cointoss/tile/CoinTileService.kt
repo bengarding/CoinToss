@@ -16,25 +16,29 @@ import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.helsinkiwizard.cointoss.Repository
 import com.helsinkiwizard.cointoss.Repository.Companion.TILE_RESOURCE_VERSION
 import com.helsinkiwizard.core.coin.CoinType
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 @OptIn(ExperimentalHorologistApi::class)
+@AndroidEntryPoint
 class CoinTileService : SuspendingTileService() {
 
     companion object {
         private const val SELECTED_COIN = "selected_coin"
     }
 
-    private lateinit var repo: Repository
+    @Inject
+    lateinit var repo: Repository
+
     private lateinit var tileStateFlow: Flow<CoinType>
     private lateinit var resourceVersionFlow: Flow<Int>
 
     override fun onCreate() {
         super.onCreate()
-        repo = Repository(this)
         tileStateFlow = repo.getCoinType
             .map { CoinType.parse(it) }
         resourceVersionFlow = repo.getResourceVersion

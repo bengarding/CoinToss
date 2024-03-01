@@ -31,5 +31,5 @@ internal fun openCoin() = ActionBuilders.AndroidActivity.Builder()
 
 private fun ActionBuilders.AndroidActivity.Builder.setMessagingActivity(): ActionBuilders.AndroidActivity.Builder {
     return setPackageName(PACKAGE_NAME)
-        .setClassName(PACKAGE_NAME.plus(".").plus(SplashActivity.TAG))
+        .setClassName(PACKAGE_NAME.plus(".ui.").plus(SplashActivity.TAG))
 }
