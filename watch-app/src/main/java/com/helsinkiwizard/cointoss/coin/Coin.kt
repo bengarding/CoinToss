@@ -15,8 +15,6 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.helsinkiwizard.core.coin.CoinAnimation
 import com.helsinkiwizard.core.coin.CoinType
 
-var flipCount = 0
-
 @OptIn(ExperimentalPagerApi::class) // pager
 @Composable
 fun Coin(
