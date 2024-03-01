@@ -20,27 +20,31 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.helsinkiwizard.cointoss.Constants.APP_DRAWER
-import com.helsinkiwizard.cointoss.Constants.EXTRA_COIN_TYPE
 import com.helsinkiwizard.cointoss.Constants.EXTRA_START_FLIPPING
 import com.helsinkiwizard.cointoss.Constants.TILE
 import com.helsinkiwizard.cointoss.Repository
 import com.helsinkiwizard.cointoss.coin.Coin
 import com.helsinkiwizard.cointoss.coin.CoinList
+import com.helsinkiwizard.core.CoreConstants.EXTRA_COIN_TYPE
 import com.helsinkiwizard.core.coin.CoinType
 import com.helsinkiwizard.core.theme.CoinTossTheme
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     companion object {
         private const val PAGE_COUNT = 2
     }
 
-    private lateinit var repo: Repository
+    @Inject
+    lateinit var repo: Repository
+
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        repo = Repository(this)
         firebaseAnalytics = FirebaseAnalytics.getInstance(applicationContext)
         val startFlippingIntent = intent.extras?.getBoolean(EXTRA_START_FLIPPING) ?: false
 
