@@ -3,6 +3,8 @@ plugins {
     id "org.jetbrains.kotlin.android"
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 android {
     namespace 'com.helsinkiwizard.cointoss'
@@ -63,6 +65,9 @@ dependencies {
     implementation "androidx.compose.runtime:runtime:$compose_version"
     implementation 'androidx.activity:activity-compose:1.8.2'
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'

@@ -3,6 +3,8 @@ plugins {
     id "org.jetbrains.kotlin.android"
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -71,6 +73,9 @@ dependencies {
     implementation "com.google.android.horologist:horologist-compose-tools:$horologist_version"
 
     implementation "com.google.accompanist:accompanist-pager:0.25.1"
+
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
