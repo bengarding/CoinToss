@@ -10,7 +10,7 @@ import com.helsinkiwizard.core.coin.CoinType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-open class BaseRepository(private val context: Context) {
+abstract class BaseRepository(private val context: Context) {
 
     companion object {
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("preferences")

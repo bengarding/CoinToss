@@ -2,44 +2,30 @@ package com.helsinkiwizard.cointoss.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Build
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.lifecycleScope
-import com.helsinkiwizard.cointoss.Constants.EXTRA_COIN_TYPE
 import com.helsinkiwizard.cointoss.Constants.EXTRA_START_FLIPPING
-import com.helsinkiwizard.cointoss.Repository
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.first
+import com.helsinkiwizard.core.BaseRepository
+import com.helsinkiwizard.core.BaseSplashActivity
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @SuppressLint("CustomSplashScreen")
-class SplashActivity : ComponentActivity() {
+@AndroidEntryPoint
+class SplashActivity : BaseSplashActivity() {
 
     companion object {
         const val TAG = "SplashActivity"
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val splashScreen = installSplashScreen()
-            splashScreen.setKeepOnScreenCondition { true }
-        }
-        super.onCreate(savedInstanceState)
+    @Inject
+    override lateinit var repository: BaseRepository
 
-        lifecycleScope.launchWhenCreated {
-            val repo = Repository(this@SplashActivity)
-            val coinType = repo.getCoinType.filterNotNull().first()
-            val startFlipping = intent.extras?.getBoolean(EXTRA_START_FLIPPING)
+    override suspend fun getMainActivityIntent(): Intent {
+        val startFlipping = intent.extras?.getBoolean(EXTRA_START_FLIPPING)
 
-            val intent = Intent(this@SplashActivity, MainActivity::class.java).apply {
-                putExtra(EXTRA_COIN_TYPE, coinType)
-                if (startFlipping == true)
-                    putExtra(EXTRA_START_FLIPPING, true)
+        return Intent(this, MainActivity::class.java).apply {
+            if (startFlipping == true) {
+                putExtra(EXTRA_START_FLIPPING, true)
             }
-            startActivity(intent)
-            finish()
         }
     }
-
 }

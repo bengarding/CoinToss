@@ -6,18 +6,18 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.helsinkiwizard.core.CoreConstants.EXTRA_COIN_TYPE
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 @SuppressLint("CustomSplashScreen")
 abstract class BaseSplashActivity : ComponentActivity() {
 
-    companion object {
-        const val TAG = "SplashActivity"
-    }
-
-    protected var coinType = 0
+    abstract var repository: BaseRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -26,12 +26,16 @@ abstract class BaseSplashActivity : ComponentActivity() {
         }
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launchWhenCreated {
-            val repository = BaseRepository(this@BaseSplashActivity)
-            coinType = repository.getCoinType.filterNotNull().first()
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+               val coinType = repository.getCoinType.filterNotNull().first()
+                val intent = getMainActivityIntent()
+                intent.putExtra(EXTRA_COIN_TYPE, coinType)
 
-            startActivity(getMainActivityIntent())
-            finish()
+                startActivity(getMainActivityIntent())
+                finish()
+
+            }
         }
     }
 

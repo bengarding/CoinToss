@@ -3,14 +3,14 @@ package com.helsinkiwizard.cointoss
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.helsinkiwizard.core.BaseRepository
-import com.helsinkiwizard.core.coin.CoinType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Singleton
 
+@Singleton
 class Repository(private val context: Context) : BaseRepository(context) {
 
     companion object {
