@@ -81,7 +81,6 @@ class MainActivity : ComponentActivity() {
                     0 -> Coin(
                         coinType = coinType,
                         pagerState = pagerState,
-                        analytics = firebaseAnalytics,
                         startFlipping = startFlipping,
                         onStartFlipping = {
                             startFlipping = false
