@@ -1,4 +1,4 @@
-package com.helsinkiwizard.cointoss
+package com.helsinkiwizard.cointoss.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,6 +9,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import com.helsinkiwizard.cointoss.Constants.EXTRA_COIN_TYPE
 import com.helsinkiwizard.cointoss.Constants.EXTRA_START_FLIPPING
+import com.helsinkiwizard.cointoss.Repository
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 

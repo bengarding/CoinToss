@@ -1,4 +1,4 @@
-package com.helsinkiwizard.cointoss
+package com.helsinkiwizard.cointoss.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -23,6 +23,7 @@ import com.helsinkiwizard.cointoss.Constants.APP_DRAWER
 import com.helsinkiwizard.cointoss.Constants.EXTRA_COIN_TYPE
 import com.helsinkiwizard.cointoss.Constants.EXTRA_START_FLIPPING
 import com.helsinkiwizard.cointoss.Constants.TILE
+import com.helsinkiwizard.cointoss.Repository
 import com.helsinkiwizard.cointoss.coin.Coin
 import com.helsinkiwizard.cointoss.coin.CoinList
 import com.helsinkiwizard.core.coin.CoinType

@@ -1,4 +1,4 @@
-package com.helsinkiwizard.cointoss
+package com.helsinkiwizard.cointoss.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

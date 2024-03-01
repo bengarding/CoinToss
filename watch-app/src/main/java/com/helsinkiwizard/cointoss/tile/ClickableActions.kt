@@ -3,7 +3,7 @@ package com.helsinkiwizard.cointoss.tile
 import androidx.wear.protolayout.ActionBuilders
 import androidx.wear.protolayout.ModifiersBuilders
 import com.helsinkiwizard.cointoss.Constants.EXTRA_START_FLIPPING
-import com.helsinkiwizard.cointoss.SplashActivity
+import com.helsinkiwizard.cointoss.ui.SplashActivity
 import com.helsinkiwizard.core.CoreConstants.PACKAGE_NAME
 
 /**
