@@ -8,7 +8,7 @@ import com.helsinkiwizard.cointoss.ui.CoinListScreen
 import com.helsinkiwizard.cointoss.ui.HomeScreen
 import com.helsinkiwizard.cointoss.ui.SettingsScreen
 
-private const val MAIN_ROUTE = "mainNavRoute"
+const val MAIN_ROUTE = "mainNavRoute"
 
 enum class NavRoute {
     Home,

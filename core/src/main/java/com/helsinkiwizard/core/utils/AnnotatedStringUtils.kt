@@ -7,7 +7,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.UrlAnnotation
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
-import com.helsinkiwizard.cointoss.theme.Text12
+import com.helsinkiwizard.core.theme.Text12
 import com.helsinkiwizard.core.theme.LinkText
 import com.helsinkiwizard.core.theme.Typography
 

@@ -7,8 +7,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
-import com.helsinkiwizard.cointoss.theme.Text12
-import com.helsinkiwizard.cointoss.theme.Text16
 
 val Typography = Typography(
     body1 = TextStyle(
