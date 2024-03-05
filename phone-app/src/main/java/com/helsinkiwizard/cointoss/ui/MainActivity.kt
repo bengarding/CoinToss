@@ -21,6 +21,7 @@ import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -87,17 +88,22 @@ class MainActivity : ComponentActivity() {
                 CenterAlignedTopAppBar(
                     title = { Title(currentRoute) },
                     navigationIcon = {
-                        IconButton(onClick = {
-                            coroutineScope.launch {
-                                drawerState.open()
-                            }
-                        }) {
+                        IconButton(
+                            onClick = { coroutineScope.launch { drawerState.open() } }
+                        ) {
                             Icon(
-                                Icons.Rounded.Menu,
+                                imageVector = Icons.Rounded.Menu,
                                 contentDescription = "MenuButton"
                             )
                         }
                     },
+                    colors = TopAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        scrolledContainerColor = MaterialTheme.colorScheme.primary,
+                        navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
+                        titleContentColor = MaterialTheme.colorScheme.onPrimary,
+                        actionIconContentColor = MaterialTheme.colorScheme.onPrimary
+                    )
                 )
             }
         ) { paddingValues ->
@@ -114,17 +120,15 @@ class MainActivity : ComponentActivity() {
                     drawerContent = {
                         DrawerContent(
                             onClick = { selectedRoute ->
-                                if (currentRoute == selectedRoute) {
-                                    coroutineScope.launch {
+                                coroutineScope.launch {
+                                    if (currentRoute == selectedRoute) {
+                                        drawerState.close()
+                                    } else {
+                                        currentRoute = selectedRoute
                                         drawerState.close()
                                     }
-                                    return@DrawerContent
                                 }
 
-                                currentRoute = selectedRoute
-                                coroutineScope.launch {
-                                    drawerState.close()
-                                }
                             }
                         )
                     }
