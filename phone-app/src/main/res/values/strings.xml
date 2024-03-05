@@ -1,4 +1,5 @@
 <resources>
+    <string name="empty_string" translatable="false">""</string>
     <string name="home">"Home"</string>
     <string name="settings">"Settings"</string>
 </resources>
