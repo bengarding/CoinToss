@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.helsinkiwizard.cointoss.ui.viewmodel.HomeViewModel
 import com.helsinkiwizard.core.coin.CoinAnimation
-import com.helsinkiwizard.core.coin.CoinType
 
 @Composable
 fun HomeScreen(
@@ -21,12 +20,14 @@ fun HomeScreen(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-        val coinType = viewModel.coinTypeFlow.collectAsState(initial = CoinType.BITCOIN).value
-        CoinAnimation(
-            coinType = coinType,
-            modifier = Modifier
-                .fillMaxWidth(.8f)
-                .aspectRatio(1f)
-        )
+        val coinType = viewModel.coinTypeFlow.collectAsState(initial = null).value
+        if (coinType != null) {
+            CoinAnimation(
+                coinType = coinType,
+                modifier = Modifier
+                    .fillMaxWidth(.8f)
+                    .aspectRatio(1f)
+            )
+        }
     }
 }
