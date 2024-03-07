@@ -45,25 +45,24 @@ import androidx.wear.tiles.TileService
 import androidx.wear.tooling.preview.devices.WearDevices
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.helsinkiwizard.cointoss.Repository
+import com.helsinkiwizard.cointoss.tile.CoinTileService
+import com.helsinkiwizard.core.CoreConstants.COIN_SELECTED
+import com.helsinkiwizard.core.R
+import com.helsinkiwizard.core.coin.CoinType
 import com.helsinkiwizard.core.coin.CoinType.BITCOIN
-import com.helsinkiwizard.core.utils.AutoSizeText
-import com.helsinkiwizard.core.utils.buildTextWithLink
-import com.helsinkiwizard.core.utils.onLinkClick
+import com.helsinkiwizard.core.theme.BlackTransparent
 import com.helsinkiwizard.core.theme.ButtonHeight
 import com.helsinkiwizard.core.theme.Eight
 import com.helsinkiwizard.core.theme.Forty
 import com.helsinkiwizard.core.theme.Four
 import com.helsinkiwizard.core.theme.PercentEighty
-import com.helsinkiwizard.core.R
-import com.helsinkiwizard.core.coin.CoinType
 import com.helsinkiwizard.core.theme.Text16
 import com.helsinkiwizard.core.theme.Text20
 import com.helsinkiwizard.core.theme.Thirty
 import com.helsinkiwizard.core.theme.Twelve
-import com.helsinkiwizard.cointoss.tile.CoinTileService
-import com.helsinkiwizard.core.BaseRepository.Companion.COIN_TYPE
-import com.helsinkiwizard.core.CoreConstants.COIN_SELECTED
-import com.helsinkiwizard.core.theme.BlackTransparent
+import com.helsinkiwizard.core.utils.AutoSizeText
+import com.helsinkiwizard.core.utils.buildTextWithLink
+import com.helsinkiwizard.core.utils.onLinkClick
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalWearFoundationApi::class)
@@ -138,7 +137,7 @@ fun CoinButton(
                     putString(COIN_SELECTED, name)
                 }
                 analytics?.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, params)
-                dataStore.setCoinType(COIN_TYPE, coin.value)
+                dataStore.setCoinType(coin.value)
                 TileService.getUpdater(context).requestUpdate(CoinTileService::class.java)
             }
         },

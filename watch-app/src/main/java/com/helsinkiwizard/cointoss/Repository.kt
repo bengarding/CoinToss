@@ -18,4 +18,6 @@ class Repository(context: Context) : BaseRepository(context) {
         .map { preferences ->
             preferences[TILE_RESOURCE_VERSION] ?: 0
         }
+
+    suspend fun setResourceVersion(value: Int) = savePreference(TILE_RESOURCE_VERSION, value)
 }

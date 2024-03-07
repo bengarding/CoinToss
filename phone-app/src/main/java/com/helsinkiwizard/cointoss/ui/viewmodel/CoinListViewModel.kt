@@ -3,7 +3,7 @@ package com.helsinkiwizard.cointoss.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.helsinkiwizard.cointoss.Repository
-import com.helsinkiwizard.core.BaseRepository.Companion.COIN_TYPE
+import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.core.coin.CoinType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,7 +16,8 @@ class CoinListViewModel @Inject constructor(
 
     fun onCoinClick(coinType: CoinType) {
         viewModelScope.launch {
-            repository.setCoinType(COIN_TYPE, coinType.value)
+            repository.setCoinType(coinType.value)
+            repository.setCurrentNavRoute(NavRoute.Home)
         }
     }
 }

@@ -27,11 +27,7 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
@@ -45,8 +41,6 @@ import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.navigation.mainGraph
 import com.helsinkiwizard.cointoss.theme.CoinTossTheme
 import com.helsinkiwizard.cointoss.ui.drawer.DrawerContent
-import com.helsinkiwizard.core.CoreConstants.EXTRA_COIN_TYPE
-import com.helsinkiwizard.core.coin.CoinType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -55,7 +49,7 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
 
     @Inject
-    lateinit var repo: Repository
+    lateinit var repository: Repository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,12 +67,7 @@ class MainActivity : ComponentActivity() {
         val drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         val coroutineScope = rememberCoroutineScope()
 
-        val initialCoinType = intent.extras?.getInt(EXTRA_COIN_TYPE) ?: CoinType.BITCOIN.value
-        val coinType = CoinType.parse(
-            repo.getCoinType.collectAsState(initial = initialCoinType).value
-        )
-
-        var currentRoute by remember { mutableStateOf(NavRoute.Home) }
+        val currentRoute = repository.getCurrentNavRoute.collectAsState(initial = NavRoute.Home).value
         LaunchedEffect(currentRoute) {
             navController.navigate(currentRoute.name)
         }
@@ -124,7 +113,7 @@ class MainActivity : ComponentActivity() {
                             onClick = { selectedRoute ->
                                 coroutineScope.launch {
                                     if (currentRoute != selectedRoute) {
-                                        currentRoute = selectedRoute
+                                        repository.setCurrentNavRoute(selectedRoute)
                                     }
                                     drawerState.close()
                                 }
@@ -138,7 +127,7 @@ class MainActivity : ComponentActivity() {
                         enterTransition = { fadeIn(tween(NAV_TRANSITION_DURATION)) },
                         exitTransition = { fadeOut(tween(NAV_TRANSITION_DURATION)) }
                     ) {
-                        mainGraph(navController)
+                        mainGraph()
                     }
                 }
             }

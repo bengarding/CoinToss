@@ -1,23 +1,24 @@
 package com.helsinkiwizard.cointoss
 
 import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.intPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
+import androidx.datastore.preferences.core.stringPreferencesKey
+import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.core.BaseRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Singleton
 
-class Repository(private val context: Context) : BaseRepository(context) {
+@Singleton
+class Repository(context: Context) : BaseRepository(context) {
 
     companion object {
-        private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("preferences")
-        val TILE_RESOURCE_VERSION = intPreferencesKey("tile_resources_version")
+        val CURRENT_NAV_ROUTE = stringPreferencesKey("current_nav_route")
     }
 
-    val getResourceVersion: Flow<Int> = context.dataStore.data
+    val getCurrentNavRoute: Flow<NavRoute> = context.dataStore.data
         .map { preferences ->
-            preferences[TILE_RESOURCE_VERSION] ?: 0
+            NavRoute.valueOf(preferences[CURRENT_NAV_ROUTE] ?: NavRoute.Home.name)
         }
+
+    suspend fun setCurrentNavRoute(route: NavRoute) = savePreference(CURRENT_NAV_ROUTE, route.name)
 }

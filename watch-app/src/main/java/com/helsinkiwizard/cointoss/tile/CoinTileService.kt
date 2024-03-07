@@ -14,7 +14,6 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.tiles.SuspendingTileService
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.helsinkiwizard.cointoss.Repository
-import com.helsinkiwizard.cointoss.Repository.Companion.TILE_RESOURCE_VERSION
 import com.helsinkiwizard.core.coin.CoinType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
@@ -75,7 +74,7 @@ class CoinTileService : SuspendingTileService() {
         // Bump the version number to refresh the coin image
         var resourceVersion = getResourceVersion()
         resourceVersion++
-        repo.setCoinType(TILE_RESOURCE_VERSION, resourceVersion)
+        repo.setResourceVersion(resourceVersion)
 
         return Tile.Builder()
             .setResourcesVersion(resourceVersion.toString())

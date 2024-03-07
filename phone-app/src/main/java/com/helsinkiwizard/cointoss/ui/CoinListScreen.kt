@@ -26,10 +26,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.helsinkiwizard.cointoss.Repository
-import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListViewModel
 import com.helsinkiwizard.core.CoreConstants
 import com.helsinkiwizard.core.coin.CoinType
@@ -45,7 +43,6 @@ import com.helsinkiwizard.core.utils.AutoSizeText
 
 @Composable
 fun CoinListScreen(
-    navController: NavController,
     viewModel: CoinListViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -61,10 +58,7 @@ fun CoinListScreen(
         items(coinList) { coin ->
             Coin(
                 coin = coin,
-                onClick = {
-                    viewModel.onCoinClick(coin)
-                    navController.navigate(NavRoute.Home.name)
-                }
+                onClick = { viewModel.onCoinClick(coin) }
             )
         }
     }
@@ -115,7 +109,6 @@ private fun Coin(
 @Preview(showBackground = true)
 @Composable
 private fun CoinListPreview() {
-    val navController = NavController(LocalContext.current)
     val viewModel = CoinListViewModel(Repository(LocalContext.current))
-    CoinListScreen(navController, viewModel)
+    CoinListScreen(viewModel)
 }
