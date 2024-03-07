@@ -18,12 +18,12 @@ abstract class BaseRepository(private val context: Context) {
         val COIN_TYPE = intPreferencesKey("coin_type")
     }
 
-    val getCoinType: Flow<Int> = context.dataStore.data
+    val getCoinType: Flow<CoinType> = context.dataStore.data
         .map { preferences ->
-            preferences[COIN_TYPE] ?: CoinType.BITCOIN.ordinal
+            CoinType.parse(preferences[COIN_TYPE] ?: CoinType.BITCOIN.value)
         }
 
-    suspend fun setCoinType(value: Int) = savePreference(COIN_TYPE, value)
+    suspend fun setCoinType(coinType: CoinType) = savePreference(COIN_TYPE, coinType.value)
 
     protected suspend fun <T> savePreference(key: Preferences.Key<T>, value: T) {
         context.dataStore.edit { preferences ->

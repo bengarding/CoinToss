@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
         firebaseAnalytics = FirebaseAnalytics.getInstance(applicationContext)
         val startFlippingIntent = intent.extras?.getBoolean(EXTRA_START_FLIPPING) ?: false
 
-        val initialCoinType = intent.extras?.getInt(EXTRA_COIN_TYPE) ?: 0
+        val initialCoinType = CoinType.parse(intent.extras?.getInt(EXTRA_COIN_TYPE) ?: CoinType.BITCOIN.value)
         setContent {
             CoinTossTheme {
                 CoinFlip(initialCoinType, startFlippingIntent)
@@ -62,10 +62,8 @@ class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalPagerApi::class)
     @Composable
-    fun CoinFlip(initialCoinType: Int, startFlippingIntent: Boolean) {
-        val coinType = CoinType.parse(
-            repo.getCoinType.collectAsState(initial = initialCoinType).value
-        )
+    fun CoinFlip(initialCoinType: CoinType, startFlippingIntent: Boolean) {
+        val coinType = repo.getCoinType.collectAsState(initial = initialCoinType).value
 
         val pagerState = rememberPagerState()
         var startFlipping by remember { mutableStateOf(startFlippingIntent) }

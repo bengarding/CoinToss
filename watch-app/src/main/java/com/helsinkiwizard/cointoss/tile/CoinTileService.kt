@@ -19,7 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @OptIn(ExperimentalHorologistApi::class)
@@ -39,7 +38,6 @@ class CoinTileService : SuspendingTileService() {
     override fun onCreate() {
         super.onCreate()
         tileStateFlow = repo.getCoinType
-            .map { CoinType.parse(it) }
         resourceVersionFlow = repo.getResourceVersion
     }
 

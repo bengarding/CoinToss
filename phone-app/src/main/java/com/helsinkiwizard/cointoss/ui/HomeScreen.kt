@@ -21,9 +21,9 @@ fun HomeScreen(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-        val coinType = viewModel.coinTypeFlow.collectAsState(initial = CoinType.BITCOIN.value).value
+        val coinType = viewModel.coinTypeFlow.collectAsState(initial = CoinType.BITCOIN).value
         CoinAnimation(
-            coinType = CoinType.parse(coinType),
+            coinType = coinType,
             modifier = Modifier
                 .fillMaxWidth(.8f)
                 .aspectRatio(1f)

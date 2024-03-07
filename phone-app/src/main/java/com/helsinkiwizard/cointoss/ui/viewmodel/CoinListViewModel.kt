@@ -16,7 +16,7 @@ class CoinListViewModel @Inject constructor(
 
     fun onCoinClick(coinType: CoinType) {
         viewModelScope.launch {
-            repository.setCoinType(coinType.value)
+            repository.setCoinType(coinType)
             repository.setCurrentNavRoute(NavRoute.Home)
         }
     }

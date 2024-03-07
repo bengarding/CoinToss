@@ -30,7 +30,7 @@ abstract class BaseSplashActivity : ComponentActivity() {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
                val coinType = repository.getCoinType.filterNotNull().first()
                 val intent = getMainActivityIntent()
-                intent.putExtra(EXTRA_COIN_TYPE, coinType)
+                intent.putExtra(EXTRA_COIN_TYPE, coinType.value)
 
                 startActivity(getMainActivityIntent())
                 finish()

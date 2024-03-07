@@ -137,7 +137,7 @@ fun CoinButton(
                     putString(COIN_SELECTED, name)
                 }
                 analytics?.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, params)
-                dataStore.setCoinType(coin.value)
+                dataStore.setCoinType(coin)
                 TileService.getUpdater(context).requestUpdate(CoinTileService::class.java)
             }
         },
