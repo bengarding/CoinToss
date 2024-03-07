@@ -9,25 +9,42 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.helsinkiwizard.cointoss.ui.viewmodel.HomeScreenContent
 import com.helsinkiwizard.cointoss.ui.viewmodel.HomeViewModel
+import com.helsinkiwizard.cointoss.ui.viewmodel.UiState
 import com.helsinkiwizard.core.coin.CoinAnimation
+import com.helsinkiwizard.core.coin.CoinType
+import com.helsinkiwizard.core.theme.PercentEighty
 
 @Composable
-fun HomeScreen(
+internal fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-        val coinType = viewModel.coinTypeFlow.collectAsState(initial = null).value
-        if (coinType != null) {
-            CoinAnimation(
-                coinType = coinType,
-                modifier = Modifier
-                    .fillMaxWidth(.8f)
-                    .aspectRatio(1f)
-            )
+        when (val state = viewModel.uiState.collectAsState().value) {
+            is UiState.ShowContent -> {
+                when (val type = state.type as HomeScreenContent) {
+                    is HomeScreenContent.LoadingComplete -> {
+                        val coinType = viewModel.coinTypeFlow.collectAsState(initial = type.initialCoinType).value
+                        Content(coinType)
+                    }
+                }
+            }
+
+            else -> {}
         }
     }
+}
+
+@Composable
+private fun Content(coinType: CoinType) {
+    CoinAnimation(
+        coinType = coinType,
+        modifier = Modifier
+            .fillMaxWidth(PercentEighty)
+            .aspectRatio(1f)
+    )
 }

@@ -42,7 +42,7 @@ import com.helsinkiwizard.core.theme.Twelve
 import com.helsinkiwizard.core.utils.AutoSizeText
 
 @Composable
-fun CoinListScreen(
+internal fun CoinListScreen(
     viewModel: CoinListViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current

@@ -69,7 +69,9 @@ class MainActivity : ComponentActivity() {
 
         val currentRoute = repository.getCurrentNavRoute.collectAsState(initial = NavRoute.Home).value
         LaunchedEffect(currentRoute) {
-            navController.navigate(currentRoute.name)
+            if (currentRoute.name != navController.currentDestination?.route) {
+                navController.navigate(currentRoute.name)
+            }
         }
 
         Scaffold(

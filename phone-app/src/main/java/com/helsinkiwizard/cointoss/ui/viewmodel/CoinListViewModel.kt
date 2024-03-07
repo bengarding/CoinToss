@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CoinListViewModel @Inject constructor(
+internal class CoinListViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
