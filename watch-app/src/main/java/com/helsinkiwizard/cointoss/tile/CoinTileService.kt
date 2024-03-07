@@ -75,7 +75,7 @@ class CoinTileService : SuspendingTileService() {
         // Bump the version number to refresh the coin image
         var resourceVersion = getResourceVersion()
         resourceVersion++
-        repo.saveIntPreference(TILE_RESOURCE_VERSION, resourceVersion)
+        repo.setCoinType(TILE_RESOURCE_VERSION, resourceVersion)
 
         return Tile.Builder()
             .setResourcesVersion(resourceVersion.toString())

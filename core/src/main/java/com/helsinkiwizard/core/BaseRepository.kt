@@ -23,7 +23,7 @@ abstract class BaseRepository(private val context: Context) {
             preferences[COIN_TYPE] ?: CoinType.BITCOIN.ordinal
         }
 
-    suspend fun saveIntPreference(key: Preferences.Key<Int>, value: Int) {
+    suspend fun setCoinType(key: Preferences.Key<Int>, value: Int) {
         context.dataStore.edit { preferences ->
             preferences[key] = value
         }
