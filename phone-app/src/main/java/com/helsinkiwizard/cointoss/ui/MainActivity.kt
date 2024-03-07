@@ -3,6 +3,7 @@ package com.helsinkiwizard.cointoss.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -70,6 +71,7 @@ class MainActivity : ComponentActivity() {
     private fun CoinToss() {
         val navController: NavHostController = rememberNavController()
         val drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+        val coroutineScope = rememberCoroutineScope()
 
         val initialCoinType = intent.extras?.getInt(EXTRA_COIN_TYPE) ?: CoinType.BITCOIN.value
         val coinType = CoinType.parse(
@@ -83,13 +85,15 @@ class MainActivity : ComponentActivity() {
 
         Scaffold(
             topBar = {
-                // to run the animation independently
-                val coroutineScope = rememberCoroutineScope()
                 CenterAlignedTopAppBar(
                     title = { Title(currentRoute) },
                     navigationIcon = {
                         IconButton(
-                            onClick = { coroutineScope.launch { drawerState.open() } }
+                            onClick = {
+                                coroutineScope.launch {
+                                    if (drawerState.isClosed) drawerState.open() else drawerState.close()
+                                }
+                            }
                         ) {
                             Icon(
                                 imageVector = Icons.Rounded.Menu,
@@ -113,22 +117,17 @@ class MainActivity : ComponentActivity() {
                     .fillMaxSize(),
                 color = MaterialTheme.colorScheme.surface
             ) {
-                val coroutineScope = rememberCoroutineScope()
-
                 ModalNavigationDrawer(
                     drawerState = drawerState,
                     drawerContent = {
                         DrawerContent(
                             onClick = { selectedRoute ->
                                 coroutineScope.launch {
-                                    if (currentRoute == selectedRoute) {
-                                        drawerState.close()
-                                    } else {
+                                    if (currentRoute != selectedRoute) {
                                         currentRoute = selectedRoute
-                                        drawerState.close()
                                     }
+                                    drawerState.close()
                                 }
-
                             }
                         )
                     }
@@ -155,9 +154,14 @@ class MainActivity : ComponentActivity() {
                 NavRoute.Settings -> R.string.settings
             }
         )
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleLarge,
-        )
+        AnimatedContent(
+            targetState = title,
+            label = "title"
+        ) {
+            Text(
+                text = it,
+                style = MaterialTheme.typography.titleLarge,
+            )
+        }
     }
 }
