@@ -61,7 +61,6 @@ fun DrawerContent(
         Column {
             Text(
                 text = stringResource(id = R.string.app_name),
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(vertical = Sixteen, horizontal = Twenty)
             )
@@ -86,7 +85,6 @@ private fun DrawerItem(item: DrawerModel, onClick: (options: NavRoute) -> Unit) 
         Icon(
             imageVector = item.icon,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.onPrimaryContainer,
             modifier = Modifier
                 .size(Sixty)
                 .padding(horizontal = Sixteen)
@@ -94,7 +92,6 @@ private fun DrawerItem(item: DrawerModel, onClick: (options: NavRoute) -> Unit) 
         Text(
             text = stringResource(id = item.title),
             style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onPrimaryContainer
         )
     }
 }
