@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.MonetizationOn
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -39,7 +39,7 @@ object DrawerParams {
         DrawerModel(
             NavRoute.CoinList,
             R.string.choose_a_coin,
-            Icons.Outlined.AccountCircle
+            Icons.Rounded.MonetizationOn
         ),
         DrawerModel(
             NavRoute.Settings,

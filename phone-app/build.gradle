@@ -66,6 +66,9 @@ dependencies {
     implementation 'androidx.activity:activity-compose:1.8.2'
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
+    implementation("androidx.compose.material:material-icons-core:$material_icons_version")
+    implementation("androidx.compose.material:material-icons-extended:$material_icons_version")
+
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 

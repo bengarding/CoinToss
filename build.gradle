@@ -10,6 +10,7 @@ buildscript {
         hilt_version = '2.50'
         navigation_version = '2.7.7'
         hilt_navigation_version = '1.2.0'
+        material_icons_version = '1.6.3'
     }
 
     repositories {

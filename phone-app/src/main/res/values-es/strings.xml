@@ -1,4 +1,8 @@
 <resources>
     <string name="home">"Página principal"</string>
     <string name="settings">"Ajustes"</string>
+    <string name="theme">"Tema"</string>
+    <string name="theme_light">"Claro"</string>
+    <string name="theme_dark">"Oscuro"</string>
+    <string name="theme_system">"Sistema"</string>
 </resources>
