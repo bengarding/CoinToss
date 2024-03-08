@@ -60,7 +60,7 @@ internal fun SettingsScreen(
         when (val state = viewModel.uiState.collectAsState().value) {
             is UiState.ShowContent -> {
                 when (val type = state.type as SettingsContent) {
-                    is SettingsContent.LoadingComplete -> Content(type.model)
+                    is SettingsContent.LoadingComplete -> Content(type.model, viewModel)
                 }
             }
 
@@ -70,14 +70,20 @@ internal fun SettingsScreen(
 }
 
 @Composable
-private fun Content(model: SettingsModel) {
+private fun Content(
+    model: SettingsModel,
+    viewModel: SettingsViewModel
+) {
     Column(
         verticalArrangement = Arrangement.spacedBy(Twelve),
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = Twenty, horizontal = Twelve)
     ) {
-        ThemeButtons(model.theme)
+        ThemeButtons(
+            wrapper = model.themeMode,
+            onclick = { themeMode -> viewModel.onThemeModeClicked(themeMode) }
+        )
     }
 }
 
@@ -85,24 +91,25 @@ private fun Content(model: SettingsModel) {
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 private fun ThemeButtons(
-    @PreviewParameter(ThemePreviewParameterProvider::class) wrapper: MutableInputWrapper<ThemeMode>
+    @PreviewParameter(ThemePreviewParameterProvider::class) wrapper: MutableInputWrapper<ThemeMode>,
+    onclick: (ThemeMode) -> Unit = {}
 ) {
     Column {
         Title(R.string.theme)
-    Row(
-        horizontalArrangement = Arrangement.SpaceAround,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        ThemeMode.entries.forEach { theme ->
-            PillButton(
-                text = stringResource(id = theme.textRes),
-                iconVector = theme.iconVector,
-                iconRes = theme.iconRes,
-                selected = wrapper.value == theme,
-                onclick = { wrapper.value = theme }
-            )
+        Row(
+            horizontalArrangement = Arrangement.SpaceAround,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            ThemeMode.entries.forEach { themeMode ->
+                PillButton(
+                    text = stringResource(id = themeMode.textRes),
+                    iconVector = themeMode.iconVector,
+                    iconRes = themeMode.iconRes,
+                    selected = wrapper.value == themeMode,
+                    onclick = { onclick(themeMode) }
+                )
+            }
         }
-    }
     }
 }
 

@@ -33,9 +33,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.helsinkiwizard.cointoss.Constants.EXTRA_THEME_MODE
 import com.helsinkiwizard.cointoss.Constants.NAV_TRANSITION_DURATION
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.Repository
+import com.helsinkiwizard.cointoss.data.ThemeMode
 import com.helsinkiwizard.cointoss.navigation.MAIN_ROUTE
 import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.navigation.mainGraph
@@ -53,8 +55,12 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val themeModeName = intent.extras?.getString(EXTRA_THEME_MODE) ?: ThemeMode.SYSTEM.name
+        val initialThemeMode = ThemeMode.valueOf(themeModeName)
+
         setContent {
-            CoinTossTheme {
+            CoinTossTheme(repository, initialThemeMode) {
                 CoinToss()
             }
         }

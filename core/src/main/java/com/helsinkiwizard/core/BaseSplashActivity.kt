@@ -28,7 +28,8 @@ abstract class BaseSplashActivity : ComponentActivity() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.CREATED) {
-               val coinType = repository.getCoinType.filterNotNull().first()
+                executeInCoroutine()
+                val coinType = repository.getCoinType.filterNotNull().first()
                 val intent = getMainActivityIntent()
                 intent.putExtra(EXTRA_COIN_TYPE, coinType.value)
 
@@ -39,5 +40,6 @@ abstract class BaseSplashActivity : ComponentActivity() {
         }
     }
 
+    protected open suspend fun executeInCoroutine() {}
     abstract suspend fun getMainActivityIntent(): Intent
 }

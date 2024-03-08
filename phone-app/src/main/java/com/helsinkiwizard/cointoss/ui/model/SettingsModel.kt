@@ -5,5 +5,5 @@ import com.helsinkiwizard.cointoss.data.ThemeMode
 class SettingsModel(
     themeMode: ThemeMode
 ) {
-    val theme = MutableInputWrapper(themeMode)
+    val themeMode = MutableInputWrapper(themeMode)
 }

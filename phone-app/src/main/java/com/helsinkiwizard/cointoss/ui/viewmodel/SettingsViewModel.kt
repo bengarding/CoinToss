@@ -2,6 +2,7 @@ package com.helsinkiwizard.cointoss.ui.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.helsinkiwizard.cointoss.Repository
+import com.helsinkiwizard.cointoss.data.ThemeMode
 import com.helsinkiwizard.cointoss.ui.model.SettingsModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.filterNotNull
@@ -21,6 +22,13 @@ internal class SettingsViewModel @Inject constructor(
             val theme = repository.getThemeMode.filterNotNull().first()
             model = SettingsModel(theme)
             mutableUiStateFlow.value = UiState.ShowContent(SettingsContent.LoadingComplete(model))
+        }
+    }
+
+    fun onThemeModeClicked(themeMode: ThemeMode) {
+        model.themeMode.value = themeMode
+        viewModelScope.launch {
+            repository.setTheme(themeMode)
         }
     }
 }

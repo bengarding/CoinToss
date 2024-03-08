@@ -27,5 +27,5 @@ class Repository(context: Context) : BaseRepository(context) {
         .map { preferences ->
             ThemeMode.valueOf(preferences[SELECTED_THEME] ?: ThemeMode.SYSTEM.name)
         }
-    suspend fun setTheme(themeMode: ThemeMode) = savePreference(CURRENT_NAV_ROUTE, themeMode.name)
+    suspend fun setTheme(themeMode: ThemeMode) = savePreference(SELECTED_THEME, themeMode.name)
 }
