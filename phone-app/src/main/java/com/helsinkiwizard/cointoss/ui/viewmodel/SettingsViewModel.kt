@@ -19,8 +19,10 @@ internal class SettingsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val theme = repository.getThemeMode.filterNotNull().first()
-            model = SettingsModel(theme)
+            model = SettingsModel(
+                themeMode = repository.getThemeMode.filterNotNull().first(),
+                materialYou = repository.getMaterialYou.filterNotNull().first()
+            )
             mutableUiStateFlow.value = UiState.ShowContent(SettingsContent.LoadingComplete(model))
         }
     }
@@ -29,6 +31,13 @@ internal class SettingsViewModel @Inject constructor(
         model.themeMode.value = themeMode
         viewModelScope.launch {
             repository.setTheme(themeMode)
+        }
+    }
+
+    fun onMaterialYouClicked(checked: Boolean) {
+        model.materialYou.value = checked
+        viewModelScope.launch {
+            repository.setMaterialYou(checked)
         }
     }
 }

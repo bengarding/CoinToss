@@ -25,12 +25,13 @@ import com.helsinkiwizard.cointoss.data.ThemeMode
 fun CoinTossTheme(
     repository: Repository,
     initialThemeMode: ThemeMode,
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    initialMaterialYou: Boolean,
     content: @Composable () -> Unit
 ) {
     val isSystemInDarkTheme = isSystemInDarkTheme()
     val themeMode = repository.getThemeMode.collectAsState(initial = initialThemeMode).value
+    val dynamicColor = repository.getMaterialYou.collectAsState(initial = initialMaterialYou).value
+
     val darkTheme by remember(themeMode) {
         mutableStateOf(
             when (themeMode) {
@@ -44,7 +45,9 @@ fun CoinTossTheme(
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context).flipPrimaryColor() else dynamicLightColorScheme(context)
+            if (darkTheme) dynamicDarkColorScheme(context).flipPrimaryColor() else dynamicLightColorScheme(
+                context
+            )
         }
 
         darkTheme -> darkScheme

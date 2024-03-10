@@ -33,6 +33,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.helsinkiwizard.cointoss.Constants.EXTRA_MATERIAL_YOU
 import com.helsinkiwizard.cointoss.Constants.EXTRA_THEME_MODE
 import com.helsinkiwizard.cointoss.Constants.NAV_TRANSITION_DURATION
 import com.helsinkiwizard.cointoss.R
@@ -57,10 +58,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val themeModeName = intent.extras?.getString(EXTRA_THEME_MODE) ?: ThemeMode.SYSTEM.name
+        val initialMaterialYou = intent.extras?.getBoolean(EXTRA_MATERIAL_YOU) ?: true
         val initialThemeMode = ThemeMode.valueOf(themeModeName)
 
         setContent {
-            CoinTossTheme(repository, initialThemeMode) {
+            CoinTossTheme(repository, initialThemeMode, initialMaterialYou) {
                 CoinToss()
             }
         }

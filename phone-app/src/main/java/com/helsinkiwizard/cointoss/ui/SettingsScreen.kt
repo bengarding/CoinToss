@@ -1,7 +1,6 @@
 package com.helsinkiwizard.cointoss.ui
 
-import android.content.res.Configuration.UI_MODE_NIGHT_NO
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.animation.animateColorAsState
@@ -12,8 +11,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.toggleable
@@ -31,12 +32,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.data.ThemeMode
+import com.helsinkiwizard.cointoss.ui.composable.PrimarySwitch
 import com.helsinkiwizard.cointoss.ui.model.MutableInputWrapper
 import com.helsinkiwizard.cointoss.ui.model.SettingsModel
 import com.helsinkiwizard.cointoss.ui.viewmodel.SettingsContent
@@ -76,39 +75,50 @@ private fun Content(
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(Twelve),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = Twenty, horizontal = Twelve)
+        modifier = Modifier            .fillMaxWidth()
     ) {
         ThemeButtons(
-            wrapper = model.themeMode,
-            onclick = { themeMode -> viewModel.onThemeModeClicked(themeMode) }
+            themeModeWrapper = model.themeMode,
+            materialYouWrapper = model.materialYou,
+            themeModeOnclick = { themeMode -> viewModel.onThemeModeClicked(themeMode) },
+            materialYouOnclick = { checked -> viewModel.onMaterialYouClicked(checked) }
         )
     }
 }
 
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_NO)
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 private fun ThemeButtons(
-    @PreviewParameter(ThemePreviewParameterProvider::class) wrapper: MutableInputWrapper<ThemeMode>,
-    onclick: (ThemeMode) -> Unit = {}
+    themeModeWrapper: MutableInputWrapper<ThemeMode>,
+    materialYouWrapper: MutableInputWrapper<Boolean>,
+    themeModeOnclick: (ThemeMode) -> Unit = {},
+    materialYouOnclick: (Boolean) -> Unit = {}
 ) {
     Column {
         Title(R.string.theme)
         Row(
             horizontalArrangement = Arrangement.SpaceAround,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = Twelve)
         ) {
             ThemeMode.entries.forEach { themeMode ->
                 PillButton(
                     text = stringResource(id = themeMode.textRes),
                     iconVector = themeMode.iconVector,
                     iconRes = themeMode.iconRes,
-                    selected = wrapper.value == themeMode,
-                    onclick = { onclick(themeMode) }
+                    selected = themeModeWrapper.value == themeMode,
+                    onclick = { themeModeOnclick(themeMode) }
                 )
             }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            Spacer(modifier = Modifier.height(Twelve))
+            PrimarySwitch(
+                checked = materialYouWrapper.value,
+                onCheckChanged = materialYouOnclick,
+                label = stringResource(id = R.string.use_device_color_scheme),
+                modifier = Modifier.padding(horizontal = Twenty)
+            )
         }
     }
 }
@@ -117,9 +127,9 @@ private fun ThemeButtons(
 private fun Title(@StringRes textRes: Int) {
     Text(
         text = stringResource(id = textRes),
-        style = MaterialTheme.typography.titleMedium,
+        style = MaterialTheme.typography.titleLarge,
         color = MaterialTheme.colorScheme.onBackground,
-        modifier = Modifier.padding(start = Eight, bottom = Eight)
+        modifier = Modifier.padding(all = Twenty)
     )
 }
 
@@ -160,7 +170,7 @@ private fun PillButton(
             )
             .background(color = backgroundColor, shape = CircleShape)
             .border(width = One, color = textColor, shape = CircleShape)
-            .padding(vertical = Eight, horizontal = Twelve)
+            .padding(vertical = Eight, horizontal = Twenty)
     ) {
         if (iconVector != null) {
             Icon(
@@ -186,10 +196,3 @@ private fun PillButton(
         )
     }
 }
-
-private class ThemePreviewParameterProvider : PreviewParameterProvider<MutableInputWrapper<ThemeMode>> {
-    override val values = sequenceOf(
-        MutableInputWrapper(ThemeMode.SYSTEM)
-    )
-}
-

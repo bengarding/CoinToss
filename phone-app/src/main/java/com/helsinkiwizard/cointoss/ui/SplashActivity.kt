@@ -2,6 +2,7 @@ package com.helsinkiwizard.cointoss.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import com.helsinkiwizard.cointoss.Constants.EXTRA_MATERIAL_YOU
 import com.helsinkiwizard.cointoss.Constants.EXTRA_THEME_MODE
 import com.helsinkiwizard.cointoss.Repository
 import com.helsinkiwizard.cointoss.navigation.NavRoute
@@ -24,9 +25,11 @@ class SplashActivity : BaseSplashActivity() {
     override lateinit var repository: BaseRepository
 
     private lateinit var themeMode: String
+    private var materialYou = true
 
     override suspend fun executeInCoroutine() {
         themeMode = (repository as Repository).getThemeMode.filterNotNull().first().name
+        materialYou = (repository as Repository).getMaterialYou.filterNotNull().first()
         // Reset NavRoute on launch
         (repository as Repository).setCurrentNavRoute(NavRoute.Home)
     }
@@ -34,6 +37,7 @@ class SplashActivity : BaseSplashActivity() {
     override suspend fun getMainActivityIntent(): Intent {
         return Intent(this, MainActivity::class.java).apply {
             putExtra(EXTRA_THEME_MODE, themeMode)
+            putExtra(EXTRA_MATERIAL_YOU, materialYou)
         }
     }
 }
