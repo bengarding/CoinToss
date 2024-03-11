@@ -151,6 +151,7 @@ class MainActivity : ComponentActivity() {
                 NavRoute.Home -> R.string.app_name
                 NavRoute.CoinList -> R.string.choose_a_coin
                 NavRoute.Settings -> R.string.settings
+                NavRoute.About -> R.string.about
             }
         )
         AnimatedContent(

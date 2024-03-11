@@ -1,6 +1,7 @@
 <resources>
     <string name="home">"Дом"</string>
     <string name="settings">"Настройки"</string>
+    <string name="about">"Результат перевода"</string>
     <string name="theme">"Тема"</string>
     <string name="theme_light">"Светлый"</string>
     <string name="theme_dark">"Тёмный"</string>
