@@ -148,7 +148,7 @@ class MainActivity : ComponentActivity() {
     private fun Title(currentRoute: NavRoute) {
         val title = stringResource(
             id = when (currentRoute) {
-                NavRoute.Home -> R.string.empty_string
+                NavRoute.Home -> R.string.app_name
                 NavRoute.CoinList -> R.string.choose_a_coin
                 NavRoute.Settings -> R.string.settings
             }

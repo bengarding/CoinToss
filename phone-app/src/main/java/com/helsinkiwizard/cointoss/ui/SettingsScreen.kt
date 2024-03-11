@@ -43,7 +43,6 @@ import com.helsinkiwizard.cointoss.ui.viewmodel.SettingsViewModel
 import com.helsinkiwizard.cointoss.ui.viewmodel.UiState
 import com.helsinkiwizard.core.theme.Eight
 import com.helsinkiwizard.core.theme.Four
-import com.helsinkiwizard.core.theme.Text14
 import com.helsinkiwizard.core.theme.Twelve
 import com.helsinkiwizard.core.theme.Twenty
 import com.helsinkiwizard.core.theme.TwentyFour
@@ -127,9 +126,9 @@ private fun ThemeButtons(
 private fun Title(@StringRes textRes: Int) {
     Text(
         text = stringResource(id = textRes),
-        style = MaterialTheme.typography.titleLarge,
+        style = MaterialTheme.typography.titleMedium,
         color = MaterialTheme.colorScheme.onBackground,
-        modifier = Modifier.padding(all = Twenty)
+        modifier = Modifier.padding(start = Twenty, top = Twenty, end = Twenty, bottom = Twelve)
     )
 }
 
@@ -199,7 +198,7 @@ private fun PillButton(
         Text(
             text = text,
             color = textColor,
-            fontSize = Text14,
+            style = MaterialTheme.typography.bodySmall,
             modifier = Modifier.padding(start = Four)
         )
     }

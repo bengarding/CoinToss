@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.helsinkiwizard.cointoss.Repository
+import com.helsinkiwizard.cointoss.theme.Mulish
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListViewModel
 import com.helsinkiwizard.core.CoreConstants
 import com.helsinkiwizard.core.coin.CoinType
@@ -94,6 +95,7 @@ private fun Coin(
         )
         AutoSizeText(
             text = stringResource(id = coin.nameRes),
+            fontFamily = Mulish,
             fontWeight = FontWeight.Normal,
             maxFontSize = Text16,
             color = Color.White,
