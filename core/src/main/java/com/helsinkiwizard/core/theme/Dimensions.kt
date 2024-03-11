@@ -9,6 +9,7 @@ val Text16 = 16.sp
 val Text20 = 20.sp
 
 val One = 1.dp
+val Two = 2.dp
 val Four = 4.dp
 val Eight = 8.dp
 val Twelve = 12.dp

@@ -43,11 +43,11 @@ import com.helsinkiwizard.cointoss.ui.viewmodel.SettingsViewModel
 import com.helsinkiwizard.cointoss.ui.viewmodel.UiState
 import com.helsinkiwizard.core.theme.Eight
 import com.helsinkiwizard.core.theme.Four
-import com.helsinkiwizard.core.theme.One
 import com.helsinkiwizard.core.theme.Text14
 import com.helsinkiwizard.core.theme.Twelve
 import com.helsinkiwizard.core.theme.Twenty
 import com.helsinkiwizard.core.theme.TwentyFour
+import com.helsinkiwizard.core.theme.Two
 
 @Composable
 internal fun SettingsScreen(
@@ -143,17 +143,25 @@ private fun PillButton(
 ) {
     val textColor by animateColorAsState(
         targetValue = if (selected) {
-            MaterialTheme.colorScheme.onPrimaryContainer
+            MaterialTheme.colorScheme.onPrimary
         } else {
-            MaterialTheme.colorScheme.onBackground
+            MaterialTheme.colorScheme.onSurfaceVariant
         },
         label = "text color"
     )
     val backgroundColor by animateColorAsState(
         targetValue = if (selected) {
-            MaterialTheme.colorScheme.primaryContainer
+            MaterialTheme.colorScheme.primary
         } else {
-            MaterialTheme.colorScheme.background
+            MaterialTheme.colorScheme.surfaceVariant
+        },
+        label = "background color"
+    )
+    val borderColor by animateColorAsState(
+        targetValue = if (selected) {
+            MaterialTheme.colorScheme.primary
+        } else {
+            MaterialTheme.colorScheme.outline
         },
         label = "background color"
     )
@@ -169,7 +177,7 @@ private fun PillButton(
                 onValueChange = { onclick() }
             )
             .background(color = backgroundColor, shape = CircleShape)
-            .border(width = One, color = textColor, shape = CircleShape)
+            .border(width = Two, color = borderColor, shape = CircleShape)
             .padding(vertical = Eight, horizontal = Twenty)
     ) {
         if (iconVector != null) {
