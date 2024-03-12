@@ -1,9 +1,5 @@
 package com.helsinkiwizard.cointoss.coin
 
-import android.content.Intent
-import android.content.Intent.ACTION_SENDTO
-import android.content.Intent.EXTRA_EMAIL
-import android.net.Uri
 import android.os.Bundle
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -62,15 +58,13 @@ import com.helsinkiwizard.core.theme.Thirty
 import com.helsinkiwizard.core.theme.Twelve
 import com.helsinkiwizard.core.utils.AutoSizeText
 import com.helsinkiwizard.core.utils.buildTextWithLink
+import com.helsinkiwizard.core.utils.getEmailIntent
 import com.helsinkiwizard.core.utils.onLinkClick
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalWearFoundationApi::class)
 @Composable
-fun CoinList(
-    analytics: FirebaseAnalytics?,
-    onEmailClick: (Intent) -> Unit
-) {
+fun CoinList() {
     val listState = rememberScalingLazyListState()
     Scaffold(
         positionIndicator = { PositionIndicator(scalingLazyListState = listState) }
@@ -96,13 +90,10 @@ fun CoinList(
                 .focusable()
         ) {
             item { ListTitle() }
-            items(sortedCoins) { item ->
-                CoinButton(
-                    coin = item,
-                    analytics = analytics
-                )
+            items(sortedCoins) { coin ->
+                CoinButton(coin)
             }
-            item { RequestCoin(onEmailClick) }
+            item { RequestCoin() }
         }
     }
 }
@@ -121,13 +112,11 @@ fun ListTitle() {
 }
 
 @Composable
-fun CoinButton(
-    coin: CoinType,
-    analytics: FirebaseAnalytics? // nullable for preview
-) {
+fun CoinButton(coin: CoinType) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val dataStore = Repository(context)
+    val analytics = FirebaseAnalytics.getInstance(context)
 
     Button(
         onClick = {
@@ -136,7 +125,7 @@ fun CoinButton(
                 val params = Bundle().apply {
                     putString(COIN_SELECTED, name)
                 }
-                analytics?.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, params)
+                analytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, params)
                 dataStore.setCoinType(coin)
                 TileService.getUpdater(context).requestUpdate(CoinTileService::class.java)
             }
@@ -171,7 +160,8 @@ fun CoinButton(
 }
 
 @Composable
-private fun RequestCoin(onEmailClick: (Intent) -> Unit) {
+private fun RequestCoin() {
+    val context = LocalContext.current
     val emailAddress = stringResource(id = R.string.email_address)
     val annotatedString = buildTextWithLink(
         fullText = stringResource(id = R.string.request_coin),
@@ -184,30 +174,23 @@ private fun RequestCoin(onEmailClick: (Intent) -> Unit) {
             annotatedString.onLinkClick(
                 offset = offset,
                 onClick = {
-                    onEmailClick(getEmailIntent(emailAddress))
+                    context.startActivity(getEmailIntent(emailAddress))
                 }
             )
         }
     )
 }
 
-private fun getEmailIntent(email: String): Intent {
-    return Intent(ACTION_SENDTO).apply {
-        data = Uri.parse("mailto:$email")
-        putExtra(EXTRA_EMAIL, arrayOf(email))
-    }
-}
-
 @Preview(name = "large round", device = WearDevices.LARGE_ROUND)
 @Preview(name = "square", device = WearDevices.SQUARE)
 @Composable
 private fun CoinButtonPreview() {
-    CoinButton(coin = BITCOIN, analytics = null)
+    CoinButton(coin = BITCOIN)
 }
 
 @Preview(name = "large round", device = WearDevices.LARGE_ROUND)
 @Preview(name = "square", device = WearDevices.SQUARE)
 @Composable
 private fun CoinListPreview() {
-    CoinList(analytics = null) {}
+    CoinList()
 }

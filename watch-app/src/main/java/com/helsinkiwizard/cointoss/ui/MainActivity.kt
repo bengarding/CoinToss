@@ -85,10 +85,7 @@ class MainActivity : ComponentActivity() {
                         }
                     )
 
-                    1 -> CoinList(
-                        analytics = firebaseAnalytics,
-                        onEmailClick = { intent -> startActivity(intent) }
-                    )
+                    1 -> CoinList()
                 }
             }
         }
