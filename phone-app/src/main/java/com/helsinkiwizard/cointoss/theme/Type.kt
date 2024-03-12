@@ -1,10 +1,14 @@
 package com.helsinkiwizard.cointoss.theme
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.core.theme.Text14
 import com.helsinkiwizard.core.theme.Text16
@@ -41,3 +45,22 @@ val Typography = Typography(
         fontSize = Text20
     )
 )
+
+val BodyMediumSpan: SpanStyle
+    @Composable
+    get() = SpanStyle(
+        fontFamily = Mulish,
+        fontWeight = FontWeight.Normal,
+        fontSize = Text16,
+        color = MaterialTheme.colorScheme.onBackground
+    )
+
+val LinkText: SpanStyle
+    @Composable
+    get() = SpanStyle(
+        fontFamily = Mulish,
+        fontWeight = FontWeight.Normal,
+        fontSize = Text16,
+        color = MaterialTheme.colorScheme.tertiary,
+        textDecoration = TextDecoration.Underline
+    )
