@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.helsinkiwizard.cointoss.BuildConfig
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.theme.BodyMediumSpan
@@ -46,6 +47,7 @@ private val AppIconSize = 120.dp
 
 @Composable
 fun AboutScreen(
+    navController: NavController,
     dateUpdated: LocalDate = getLastUpdatedDate(LocalContext.current)
 ) {
     Surface {
@@ -128,6 +130,9 @@ private fun getLastUpdatedDate(context: Context): LocalDate {
 @Composable
 private fun AboutScreenPreview() {
     CoinTossTheme {
-        AboutScreen(dateUpdated = LocalDate.now())
+        AboutScreen(
+            navController = NavController(LocalContext.current),
+            dateUpdated = LocalDate.now()
+        )
     }
 }

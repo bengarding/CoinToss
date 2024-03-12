@@ -5,7 +5,6 @@ import android.content.Intent
 import com.helsinkiwizard.cointoss.Constants.EXTRA_MATERIAL_YOU
 import com.helsinkiwizard.cointoss.Constants.EXTRA_THEME_MODE
 import com.helsinkiwizard.cointoss.Repository
-import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.core.BaseRepository
 import com.helsinkiwizard.core.BaseSplashActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,8 +29,6 @@ class SplashActivity : BaseSplashActivity() {
     override suspend fun executeInCoroutine() {
         themeMode = (repository as Repository).getThemeMode.filterNotNull().first().name
         materialYou = (repository as Repository).getMaterialYou.filterNotNull().first()
-        // Reset NavRoute on launch
-        (repository as Repository).setCurrentNavRoute(NavRoute.Home)
     }
 
     override suspend fun getMainActivityIntent(): Intent {

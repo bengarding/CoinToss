@@ -25,13 +25,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.helsinkiwizard.cointoss.Constants.EXTRA_MATERIAL_YOU
 import com.helsinkiwizard.cointoss.Constants.EXTRA_THEME_MODE
@@ -75,12 +74,8 @@ class MainActivity : ComponentActivity() {
         val drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         val coroutineScope = rememberCoroutineScope()
 
-        val currentRoute = repository.getCurrentNavRoute.collectAsState(initial = NavRoute.Home).value
-        LaunchedEffect(currentRoute) {
-            if (currentRoute.name != navController.currentDestination?.route) {
-                navController.navigate(currentRoute.name)
-            }
-        }
+        val currentDestination = navController.currentBackStackEntryAsState().value?.destination
+        val currentRoute = NavRoute.valueOf(currentDestination?.route ?: NavRoute.Home.name)
 
         Scaffold(
             topBar = {
@@ -123,7 +118,7 @@ class MainActivity : ComponentActivity() {
                             onClick = { selectedRoute ->
                                 coroutineScope.launch {
                                     if (currentRoute != selectedRoute) {
-                                        repository.setCurrentNavRoute(selectedRoute)
+                                        navController.navigate(selectedRoute.name)
                                     }
                                     drawerState.close()
                                 }
@@ -137,7 +132,7 @@ class MainActivity : ComponentActivity() {
                         enterTransition = { fadeIn(tween(NAV_TRANSITION_DURATION)) },
                         exitTransition = { fadeOut(tween(NAV_TRANSITION_DURATION)) }
                     ) {
-                        mainGraph()
+                        mainGraph(navController)
                     }
                 }
             }

@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,10 +27,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.helsinkiwizard.cointoss.Repository
+import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.theme.Mulish
+import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListContent
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListViewModel
+import com.helsinkiwizard.cointoss.ui.viewmodel.UiState
 import com.helsinkiwizard.core.CoreConstants
 import com.helsinkiwizard.core.coin.CoinType
 import com.helsinkiwizard.core.theme.BlackTransparent
@@ -44,8 +49,23 @@ import com.helsinkiwizard.core.utils.AutoSizeText
 
 @Composable
 internal fun CoinListScreen(
+    navController: NavController,
     viewModel: CoinListViewModel = hiltViewModel()
 ) {
+    when (val state = viewModel.uiState.collectAsState().value) {
+        is UiState.ShowContent -> {
+            when (state.type as CoinListContent) {
+                is CoinListContent.LoadingComplete -> Content(viewModel)
+                is CoinListContent.CoinSet -> navController.navigate(NavRoute.Home.name)
+            }
+        }
+
+        else -> {}
+    }
+}
+
+@Composable
+private fun Content(viewModel: CoinListViewModel) {
     val context = LocalContext.current
     val coinList = remember { CoinType.entries.sortedBy { context.getString(it.nameRes) } }
 
@@ -112,5 +132,5 @@ private fun Coin(
 @Composable
 private fun CoinListPreview() {
     val viewModel = CoinListViewModel(Repository(LocalContext.current))
-    CoinListScreen(viewModel)
+    CoinListScreen(NavController(LocalContext.current), viewModel)
 }
