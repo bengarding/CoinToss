@@ -11,4 +11,5 @@
     <string name="copyright">"Derechos de autor © %d %s"</string>
     <string name="attributions">"Atribuciones"</string>
     <string name="rate_on_google_play">"Califica en Google Play"</string>
+    <string name="install_on_watch">"Instalar en reloj (Wear OS)"</string>
 </resources>

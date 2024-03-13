@@ -1,6 +1,8 @@
 package com.helsinkiwizard.cointoss.ui
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -136,14 +138,19 @@ private fun Buttons(navController: NavController) {
         verticalArrangement = Arrangement.spacedBy(Twelve),
         modifier = Modifier.padding(horizontal = TwentyFour)
     ) {
+        val context = LocalContext.current
+
         PrimaryButton(
             text = stringResource(id = R.string.attributions),
             onClick = { navController.navigate(NavRoute.Attributions.name) }
         )
-
+        PrimaryButton(
+            text = stringResource(id = R.string.install_on_watch),
+            onClick = { openGooglePlay(context) }
+        )
         PrimaryButton(
             text = stringResource(id = R.string.rate_on_google_play),
-            onClick = {}
+            onClick = { openGooglePlay(context) }
         )
     }
 }
@@ -151,6 +158,26 @@ private fun Buttons(navController: NavController) {
 private fun getLastUpdatedDate(context: Context): LocalDate {
     val time = context.packageManager.getPackageInfo(PACKAGE_NAME, 0).lastUpdateTime
     return Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).toLocalDate()
+}
+
+private fun openGooglePlay(context: Context) {
+    try {
+        // Try to use the Google Play Store app to open the rating page
+        context.startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("market://details?id=$PACKAGE_NAME")
+            )
+        )
+    } catch (e: android.content.ActivityNotFoundException) {
+        // Fallback to opening the page in a web browser if the Google Play app is not available
+        context.startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://play.google.com/store/apps/details?id=$PACKAGE_NAME")
+            )
+        )
+    }
 }
 
 @Preview(showBackground = true)
