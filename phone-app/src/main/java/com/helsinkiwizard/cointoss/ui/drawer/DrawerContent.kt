@@ -30,7 +30,7 @@ import com.helsinkiwizard.core.theme.Sixteen
 import com.helsinkiwizard.core.theme.Sixty
 
 object DrawerParams {
-    val drawerButtons = arrayListOf(
+    val drawerButtons = listOf(
         DrawerModel(
             NavRoute.Home,
             R.string.home,
@@ -64,13 +64,6 @@ fun DrawerContent(
         modifier = Modifier.width(IntrinsicSize.Max)
     ) {
         Column {
-//            Text(
-//                text = stringResource(id = R.string.app_name),
-//                style = MaterialTheme.typography.titleLarge,
-//                modifier = Modifier.padding(vertical = Sixteen, horizontal = Twenty)
-//            )
-//            HorizontalDivider(color = MaterialTheme.colorScheme.onPrimaryContainer)
-
             menuItems.forEach { item ->
                 DrawerItem(item, onClick)
             }

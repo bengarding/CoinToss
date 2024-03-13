@@ -9,10 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -28,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.helsinkiwizard.cointoss.BuildConfig
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.theme.BodyMediumSpan
 import com.helsinkiwizard.cointoss.theme.CoinTossTheme
 import com.helsinkiwizard.cointoss.theme.LinkText
@@ -59,9 +58,7 @@ fun AboutScreen(
 ) {
     Surface {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .verticalScroll(rememberScrollState())
+            modifier = Modifier.fillMaxWidth()
         ) {
             AppInfo(dateUpdated)
             Spacer(modifier = Modifier.height(Sixty))
@@ -141,7 +138,7 @@ private fun Buttons(navController: NavController) {
     ) {
         PrimaryButton(
             text = stringResource(id = R.string.attributions),
-            onClick = {}
+            onClick = { navController.navigate(NavRoute.Attributions.name) }
         )
 
         PrimaryButton(

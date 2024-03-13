@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.helsinkiwizard.cointoss.ui.AboutScreen
+import com.helsinkiwizard.cointoss.ui.AttributionsScreen
 import com.helsinkiwizard.cointoss.ui.CoinListScreen
 import com.helsinkiwizard.cointoss.ui.HomeScreen
 import com.helsinkiwizard.cointoss.ui.SettingsScreen
@@ -16,6 +17,7 @@ enum class NavRoute {
     CoinList,
     Settings,
     About,
+    Attributions,
 }
 
 fun NavGraphBuilder.mainGraph(navController: NavController) {
@@ -34,6 +36,9 @@ fun NavGraphBuilder.mainGraph(navController: NavController) {
         }
         composable(NavRoute.About.name) {
             AboutScreen(navController)
+        }
+        composable(NavRoute.Attributions.name) {
+            AttributionsScreen()
         }
     }
 }

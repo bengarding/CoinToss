@@ -20,6 +20,7 @@ val TwentyFour = 24.dp
 val Thirty = 30.dp
 val Forty = 40.dp
 val Sixty = 60.dp
+val Eighty = 80.dp
 
 val ButtonHeight = 48.dp
 
