@@ -2,8 +2,11 @@ package com.helsinkiwizard.cointoss.ui
 
 import android.content.Context
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -29,11 +32,14 @@ import com.helsinkiwizard.cointoss.theme.BodyMediumSpan
 import com.helsinkiwizard.cointoss.theme.CoinTossTheme
 import com.helsinkiwizard.cointoss.theme.LinkText
 import com.helsinkiwizard.cointoss.ui.composable.AppIconPainterResource
+import com.helsinkiwizard.cointoss.ui.composable.PrimaryButton
 import com.helsinkiwizard.core.CoreConstants.PACKAGE_NAME
 import com.helsinkiwizard.core.theme.Forty
 import com.helsinkiwizard.core.theme.Four
+import com.helsinkiwizard.core.theme.Sixty
 import com.helsinkiwizard.core.theme.Thirty
 import com.helsinkiwizard.core.theme.Twelve
+import com.helsinkiwizard.core.theme.TwentyFour
 import com.helsinkiwizard.core.utils.buildTextWithLink
 import com.helsinkiwizard.core.utils.getEmailIntent
 import com.helsinkiwizard.core.utils.onLinkClick
@@ -58,7 +64,9 @@ fun AboutScreen(
                 .verticalScroll(rememberScrollState())
         ) {
             AppInfo(dateUpdated)
+            Spacer(modifier = Modifier.height(Sixty))
             Contact()
+            Buttons(navController)
         }
     }
 }
@@ -123,6 +131,24 @@ private fun Contact() {
             )
         }
     )
+}
+
+@Composable
+private fun Buttons(navController: NavController) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(Twelve),
+        modifier = Modifier.padding(horizontal = TwentyFour)
+    ) {
+        PrimaryButton(
+            text = stringResource(id = R.string.attributions),
+            onClick = {}
+        )
+
+        PrimaryButton(
+            text = stringResource(id = R.string.rate_on_google_play),
+            onClick = {}
+        )
+    }
 }
 
 private fun getLastUpdatedDate(context: Context): LocalDate {

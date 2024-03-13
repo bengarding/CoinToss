@@ -47,7 +47,7 @@ import com.helsinkiwizard.core.R
 import com.helsinkiwizard.core.coin.CoinType
 import com.helsinkiwizard.core.coin.CoinType.BITCOIN
 import com.helsinkiwizard.core.theme.BlackTransparent
-import com.helsinkiwizard.core.theme.ButtonHeight
+import com.helsinkiwizard.core.theme.CoinButtonHeight
 import com.helsinkiwizard.core.theme.Eight
 import com.helsinkiwizard.core.theme.Forty
 import com.helsinkiwizard.core.theme.Four
@@ -132,7 +132,7 @@ fun CoinButton(coin: CoinType) {
         },
         modifier = Modifier
             .fillMaxWidth()
-            .height(ButtonHeight)
+            .height(CoinButtonHeight)
     ) {
         Box {
             Image(

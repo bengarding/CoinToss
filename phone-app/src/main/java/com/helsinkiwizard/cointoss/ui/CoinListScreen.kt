@@ -41,7 +41,7 @@ import com.helsinkiwizard.core.theme.BlackTransparent
 import com.helsinkiwizard.core.theme.Eight
 import com.helsinkiwizard.core.theme.Forty
 import com.helsinkiwizard.core.theme.Four
-import com.helsinkiwizard.core.theme.LargeButtonHeight
+import com.helsinkiwizard.core.theme.LargeCoinButtonHeight
 import com.helsinkiwizard.core.theme.Sixty
 import com.helsinkiwizard.core.theme.Text16
 import com.helsinkiwizard.core.theme.Twelve
@@ -93,7 +93,7 @@ private fun Coin(
     val analytics = FirebaseAnalytics.getInstance(LocalContext.current)
     Box(
         modifier = Modifier
-            .height(LargeButtonHeight)
+            .height(LargeCoinButtonHeight)
             .clickable {
                 onClick()
 

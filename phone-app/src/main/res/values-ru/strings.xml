@@ -9,4 +9,6 @@
     <string name="use_device_color_scheme">"Использовать цветовую схему устройства"</string>
     <string name="contact">"Вопросы? Комментарии? Напишите мне письмо на cointossrequest@gmail.com."</string>
     <string name="copyright">"Авторские права © %d %s"</string>
+    <string name="attributions">"Атрибуции"</string>
+    <string name="rate_on_google_play">"Оцените в Google Play"</string>
 </resources>

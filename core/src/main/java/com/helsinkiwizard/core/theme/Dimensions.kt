@@ -21,7 +21,9 @@ val Thirty = 30.dp
 val Forty = 40.dp
 val Sixty = 60.dp
 
-val ButtonHeight = 60.dp
-val LargeButtonHeight = 80.dp
+val ButtonHeight = 48.dp
+
+val CoinButtonHeight = 60.dp
+val LargeCoinButtonHeight = 80.dp
 
 const val PercentEighty = .8f
