@@ -25,4 +25,6 @@
     <string name="uae">Emiratos Árabes Unidos</string>
     <string name="saudi_arabia">Arabia Saudita</string>
     <string name="jordan">Jordán</string>
+    <string name="mexico">"México"</string>
+    <string name="spain">"España"</string>
 </resources>

@@ -27,6 +27,26 @@ object AttributionParams {
             coin = CoinType.SAUDI_ARABIA,
             name = "agpanich",
             source = UCoin
-        )
+        ),
+        AttributionModel(
+            coin = CoinType.MEXICO,
+            name = "Фанис 67",
+            source = UCoin
+        ),
+        AttributionModel(
+            coin = CoinType.RUSSIA,
+            name = "Sirdare61",
+            source = UCoin
+        ),
+        AttributionModel(
+            coin = CoinType.SPAIN,
+            name = "Фанис 67",
+            source = UCoin
+        ),
+        AttributionModel(
+            coin = CoinType.TURKEY,
+            name = "Рожден в СССР",
+            source = UCoin
+        ),
     )
 }

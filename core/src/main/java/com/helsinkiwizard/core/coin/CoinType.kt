@@ -29,7 +29,9 @@ enum class CoinType(
     UAE(17, R.drawable.uae_heads, R.drawable.uae_tails, R.string.uae),
     SAUDI_ARABIA(18, R.drawable.saudi_arabia_heads, R.drawable.saudi_arabia_tails, R.string.saudi_arabia),
     JORDAN(19, R.drawable.jordan_heads, R.drawable.jordan_tails, R.string.jordan),
-    AUSTRALIA(20, R.drawable.australia_heads, R.drawable.australia_tails, R.string.australia);
+    AUSTRALIA(20, R.drawable.australia_heads, R.drawable.australia_tails, R.string.australia),
+    MEXICO(21, R.drawable.mexico_heads, R.drawable.mexico_tails, R.string.mexico),
+    SPAIN(22, R.drawable.spain_heads, R.drawable.spain_tails, R.string.spain);
 
     companion object {
         fun parse(value: Int): CoinType {
