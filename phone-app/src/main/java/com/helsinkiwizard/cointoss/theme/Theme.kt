@@ -46,9 +46,11 @@ fun CoinTossTheme(
     val colorScheme = when {
         dynamicColor == true && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context).flipPrimaryColor() else dynamicLightColorScheme(
-                context
-            )
+            if (darkTheme) {
+                dynamicDarkColorScheme(context).materialYouDark()
+            } else {
+                dynamicLightColorScheme(context).materialYouLight()
+            }
         }
 
         darkTheme -> darkScheme
@@ -104,7 +106,7 @@ private val lightScheme = lightColorScheme(
     surfaceContainerLow = surfaceContainerLowLight,
     surfaceContainer = surfaceContainerLight,
     surfaceContainerHigh = surfaceContainerHighLight,
-    surfaceContainerHighest = surfaceContainerHighestLight,
+    surfaceContainerHighest = primaryLight, // link color
 )
 
 private val darkScheme = darkColorScheme(
@@ -142,10 +144,50 @@ private val darkScheme = darkColorScheme(
     surfaceContainerLow = surfaceContainerLowDark,
     surfaceContainer = surfaceContainerDark,
     surfaceContainerHigh = surfaceContainerHighDark,
-    surfaceContainerHighest = surfaceContainerHighestDark,
+    surfaceContainerHighest = onPrimaryDark, // link color
 )
 
-private fun ColorScheme.flipPrimaryColor(): ColorScheme {
+private fun ColorScheme.materialYouLight(): ColorScheme {
+    return lightColorScheme(
+        primary = this.primary,
+        onPrimary = this.onPrimary,
+        primaryContainer = this.primaryContainer,
+        onPrimaryContainer = this.onPrimaryContainer,
+        secondary = this.secondary,
+        onSecondary = this.onSecondary,
+        secondaryContainer = this.secondaryContainer,
+        onSecondaryContainer = this.onSecondaryContainer,
+        tertiary = this.tertiary,
+        onTertiary = this.onTertiary,
+        tertiaryContainer = this.tertiaryContainer,
+        onTertiaryContainer = this.onTertiaryContainer,
+        error = this.error,
+        onError = this.onError,
+        errorContainer = this.errorContainer,
+        onErrorContainer = this.onErrorContainer,
+        background = this.background,
+        onBackground = this.onBackground,
+        surface = this.surface,
+        onSurface = this.onSurface,
+        surfaceVariant = this.surfaceVariant,
+        onSurfaceVariant = this.onSurfaceVariant,
+        outline = this.outline,
+        outlineVariant = this.outlineVariant,
+        scrim = this.scrim,
+        inverseSurface = this.inverseSurface,
+        inverseOnSurface = this.inverseOnSurface,
+        inversePrimary = this.inversePrimary,
+        surfaceDim = this.surfaceDim,
+        surfaceBright = this.surfaceBright,
+        surfaceContainerLowest = this.surfaceContainerLowest,
+        surfaceContainerLow = this.surfaceContainerLow,
+        surfaceContainer = this.surfaceContainer,
+        surfaceContainerHigh = this.surfaceContainerHigh,
+        surfaceContainerHighest = this.primary, // link color
+    )
+}
+
+private fun ColorScheme.materialYouDark(): ColorScheme {
     return darkColorScheme(
         primary = this.onPrimary,
         onPrimary = this.primary,
@@ -181,6 +223,6 @@ private fun ColorScheme.flipPrimaryColor(): ColorScheme {
         surfaceContainerLow = this.surfaceContainerLow,
         surfaceContainer = this.surfaceContainer,
         surfaceContainerHigh = this.surfaceContainerHigh,
-        surfaceContainerHighest = this.surfaceContainerHighest,
+        surfaceContainerHighest = this.primary, // link color
     )
 }

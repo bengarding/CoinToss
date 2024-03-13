@@ -6,7 +6,6 @@ import androidx.annotation.StringRes
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,9 +24,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -168,14 +167,13 @@ private fun PillButton(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
+            .clip(shape = CircleShape)
             .toggleable(
                 value = selected,
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null,
                 role = Role.Checkbox,
                 onValueChange = { onclick() }
             )
-            .background(color = backgroundColor, shape = CircleShape)
+            .background(color = backgroundColor)
             .border(width = Two, color = borderColor, shape = CircleShape)
             .padding(vertical = Eight, horizontal = Twenty)
     ) {

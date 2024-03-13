@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -79,6 +80,7 @@ private fun AppInfo(dateUpdated: LocalDate) {
         Text(
             text = stringResource(id = R.string.app_name),
             style = MaterialTheme.typography.titleLarge,
+            textAlign = TextAlign.Center
         )
 
         val dateString = dateUpdated.format(
@@ -86,12 +88,14 @@ private fun AppInfo(dateUpdated: LocalDate) {
         )
         Text(
             text = "${BuildConfig.VERSION_NAME} - $dateString",
-            style = MaterialTheme.typography.bodySmall
+            style = MaterialTheme.typography.bodySmall,
+            textAlign = TextAlign.Center
         )
         val appOwner = stringResource(id = R.string.app_owner)
         Text(
             text = stringResource(id = R.string.copyright, dateUpdated.year, appOwner),
             style = MaterialTheme.typography.bodySmall,
+            textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = Four)
         )
     }

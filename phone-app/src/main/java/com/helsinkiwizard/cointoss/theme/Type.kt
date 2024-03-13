@@ -61,6 +61,6 @@ val LinkText: SpanStyle
         fontFamily = Mulish,
         fontWeight = FontWeight.Normal,
         fontSize = Text16,
-        color = MaterialTheme.colorScheme.tertiary,
+        color = MaterialTheme.colorScheme.surfaceContainerHighest,
         textDecoration = TextDecoration.Underline
     )
