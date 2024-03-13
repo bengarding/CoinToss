@@ -58,15 +58,13 @@ fun AboutScreen(
     navController: NavController,
     dateUpdated: LocalDate = getLastUpdatedDate(LocalContext.current)
 ) {
-    Surface {
-        Column(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            AppInfo(dateUpdated)
-            Spacer(modifier = Modifier.height(Sixty))
-            Contact()
-            Buttons(navController)
-        }
+    Column(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        AppInfo(dateUpdated)
+        Spacer(modifier = Modifier.height(Sixty))
+        Contact()
+        Buttons(navController)
     }
 }
 
@@ -183,10 +181,12 @@ private fun openGooglePlay(context: Context) {
 @Preview(showBackground = true)
 @Composable
 private fun AboutScreenPreview() {
-    CoinTossTheme {
-        AboutScreen(
-            navController = NavController(LocalContext.current),
-            dateUpdated = LocalDate.now()
-        )
+    Surface {
+        CoinTossTheme {
+            AboutScreen(
+                navController = NavController(LocalContext.current),
+                dateUpdated = LocalDate.now()
+            )
+        }
     }
 }

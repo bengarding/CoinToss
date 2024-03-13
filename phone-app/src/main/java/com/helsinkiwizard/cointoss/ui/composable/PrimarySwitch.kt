@@ -37,11 +37,11 @@ fun PrimarySwitch(
 ) {
     val combinedModifier = Modifier
         .fillMaxWidth()
-        .minimumInteractiveComponentSize()
         .toggleable(
             value = checked,
             onValueChange = onCheckChanged
         )
+        .minimumInteractiveComponentSize()
         .semantics(mergeDescendants = true) {}
         // the passed in modifier values should be added to or override the above values
         .then(modifier)

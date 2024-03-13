@@ -15,16 +15,20 @@ internal class HomeViewModel @Inject constructor(
 ) : AbstractViewModel() {
 
     val coinTypeFlow = repository.getCoinType
+    val speedFlow = repository.getSpeed
 
     init {
         viewModelScope.launch {
             val initialCoinType = repository.getCoinType.filterNotNull().first()
-            mutableUiStateFlow.value = UiState.ShowContent(HomeScreenContent.LoadingComplete(initialCoinType))
+            val initialSpeed = repository.getSpeed.filterNotNull().first()
+            mutableUiStateFlow.value = UiState.ShowContent(
+                HomeScreenContent.LoadingComplete(initialCoinType, initialSpeed)
+            )
         }
     }
 }
 
 
 internal sealed interface HomeScreenContent : BaseType {
-    data class LoadingComplete(val initialCoinType: CoinType) : HomeScreenContent
+    data class LoadingComplete(val initialCoinType: CoinType, val initialSpeed: Float) : HomeScreenContent
 }

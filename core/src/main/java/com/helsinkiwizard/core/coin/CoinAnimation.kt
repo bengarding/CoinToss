@@ -29,6 +29,8 @@ private const val THREE_QUARTER_ROTATION = 270f
 private const val FULL_ROTATION = 360
 private const val CAMERA_DISTANCE = 100f
 
+private const val SPEED_TO_MILLIS = 1000f
+
 private var rotationAmount = 1
 private var currentSide = CoinSide.HEADS
 private var nextSide = CoinSide.TAILS
@@ -39,9 +41,10 @@ var flipCount = 0
 fun CoinAnimation(
     coinType: CoinType,
     modifier: Modifier,
+    speed: Float,
     startFlipping: Boolean? = null,
     onStartFlipping: (() -> Unit)? = null,
-    onFlip: (() -> Unit)? = null
+    onFlip: (() -> Unit)? = null,
 ) {
     var flipping by remember { mutableStateOf(startFlipping == true) }
 
@@ -57,7 +60,7 @@ fun CoinAnimation(
     val valueFloat: Float by animateFloatAsState(
         targetValue = if (flipping) 0f else 1f,
         animationSpec = tween(
-            durationMillis = 3000,
+            durationMillis = (speed * SPEED_TO_MILLIS).toInt(),
             easing = LinearOutSlowInEasing
         ),
         label = "flip animation"

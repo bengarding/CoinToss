@@ -41,7 +41,8 @@ fun Coin(
             startFlipping = startFlipping,
             onStartFlipping = onStartFlipping,
             onFlip = { showChevron = false },
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
+            speed = 3f
         )
     }
 }

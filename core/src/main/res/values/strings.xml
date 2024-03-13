@@ -3,8 +3,12 @@
     <string name="choose_a_coin">Choose a coin</string>
     <string name="request_coin">"Don't see a coin you want? Send me an email and I'll do my best to add it.\ncointossrequest@gmail.com"</string>
     <string name="email_address">"cointossrequest@gmail.com"</string>
+    <string name="speed_seconds">"Speed (seconds)"</string>
+
+    <string name="coin">"Coin"</string>
     <string name="heads">heads</string>
     <string name="tails">tails</string>
+
     <string name="bitcoin">Bitcoin</string>
     <string name="canada">Canada</string>
     <string name="china">China</string>

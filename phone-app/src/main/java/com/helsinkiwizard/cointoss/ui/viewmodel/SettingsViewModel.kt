@@ -21,7 +21,8 @@ internal class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             model = SettingsModel(
                 themeMode = repository.getThemeMode.filterNotNull().first(),
-                materialYou = repository.getMaterialYou.filterNotNull().first()
+                materialYou = repository.getMaterialYou.filterNotNull().first(),
+                speed = repository.getSpeed.filterNotNull().first()
             )
             mutableUiStateFlow.value = UiState.ShowContent(SettingsContent.LoadingComplete(model))
         }
@@ -38,6 +39,12 @@ internal class SettingsViewModel @Inject constructor(
         model.materialYou.value = checked
         viewModelScope.launch {
             repository.setMaterialYou(checked)
+        }
+    }
+
+    fun onSpeedValueChangeFinished() {
+        viewModelScope.launch {
+            repository.setSpeed(model.speed.value)
         }
     }
 }

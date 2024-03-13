@@ -29,7 +29,8 @@ internal fun HomeScreen(
                 when (val type = state.type as HomeScreenContent) {
                     is HomeScreenContent.LoadingComplete -> {
                         val coinType = viewModel.coinTypeFlow.collectAsState(initial = type.initialCoinType).value
-                        Content(coinType)
+                        val speed = viewModel.speedFlow.collectAsState(initial = type.initialSpeed).value
+                        Content(coinType, speed)
                     }
                 }
             }
@@ -40,9 +41,13 @@ internal fun HomeScreen(
 }
 
 @Composable
-private fun Content(coinType: CoinType) {
+private fun Content(
+    coinType: CoinType,
+    speed: Float
+) {
     CoinAnimation(
         coinType = coinType,
+        speed = speed,
         modifier = Modifier
             .fillMaxWidth(PercentEighty)
             .aspectRatio(1f)
