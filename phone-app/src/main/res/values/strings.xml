@@ -3,6 +3,7 @@
     <string name="home">"Home"</string>
     <string name="settings">"Settings"</string>
     <string name="about">"About"</string>
+    <string name="create_a_coin">"Create a coin"</string>
     <string name="theme">"Theme"</string>
     <string name="theme_light">"Light"</string>
     <string name="theme_dark">"Dark"</string>
