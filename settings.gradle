@@ -13,4 +13,6 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "CoinToss"
-include ':app'
+include ':watch-app'
+include ':core'
+include ':phone-app'

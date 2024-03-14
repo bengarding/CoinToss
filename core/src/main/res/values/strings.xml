@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Coin Toss</string>
+    <string name="choose_a_coin">Choose a coin</string>
+    <string name="request_coin">"Don't see a coin you want? Send me an email and I'll do my best to add it.\ncointossrequest@gmail.com"</string>
+    <string name="email_address">"cointossrequest@gmail.com"</string>
+    <string name="speed_seconds">"Speed (seconds)"</string>
+
+    <string name="coin">"Coin"</string>
+    <string name="heads">heads</string>
+    <string name="tails">tails</string>
+
+    <string name="bitcoin">Bitcoin</string>
+    <string name="canada">Canada</string>
+    <string name="china">China</string>
+    <string name="euro">Euro</string>
+    <string name="india">India</string>
+    <string name="japan">Japan</string>
+    <string name="kuwait">Kuwait</string>
+    <string name="thailand">Thailand</string>
+    <string name="turkey">"Turkey"</string>
+    <string name="ukraine">Ukraine</string>
+    <string name="united_kingdom">United Kingdom</string>
+    <string name="united_states">United States</string>
+    <string name="uzbekistan">Uzbekistan</string>
+    <string name="diaper_duty">Diaper duty</string>
+    <string name="australia">Australia</string>
+    <string name="sweden">Sweden</string>
+    <string name="russia">Russia</string>
+    <string name="uae">United Arab Emirates</string>
+    <string name="saudi_arabia">Saudi Arabia</string>
+    <string name="jordan">Jordan</string>
+    <string name="mexico">"Mexico"</string>
+    <string name="spain">"Spain"</string>
+</resources>

@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Cara O Cruz</string>
+    <string name="choose_a_coin">Elige una moneda</string>
+    <string name="request_coin">"¿No ves la moneda que quieres? Envíame un correo electrónico y haré todo lo posible para agregarlo.\ncointossrequest@gmail.com"</string>
+    <string name="email_address">"contossrequest@gmail.com"</string>
+    <string name="speed_seconds">"Velocidad (segundos)"</string>
+
+    <string name="coin">"Moneda"</string>
+    <string name="heads">cara</string>
+    <string name="tails">cruz</string>
+
+    <string name="bitcoin">Bitcoin</string>
+    <string name="canada">Canadá</string>
+    <string name="china">China</string>
+    <string name="euro">Euro</string>
+    <string name="india">India</string>
+    <string name="japan">Japón</string>
+    <string name="kuwait">Kuwait</string>
+    <string name="thailand">Tailandia</string>
+    <string name="turkey">"Turquía"</string>
+    <string name="ukraine">Ucrania</string>
+    <string name="united_kingdom">Reino Unido</string>
+    <string name="united_states">Estados Unidos</string>
+    <string name="uzbekistan">"Uzbekistán"</string>
+    <string name="diaper_duty">"Servicio de pañales"</string>
+    <string name="australia">Australia</string>
+    <string name="sweden">Suecia</string>
+    <string name="russia">Rusia</string>
+    <string name="uae">Emiratos Árabes Unidos</string>
+    <string name="saudi_arabia">Arabia Saudita</string>
+    <string name="jordan">Jordán</string>
+    <string name="mexico">"México"</string>
+    <string name="spain">"España"</string>
+</resources>
