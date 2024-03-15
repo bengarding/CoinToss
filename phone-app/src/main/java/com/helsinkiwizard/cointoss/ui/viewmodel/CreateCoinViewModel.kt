@@ -3,6 +3,7 @@ package com.helsinkiwizard.cointoss.ui.viewmodel
 import android.net.Uri
 import com.helsinkiwizard.cointoss.Repository
 import com.helsinkiwizard.cointoss.ui.model.CreateCoinModel
+import com.helsinkiwizard.core.coin.CoinSide
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -20,6 +21,10 @@ class CreateCoinViewModel @Inject constructor(
     fun setHeadsUri(uri: Uri) {
         model.headsUri = uri
     }
+
+    fun onCoinSideClicked(coinSide: CoinSide) {
+        mutableDialogStateFlow.value = DialogState.ShowContent(CreateCoinDialogs.MediaPicker(coinSide))
+    }
 }
 
 sealed interface CreateCoinContent: BaseType {
@@ -27,5 +32,5 @@ sealed interface CreateCoinContent: BaseType {
 }
 
 sealed interface CreateCoinDialogs: BaseDialogType {
-    data object MediaPicker : CreateCoinDialogs
+    data class MediaPicker(val coinSide: CoinSide) : CreateCoinDialogs
 }
