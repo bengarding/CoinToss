@@ -105,7 +105,7 @@ private val lightScheme = lightColorScheme(
     surfaceContainerLowest = surfaceContainerLowestLight,
     surfaceContainerLow = surfaceContainerLowLight,
     surfaceContainer = surfaceContainerLight,
-    surfaceContainerHigh = surfaceContainerHighLight,
+    surfaceContainerHigh = onPrimaryLight,
     surfaceContainerHighest = primaryLight, // link color
 )
 
@@ -143,7 +143,7 @@ private val darkScheme = darkColorScheme(
     surfaceContainerLowest = surfaceContainerLowestDark,
     surfaceContainerLow = surfaceContainerLowDark,
     surfaceContainer = surfaceContainerDark,
-    surfaceContainerHigh = surfaceContainerHighDark,
+    surfaceContainerHigh = primaryDark,
     surfaceContainerHighest = onPrimaryDark, // link color
 )
 
@@ -182,7 +182,7 @@ private fun ColorScheme.materialYouLight(): ColorScheme {
         surfaceContainerLowest = this.surfaceContainerLowest,
         surfaceContainerLow = this.surfaceContainerLow,
         surfaceContainer = this.surfaceContainer,
-        surfaceContainerHigh = this.surfaceContainerHigh,
+        surfaceContainerHigh = this.onPrimary,
         surfaceContainerHighest = this.primary, // link color
     )
 }
@@ -222,7 +222,7 @@ private fun ColorScheme.materialYouDark(): ColorScheme {
         surfaceContainerLowest = this.surfaceContainerLowest,
         surfaceContainerLow = this.surfaceContainerLow,
         surfaceContainer = this.surfaceContainer,
-        surfaceContainerHigh = this.surfaceContainerHigh,
+        surfaceContainerHigh = this.onPrimary,
         surfaceContainerHighest = this.primary, // link color
     )
 }

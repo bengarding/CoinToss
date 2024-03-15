@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +24,13 @@ import com.helsinkiwizard.core.theme.Eight
 
 private const val NO_STEPS = 0
 private const val DEFAULT_DECIMAL_PLACES = 1
+
+@Composable
+fun primarySliderColors() = SliderDefaults.colors(
+    thumbColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+    activeTrackColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+    activeTickColor = MaterialTheme.colorScheme.surfaceContainerHigh
+)
 
 @Composable
 fun PrimarySlider(
@@ -58,6 +66,7 @@ fun PrimarySlider(
             onValueChangeFinished = onValueChangeFinished,
             valueRange = minRange..maxRange,
             steps = steps,
+            colors = primarySliderColors()
         )
     }
 }
