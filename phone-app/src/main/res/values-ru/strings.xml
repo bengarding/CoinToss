@@ -1,8 +1,13 @@
 <resources>
+    <string name="back">"Назад"</string>
+    <string name="confirm">"Подтверждать"</string>
+    <string name="menu">"Меню"</string>
+    <string name="crop_image">"Обрезать изображение"</string>
     <string name="home">"Дом"</string>
     <string name="settings">"Настройки"</string>
     <string name="about">"Результат перевода"</string>
     <string name="create_a_coin">"Создать монету"</string>
+    <string name="image_cropper">"Обрезка изображения"</string>
     <string name="theme">"Тема"</string>
     <string name="theme_light">"Светлый"</string>
     <string name="theme_dark">"Тёмный"</string>

@@ -1,8 +1,13 @@
 <resources>
+    <string name="back">"Atrás"</string>
+    <string name="confirm">"Confirmar"</string>
+    <string name="menu">"Menú"</string>
+    <string name="crop_image">"Delimitar imagen"</string>
     <string name="home">"Página principal"</string>
     <string name="settings">"Ajustes"</string>
     <string name="about">"Acerca"</string>
     <string name="create_a_coin">"Crear una moneda"</string>
+    <string name="image_cropper">"Recortador de imágenes"</string>
     <string name="theme">"Tema"</string>
     <string name="theme_light">"Claro"</string>
     <string name="theme_dark">"Oscuro"</string>

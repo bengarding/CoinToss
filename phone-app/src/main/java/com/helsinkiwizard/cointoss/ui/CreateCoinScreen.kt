@@ -1,10 +1,16 @@
 package com.helsinkiwizard.cointoss.ui
 
-import androidx.compose.foundation.Image
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,12 +18,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AddCircleOutline
+import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,13 +35,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
+import com.helsinkiwizard.cointoss.Constants.MIME_TYPE_IMAGE
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.Repository
 import com.helsinkiwizard.cointoss.theme.CoinTossTheme
+import com.helsinkiwizard.cointoss.ui.ImageCropActivity.Companion.EXTRA_URI
+import com.helsinkiwizard.cointoss.ui.model.CreateCoinModel
+import com.helsinkiwizard.cointoss.ui.viewmodel.CreateCoinContent
+import com.helsinkiwizard.cointoss.ui.viewmodel.CreateCoinDialogs
 import com.helsinkiwizard.cointoss.ui.viewmodel.CreateCoinViewModel
+import com.helsinkiwizard.cointoss.ui.viewmodel.DialogState
+import com.helsinkiwizard.cointoss.ui.viewmodel.UiState
+import com.helsinkiwizard.cointoss.utils.parcelable
 import com.helsinkiwizard.core.theme.Forty
-import com.helsinkiwizard.core.theme.PercentEighty
 import com.helsinkiwizard.core.theme.Twelve
+import com.helsinkiwizard.core.theme.TwentyFour
 import com.helsinkiwizard.core.theme.Two
 import com.helsinkiwizard.core.utils.sentenceCase
 
@@ -41,48 +59,123 @@ fun CreateCoinScreen(
     navController: NavController,
     viewModel: CreateCoinViewModel = hiltViewModel()
 ) {
-    Column(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Text(
-            text = stringResource(id = R.string.heads).sentenceCase(),
-            style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(start = Twelve, top = Twelve, end = Twelve, bottom = Twelve)
-        )
-        AddCoin(modifier = Modifier.align(Alignment.CenterHorizontally))
+    CreateCoinContent(viewModel)
+    CreateCoinDialogs(viewModel)
+}
+
+@Composable
+private fun CreateCoinContent(viewModel: CreateCoinViewModel) {
+    when (val state = viewModel.uiState.collectAsState().value) {
+        is UiState.ShowContent -> {
+            when (val type = state.type as CreateCoinContent) {
+                is CreateCoinContent.LoadingComplete -> Content(type.model, viewModel)
+            }
+        }
+
+        else -> {}
     }
 }
 
 @Composable
-private fun AddCoin(
-    modifier: Modifier
-) {
-    val image = null
-    Box(
-        modifier = modifier
-            .fillMaxWidth(PercentEighty)
-            .aspectRatio(1f)
-            .border(width = Two, color = MaterialTheme.colorScheme.primary, shape = CircleShape)
-            .clip(CircleShape)
-            .clickable {
-
+private fun CreateCoinDialogs(viewModel: CreateCoinViewModel) {
+    when (val state = viewModel.dialogState.collectAsState().value) {
+        is DialogState.ShowContent -> {
+            when (val type = state.type as CreateCoinDialogs) {
+                is CreateCoinDialogs.MediaPicker -> {}
             }
+        }
+
+        else -> {}
+    }
+}
+
+@Composable
+private fun Content(
+    model: CreateCoinModel,
+    viewModel: CreateCoinViewModel,
+) {
+    val context = LocalContext.current
+    val imageCropLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult(),
+        onResult = {
+            val uri = it.data?.extras?.parcelable<Uri>(EXTRA_URI)
+            if (uri != null) {
+                viewModel.setHeadsUri(uri)
+            }
+        }
+    )
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(TwentyFour),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = TwentyFour)
+
     ) {
-        if (image != null) {
-            Image(
-                bitmap = image!!,
-                contentDescription = null
-            )
-        } else {
-            Icon(
-                imageVector = Icons.Outlined.AddCircleOutline,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .size(Forty)
-                    .fillMaxSize()
-            )
+        CoinSide(
+            textRes = R.string.heads,
+            headsUri = model.headsUri,
+            onImageSelected = { uri -> imageCropLauncher.launch(ImageCropActivity.createIntent(context, uri)) }
+        )
+        CoinSide(
+            textRes = R.string.tails,
+            headsUri = model.tailsUri,
+            onImageSelected = { uri -> imageCropLauncher.launch(ImageCropActivity.createIntent(context, uri)) }
+        )
+    }
+}
+
+@Composable
+private fun RowScope.CoinSide(
+    textRes: Int,
+    headsUri: Uri?,
+    onImageSelected: (Uri) -> Unit
+) {
+    val galleryLauncher = rememberLauncherForActivityResult(
+        onResult = { uri ->
+            uri?.let {
+                onImageSelected(it)
+            }
+        },
+        contract = ActivityResultContracts.GetContent()
+    )
+
+    Column(
+        modifier = Modifier.weight(1f),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = stringResource(id = textRes).sentenceCase(),
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(start = Twelve, top = Twelve, end = Twelve, bottom = Twelve)
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f)
+                .border(width = Two, color = MaterialTheme.colorScheme.primary, shape = CircleShape)
+                .clip(CircleShape)
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = rememberRipple(color = MaterialTheme.colorScheme.primary)
+                ) { galleryLauncher.launch(MIME_TYPE_IMAGE) }
+        ) {
+            if (headsUri != null) {
+                AsyncImage(
+                    model = headsUri,
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize()
+                )
+            } else {
+                Icon(
+                    imageVector = Icons.Outlined.Add,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(Forty)
+                        .fillMaxSize()
+                )
+            }
         }
     }
 }
@@ -90,12 +183,12 @@ private fun AddCoin(
 @Preview(showBackground = true)
 @Composable
 private fun CreateCoinScreenPreview() {
-    val navController = NavController(LocalContext.current)
+    val model = CreateCoinModel()
     val repository = Repository(LocalContext.current)
     val viewModel = CreateCoinViewModel(repository)
     CoinTossTheme {
         Surface {
-            CreateCoinScreen(navController, viewModel)
+            Content(model, viewModel)
         }
     }
 }

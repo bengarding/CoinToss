@@ -91,7 +91,7 @@ class MainActivity : ComponentActivity() {
                         ) {
                             Icon(
                                 imageVector = Icons.Rounded.Menu,
-                                contentDescription = "MenuButton"
+                                contentDescription = stringResource(id = R.string.menu)
                             )
                         }
                     },
