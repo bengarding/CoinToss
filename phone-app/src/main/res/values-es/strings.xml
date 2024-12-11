@@ -4,8 +4,6 @@
     <string name="more">Más</string>
     <string name="crop_image">Delimitar imagen</string>
     <string name="coin_toss">Cara o cruz</string>
-    <string name="settings">Ajustes</string>
-    <string name="about">Acerca</string>
     <string name="remove_ads">Quitar anuncios</string>
     <string name="remove_all_ads_forever">Eliminar todos los anuncios para siempre</string>
     <string name="image_cropper">Recortador de imágenes</string>

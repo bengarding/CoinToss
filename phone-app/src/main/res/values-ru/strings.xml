@@ -48,4 +48,5 @@
     <string name="purchase_success">Реклама удалена!</string>
     <string name="privacy">Конфиденциальность</string>
     <string name="update_privacy_consent">Обновить согласие на конфиденциальность</string>
+    <string name="coin_toss">Подбрасывание монеты</string>
 </resources>
