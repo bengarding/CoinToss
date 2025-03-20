@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="receiving_custom_coin">कस्टम सिक्का प्राप्त करना</string>
+    <string name="create_coin_on_phone">फोन पर सिक्का बनाएं</string>
+    <string name="download_mobile_app">सिक्का टॉस मोबाइल ऐप डाउनलोड करें</string>
+    <string name="download_mobile_app_message">कस्टम सिक्के बनाएं और उन्हें सिक्का टॉस मोबाइल ऐप से अपनी घड़ी पर भेजें</string>
+</resources>
