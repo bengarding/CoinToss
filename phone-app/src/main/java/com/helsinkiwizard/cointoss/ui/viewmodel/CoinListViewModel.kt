@@ -21,6 +21,7 @@ internal class CoinListViewModel @Inject constructor(
 ) : AbstractViewModel() {
 
     private val customCoin = repository.getSelectedCustomCoin()
+    val adsRemoved = repository.getAdsRemoved
 
     init {
         mutableUiStateFlow.value = UiState.ShowContent(CoinListContent.LoadingComplete(customCoin))

@@ -88,8 +88,8 @@ private fun Content(
         }
         if (adsRemoved.not()) {
             BannerAd(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                adId = MAIN_BANNER_AD_ID
+                adId = MAIN_BANNER_AD_ID,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
             )
         }
     }

@@ -197,8 +197,8 @@ object AdManager {
 
     @Composable
     fun BannerAd(
-        modifier: Modifier,
-        adId: String
+        adId: String,
+        modifier: Modifier = Modifier
     ) {
         AndroidView(
             modifier = modifier
