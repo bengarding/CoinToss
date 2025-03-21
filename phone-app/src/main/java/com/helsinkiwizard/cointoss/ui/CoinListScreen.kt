@@ -57,7 +57,7 @@ import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListContent
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListDialogs
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListViewModel
 import com.helsinkiwizard.cointoss.utils.AdManager
-import com.helsinkiwizard.cointoss.utils.ShowInterstitialAd
+import com.helsinkiwizard.cointoss.utils.AdManager.ShowInterstitialAd
 import com.helsinkiwizard.cointoss.utils.launchInAppReview
 import com.helsinkiwizard.core.CoreConstants
 import com.helsinkiwizard.core.coin.CoinType
@@ -119,11 +119,8 @@ private fun CoinListDialogs(
                 is CoinListDialogs.InAppReview -> activity.launchInAppReview(onComplete = type.onComplete)
                 is CoinListDialogs.ShowInterstitialAd -> {
                     ShowInterstitialAd(
-                        interstitialAd = AdManager.interstitialAds[COIN_LIST_INTERSTITIAL_AD_ID]?.ad,
-                        onAdDismissed = {
-                            type.onComplete()
-                            AdManager.interstitialAds[COIN_LIST_INTERSTITIAL_AD_ID] = null
-                        }
+                        adId = COIN_LIST_INTERSTITIAL_AD_ID,
+                        onAdDismissed = { type.onComplete() }
                     )
                 }
             }

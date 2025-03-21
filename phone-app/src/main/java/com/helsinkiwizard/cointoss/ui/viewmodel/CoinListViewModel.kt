@@ -33,7 +33,7 @@ internal class CoinListViewModel @Inject constructor(
             repository.setCoinType(coinType)
 
             when {
-                repository.showInterstitialAd() -> {
+                repository.showCoinListInterstitialAd() -> {
                     mutableDialogStateFlow.value = DialogState.ShowContent(
                         CoinListDialogs.ShowInterstitialAd(
                             onComplete = { mutableUiStateFlow.value = UiState.ShowContent(CoinListContent.CoinSet) }

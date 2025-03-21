@@ -19,7 +19,7 @@ import com.helsinkiwizard.cointoss.Constants.MAIN_BANNER_AD_ID
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.ui.viewmodel.HomeScreenContent
 import com.helsinkiwizard.cointoss.ui.viewmodel.HomeViewModel
-import com.helsinkiwizard.cointoss.utils.BannerAd
+import com.helsinkiwizard.cointoss.utils.AdManager.BannerAd
 import com.helsinkiwizard.core.coin.CoinAnimation
 import com.helsinkiwizard.core.coin.CoinType
 import com.helsinkiwizard.core.theme.PercentEighty

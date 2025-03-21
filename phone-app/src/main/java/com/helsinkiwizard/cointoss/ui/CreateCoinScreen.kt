@@ -23,6 +23,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -40,6 +41,7 @@ import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import coil.size.Size
 import com.google.android.gms.wearable.Wearable
+import com.helsinkiwizard.cointoss.Constants.CUSTOM_COIN_INTERSTITIAL_AD_ID
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.data.Repository
 import com.helsinkiwizard.cointoss.ui.composable.ErrorScreen
@@ -53,6 +55,8 @@ import com.helsinkiwizard.cointoss.ui.viewmodel.CreateCoinContent
 import com.helsinkiwizard.cointoss.ui.viewmodel.CreateCoinDialogs
 import com.helsinkiwizard.cointoss.ui.viewmodel.CreateCoinError
 import com.helsinkiwizard.cointoss.ui.viewmodel.CreateCoinViewModel
+import com.helsinkiwizard.cointoss.utils.AdManager
+import com.helsinkiwizard.cointoss.utils.AdManager.ShowInterstitialAd
 import com.helsinkiwizard.cointoss.utils.launchInAppReview
 import com.helsinkiwizard.core.coin.CoinSide
 import com.helsinkiwizard.core.theme.Eight
@@ -78,6 +82,11 @@ private const val INDEX_SELECTED_COIN = 1
 fun CreateCoinScreen(
     viewModel: CreateCoinViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        AdManager.loadInterstitialAds(context)
+    }
+
     CreateCoinContent(viewModel)
     CreateCoinDialogs(viewModel)
 }
@@ -196,6 +205,10 @@ private fun CreateCoinDialogs(viewModel: CreateCoinViewModel) {
                             )
                         }
                     )
+                }
+
+                is CreateCoinDialogs.ShowInterstitialAd -> {
+                    ShowInterstitialAd(CUSTOM_COIN_INTERSTITIAL_AD_ID)
                 }
             }
         }

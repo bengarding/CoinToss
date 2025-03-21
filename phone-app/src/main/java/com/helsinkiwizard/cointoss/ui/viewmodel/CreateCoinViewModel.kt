@@ -92,7 +92,11 @@ class CreateCoinViewModel @Inject constructor(
                     repository.storeCustomCoin(headsUri, tailsUri, model.name.value)
                 }
                 clear()
-                mutableDialogStateFlow.value = DialogState.ShowContent(CreateCoinDialogs.SaveSuccess)
+                if (repository.showCustomCoinInterstitialAd()) {
+                    mutableDialogStateFlow.value = DialogState.ShowContent(CreateCoinDialogs.ShowInterstitialAd)
+                } else {
+                    mutableDialogStateFlow.value = DialogState.ShowContent(CreateCoinDialogs.SaveSuccess)
+                }
             } else {
                 mutableDialogStateFlow.value = DialogState.ShowContent(CreateCoinDialogs.SaveError)
             }
@@ -151,6 +155,9 @@ class CreateCoinViewModel @Inject constructor(
     fun setSelectedCoin(coin: CustomCoinUiModel) {
         viewModelScope.launch {
             repository.selectCustomCoin(coin.id)
+            if (repository.showCustomCoinInterstitialAd()) {
+                mutableDialogStateFlow.value = DialogState.ShowContent(CreateCoinDialogs.ShowInterstitialAd)
+            }
         }
     }
 
@@ -242,6 +249,8 @@ sealed interface CreateCoinDialogs : BaseDialogType {
         val channelClient: ChannelClient,
         val uriToBitmap: (Uri) -> Bitmap?
     ) : CreateCoinDialogs
+
+    data object ShowInterstitialAd : CreateCoinDialogs
 }
 
 sealed interface CreateCoinError : BaseErrorType {

@@ -171,41 +171,48 @@ object AdManager {
             (hasAttribute(purposeLI, p) && hasVendorLI) || (hasAttribute(purposeConsent, p) && hasVendorConsent)
         }
     }
-}
 
-@Composable
-fun ShowInterstitialAd(
-    interstitialAd: InterstitialAd?,
-    onAdDismissed: () -> Unit
-) {
-    val activity = LocalActivity.current
-    interstitialAd?.let { ad ->
-        ad.fullScreenContentCallback = object : FullScreenContentCallback() {
-            override fun onAdDismissedFullScreenContent() {
-                onAdDismissed()
-            }
-        }
-        ad.show(activity)
-    } ?: onAdDismissed()
-}
+    @Composable
+    fun ShowInterstitialAd(
+        adId: String,
+        onAdDismissed: (() -> Unit)? = null
+    ) {
+        val activity = LocalActivity.current
+        val interstitialAd = interstitialAds[adId]?.ad
 
-@Composable
-fun BannerAd(
-    modifier: Modifier,
-    adId: String
-) {
-    AndroidView(
-        modifier = modifier
-            .fillMaxWidth()
-            .animateContentSize(),
-        factory = { context ->
-            AdView(context).apply {
-                val displayMetrics = context.resources.displayMetrics
-                val screenWidth = (displayMetrics.widthPixels / displayMetrics.density).toInt()
-                setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context, screenWidth))
-                adUnitId = if (BuildConfig.DEBUG) DEBUG_BANNER_AD_ID else adId
-                loadAd(AdManager.getAdRequest(context))
-            }
+        val onDismiss = {
+            interstitialAds[adId] = null
+            onAdDismissed?.invoke()
         }
-    )
+
+        interstitialAd?.let { ad ->
+            ad.fullScreenContentCallback = object : FullScreenContentCallback() {
+                override fun onAdDismissedFullScreenContent() {
+                    onDismiss()
+                }
+            }
+            ad.show(activity)
+        } ?: onDismiss()
+    }
+
+    @Composable
+    fun BannerAd(
+        modifier: Modifier,
+        adId: String
+    ) {
+        AndroidView(
+            modifier = modifier
+                .fillMaxWidth()
+                .animateContentSize(),
+            factory = { context ->
+                AdView(context).apply {
+                    val displayMetrics = context.resources.displayMetrics
+                    val screenWidth = (displayMetrics.widthPixels / displayMetrics.density).toInt()
+                    setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context, screenWidth))
+                    adUnitId = if (BuildConfig.DEBUG) DEBUG_BANNER_AD_ID else adId
+                    loadAd(AdManager.getAdRequest(context))
+                }
+            }
+        )
+    }
 }

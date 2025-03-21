@@ -28,10 +28,11 @@ class Repository @Inject constructor(
         private val SHOW_SEND_TO_WATCH_BUTTON = booleanPreferencesKey("show_send_to_watch")
         private val PLAY_SOUND_EFFECT = booleanPreferencesKey("play_sound_effect")
         private val ADS_REMOVED = booleanPreferencesKey("ads_removed")
-        val SELECTED_COUNT = intPreferencesKey("coin_selected_count")
+        private val SELECTED_COUNT = intPreferencesKey("coin_selected_count")
+        private val CUSTOM_COUNT = intPreferencesKey("custom_count")
 
-        private const val DEFAULT_SELECTED_COUNT = 1
-        private const val SELECTED_COUNT_MODULO = 5
+        private const val DEFAULT_COUNT = 1
+        private const val MAX_COUNT = 5
     }
 
     suspend fun setTheme(themeMode: ThemeMode) = savePreference(THEME_MODE, themeMode.name)
@@ -105,23 +106,37 @@ class Repository @Inject constructor(
         } ?: flowOf()
     }
 
-    suspend fun showInterstitialAd(): Boolean {
+    suspend fun showCoinListInterstitialAd(): Boolean {
         if (getAdsRemoved.first()) return false
 
         val count = getSelectedCount()
         incrementSelectedCount()
 
-        return if (count % SELECTED_COUNT_MODULO == 0) {
-            resetSelectedCount()
-            true
-        } else {
-            false
-        }
+        val shouldShow = count % MAX_COUNT == 0
+        if (shouldShow) resetSelectedCount()
+        return shouldShow
+    }
+
+    suspend fun showCustomCoinInterstitialAd(): Boolean {
+        if (getAdsRemoved.first()) return false
+
+        val count = getCustomCount()
+        incrementCustomCount()
+
+        val shouldShow = count % MAX_COUNT == 0
+        if (shouldShow) resetCustomCount()
+        return shouldShow
     }
 
     private suspend fun incrementSelectedCount() = savePreference(SELECTED_COUNT, getSelectedCount().inc())
-    private suspend fun resetSelectedCount() = savePreference(SELECTED_COUNT, DEFAULT_SELECTED_COUNT)
+    private suspend fun resetSelectedCount() = savePreference(SELECTED_COUNT, DEFAULT_COUNT)
     private suspend fun getSelectedCount(): Int = context.dataStore.data
-        .map { preferences -> preferences[SELECTED_COUNT] ?: DEFAULT_SELECTED_COUNT }
+        .map { preferences -> preferences[SELECTED_COUNT] ?: DEFAULT_COUNT }
+        .first()
+
+    private suspend fun incrementCustomCount() = savePreference(CUSTOM_COUNT, getCustomCount().inc())
+    private suspend fun resetCustomCount() = savePreference(CUSTOM_COUNT, DEFAULT_COUNT)
+    private suspend fun getCustomCount(): Int = context.dataStore.data
+        .map { preferences -> preferences[CUSTOM_COUNT] ?: DEFAULT_COUNT }
         .first()
 }
