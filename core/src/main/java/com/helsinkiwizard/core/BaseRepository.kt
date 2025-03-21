@@ -33,7 +33,6 @@ abstract class BaseRepository(private val context: Context) {
             preferences[SPEED] ?: SPEED_DEFAULT
         }
 
-
     protected suspend fun <T> savePreference(key: Preferences.Key<T>, value: T) {
         context.dataStore.edit { preferences ->
             preferences[key] = value

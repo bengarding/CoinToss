@@ -3,12 +3,14 @@ package com.helsinkiwizard.cointoss.data
 import android.content.Context
 import android.net.Uri
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.helsinkiwizard.cointoss.data.room.CoinTossDatabase
 import com.helsinkiwizard.cointoss.data.room.CustomCoin
 import com.helsinkiwizard.core.BaseRepository
 import com.helsinkiwizard.core.ui.model.CustomCoinUiModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -16,7 +18,7 @@ import javax.inject.Singleton
 
 @Singleton
 class Repository @Inject constructor(
-    context: Context,
+    private val context: Context,
     private val database: CoinTossDatabase? = null
 ) : BaseRepository(context) {
 
@@ -26,6 +28,10 @@ class Repository @Inject constructor(
         private val SHOW_SEND_TO_WATCH_BUTTON = booleanPreferencesKey("show_send_to_watch")
         private val PLAY_SOUND_EFFECT = booleanPreferencesKey("play_sound_effect")
         private val ADS_REMOVED = booleanPreferencesKey("ads_removed")
+        val SELECTED_COUNT = intPreferencesKey("coin_selected_count")
+
+        private const val DEFAULT_SELECTED_COUNT = 1
+        private const val SELECTED_COUNT_MODULO = 5
     }
 
     suspend fun setTheme(themeMode: ThemeMode) = savePreference(THEME_MODE, themeMode.name)
@@ -98,4 +104,24 @@ class Repository @Inject constructor(
             list.map { it.toUiModel() }
         } ?: flowOf()
     }
+
+    suspend fun showInterstitialAd(): Boolean {
+        if (getAdsRemoved.first()) return false
+
+        val count = getSelectedCount()
+        incrementSelectedCount()
+
+        return if (count % SELECTED_COUNT_MODULO == 0) {
+            resetSelectedCount()
+            true
+        } else {
+            false
+        }
+    }
+
+    private suspend fun incrementSelectedCount() = savePreference(SELECTED_COUNT, getSelectedCount().inc())
+    private suspend fun resetSelectedCount() = savePreference(SELECTED_COUNT, DEFAULT_SELECTED_COUNT)
+    private suspend fun getSelectedCount(): Int = context.dataStore.data
+        .map { preferences -> preferences[SELECTED_COUNT] ?: DEFAULT_SELECTED_COUNT }
+        .first()
 }
