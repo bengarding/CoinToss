@@ -1,30 +1,29 @@
 package com.helsinkiwizard.cointoss.ui
 
 import android.media.MediaPlayer
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
-import com.helsinkiwizard.cointoss.BuildConfig
-import com.helsinkiwizard.cointoss.Constants.BANNER_AD_ID
-import com.helsinkiwizard.cointoss.Constants.DEBUG_BANNER_AD_ID
+import com.helsinkiwizard.cointoss.Constants.MAIN_BANNER_AD_ID
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.ui.viewmodel.HomeScreenContent
 import com.helsinkiwizard.cointoss.ui.viewmodel.HomeViewModel
-import com.helsinkiwizard.cointoss.utils.AdManager
+import com.helsinkiwizard.cointoss.utils.BannerAd
 import com.helsinkiwizard.core.coin.CoinAnimation
 import com.helsinkiwizard.core.coin.CoinType
 import com.helsinkiwizard.core.theme.PercentEighty
+import com.helsinkiwizard.core.theme.Twenty
 import com.helsinkiwizard.core.ui.model.CustomCoinUiModel
 import com.helsinkiwizard.core.viewmodel.UiState
 
@@ -63,41 +62,35 @@ private fun Content(
     adsRemoved: Boolean,
     playSound: Boolean,
 ) {
-    Box(
+    Column(
         modifier = Modifier.fillMaxSize()
     ) {
         val context = LocalContext.current
         val soundEffect = remember { MediaPlayer.create(context, R.raw.coin_toss) }
-        CoinAnimation(
-            coinType = coinType,
-            customCoin = customCoinUiModel,
-            speed = speed,
-            onFlip = { if (playSound) soundEffect.start() },
+
+        Box(
             modifier = Modifier
-                .align(Alignment.Center)
+                .align(Alignment.CenterHorizontally)
                 .fillMaxWidth(PercentEighty)
-                .aspectRatio(1f)
-        )
+                .animateContentSize()
+                .weight(1f)
+        ) {
+            CoinAnimation(
+                coinType = coinType,
+                customCoin = customCoinUiModel,
+                speed = speed,
+                onFlip = { if (playSound) soundEffect.start() },
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .aspectRatio(1f)
+                    .padding(vertical = Twenty)
+            )
+        }
         if (adsRemoved.not()) {
-            AdMobBanner(
-                modifier = Modifier.align(Alignment.BottomCenter)
+            BannerAd(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                adId = MAIN_BANNER_AD_ID
             )
         }
     }
-}
-
-@Composable
-private fun AdMobBanner(
-    modifier: Modifier
-) {
-    AndroidView(
-        modifier = modifier.fillMaxWidth(),
-        factory = { context ->
-            AdView(context).apply {
-                setAdSize(AdSize.BANNER)
-                adUnitId = if (BuildConfig.DEBUG) DEBUG_BANNER_AD_ID else BANNER_AD_ID
-                loadAd(AdManager.getAdRequest(context))
-            }
-        }
-    )
 }

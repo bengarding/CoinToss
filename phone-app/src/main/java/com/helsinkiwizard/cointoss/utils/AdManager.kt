@@ -3,17 +3,25 @@ package com.helsinkiwizard.cointoss.utils
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.preference.PreferenceManager
 import com.google.ads.mediation.admob.AdMobAdapter
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.ump.ConsentRequestParameters
 import com.google.android.ump.UserMessagingPlatform
+import com.helsinkiwizard.cointoss.BuildConfig
 import com.helsinkiwizard.cointoss.Constants.COIN_LIST_INTERSTITIAL_AD_ID
 import com.helsinkiwizard.cointoss.Constants.CUSTOM_COIN_INTERSTITIAL_AD_ID
+import com.helsinkiwizard.cointoss.Constants.DEBUG_BANNER_AD_ID
 import com.helsinkiwizard.cointoss.data.InterstitialAdData
 import com.helsinkiwizard.core.theme.LocalActivity
 import timber.log.Timber
@@ -179,4 +187,25 @@ fun ShowInterstitialAd(
         }
         ad.show(activity)
     } ?: onAdDismissed()
+}
+
+@Composable
+fun BannerAd(
+    modifier: Modifier,
+    adId: String
+) {
+    AndroidView(
+        modifier = modifier
+            .fillMaxWidth()
+            .animateContentSize(),
+        factory = { context ->
+            AdView(context).apply {
+                val displayMetrics = context.resources.displayMetrics
+                val screenWidth = (displayMetrics.widthPixels / displayMetrics.density).toInt()
+                setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context, screenWidth))
+                adUnitId = if (BuildConfig.DEBUG) DEBUG_BANNER_AD_ID else adId
+                loadAd(AdManager.getAdRequest(context))
+            }
+        }
+    )
 }
