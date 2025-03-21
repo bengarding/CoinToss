@@ -173,19 +173,8 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     private fun Title(currentRoute: NavRoute) {
-        val title = stringResource(
-            id = when (currentRoute) {
-                NavRoute.Home -> R.string.app_name
-                NavRoute.CoinList -> R.string.choose_a_coin
-                NavRoute.Settings -> R.string.settings
-                NavRoute.About -> R.string.about
-                NavRoute.Attributions -> R.string.attributions
-                NavRoute.CreateCoin -> R.string.create_a_coin
-                NavRoute.RemoveAds -> R.string.remove_ads
-            }
-        )
         AnimatedContent(
-            targetState = title,
+            targetState = stringResource(id = currentRoute.titleRes),
             label = "title"
         ) {
             Text(

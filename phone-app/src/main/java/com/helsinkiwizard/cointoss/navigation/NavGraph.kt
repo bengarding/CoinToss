@@ -3,6 +3,7 @@ package com.helsinkiwizard.cointoss.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.ui.AboutScreen
 import com.helsinkiwizard.cointoss.ui.AttributionsScreen
 import com.helsinkiwizard.cointoss.ui.CoinListScreen
@@ -13,14 +14,14 @@ import com.helsinkiwizard.cointoss.ui.SettingsScreen
 
 const val MAIN_ROUTE = "mainNavRoute"
 
-enum class NavRoute {
-    Home,
-    CoinList,
-    Settings,
-    About,
-    Attributions,
-    CreateCoin,
-    RemoveAds
+enum class NavRoute(val titleRes: Int) {
+    Home(R.string.home),
+    CoinList(R.string.choose_a_coin),
+    Settings(R.string.settings),
+    About(R.string.about),
+    Attributions(R.string.attributions),
+    CreateCoin(R.string.create_a_coin),
+    RemoveAds(R.string.remove_ads)
 }
 
 fun NavGraphBuilder.mainGraph() {
