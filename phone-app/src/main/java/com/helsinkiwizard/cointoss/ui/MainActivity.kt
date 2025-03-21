@@ -92,6 +92,11 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        AdManager.clearLoadedAds()
+    }
+
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun CoinToss(navController: NavHostController) {

@@ -43,7 +43,7 @@ internal fun HomeScreen(
                         val coinType = viewModel.coinTypeFlow.collectAsState(initial = type.initialCoinType).value
                         val speed = viewModel.speedFlow.collectAsState(initial = type.initialSpeed).value
                         val customCoin = viewModel.customCoinFlow.collectAsState(initial = null).value
-                        val adsRemoved = viewModel.adsRemoved.collectAsState(initial = false).value
+                        val adsRemoved = viewModel.adsRemoved.collectAsState(initial = true).value
                         val playSound = viewModel.playSound.collectAsState(initial = type.playSound).value
                         Content(coinType, speed, customCoin, adsRemoved, playSound)
                     }

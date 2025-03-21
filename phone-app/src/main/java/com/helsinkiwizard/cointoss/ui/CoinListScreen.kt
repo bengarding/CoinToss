@@ -24,6 +24,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,6 +47,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.helsinkiwizard.cointoss.Constants.COIN_LIST_INTERSTITIAL_AD_ID
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.data.Repository
 import com.helsinkiwizard.cointoss.navigation.NavRoute
@@ -54,6 +56,8 @@ import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListContent
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListDialogs
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListViewModel
+import com.helsinkiwizard.cointoss.utils.AdManager
+import com.helsinkiwizard.cointoss.utils.ShowInterstitialAd
 import com.helsinkiwizard.cointoss.utils.launchInAppReview
 import com.helsinkiwizard.core.CoreConstants
 import com.helsinkiwizard.core.coin.CoinType
@@ -105,12 +109,21 @@ private fun CoinListDialogs(
     viewModel: CoinListViewModel
 ) {
     val activity = LocalActivity.current
+    LaunchedEffect(Unit) {
+        AdManager.loadInterstitialAds(activity.applicationContext)
+    }
+
     when (val state = viewModel.dialogState.collectAsState().value) {
         is DialogState.ShowContent -> {
             when (val type = state.type as CoinListDialogs) {
-                is CoinListDialogs.InAppReview -> {
-                    activity.launchInAppReview(
-                        onComplete = type.onComplete
+                is CoinListDialogs.InAppReview -> activity.launchInAppReview(onComplete = type.onComplete)
+                is CoinListDialogs.ShowInterstitialAd -> {
+                    ShowInterstitialAd(
+                        interstitialAd = AdManager.interstitialAds[COIN_LIST_INTERSTITIAL_AD_ID]?.ad,
+                        onAdDismissed = {
+                            type.onComplete()
+                            AdManager.interstitialAds[COIN_LIST_INTERSTITIAL_AD_ID] = null
+                        }
                     )
                 }
             }
