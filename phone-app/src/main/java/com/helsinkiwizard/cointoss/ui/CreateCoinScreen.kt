@@ -2,8 +2,10 @@ package com.helsinkiwizard.cointoss.ui
 
 import android.net.Uri
 import android.widget.Toast
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -41,6 +43,7 @@ import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import coil.size.Size
 import com.google.android.gms.wearable.Wearable
+import com.helsinkiwizard.cointoss.Constants.CUSTOM_COIN_BANNER_AD_ID
 import com.helsinkiwizard.cointoss.Constants.CUSTOM_COIN_INTERSTITIAL_AD_ID
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.data.Repository
@@ -56,6 +59,7 @@ import com.helsinkiwizard.cointoss.ui.viewmodel.CreateCoinDialogs
 import com.helsinkiwizard.cointoss.ui.viewmodel.CreateCoinError
 import com.helsinkiwizard.cointoss.ui.viewmodel.CreateCoinViewModel
 import com.helsinkiwizard.cointoss.utils.AdManager
+import com.helsinkiwizard.cointoss.utils.AdManager.BannerAd
 import com.helsinkiwizard.cointoss.utils.AdManager.ShowInterstitialAd
 import com.helsinkiwizard.cointoss.utils.launchInAppReview
 import com.helsinkiwizard.core.coin.CoinSide
@@ -87,8 +91,20 @@ fun CreateCoinScreen(
         AdManager.loadInterstitialAds(context)
     }
 
-    CreateCoinContent(viewModel)
-    CreateCoinDialogs(viewModel)
+    val adsRemoved = viewModel.adsRemoved.collectAsState(initial = true).value
+    Column {
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .animateContentSize()
+        ) {
+            CreateCoinContent(viewModel)
+            CreateCoinDialogs(viewModel)
+        }
+        if (adsRemoved.not()) {
+            BannerAd(CUSTOM_COIN_BANNER_AD_ID)
+        }
+    }
 }
 
 @Composable

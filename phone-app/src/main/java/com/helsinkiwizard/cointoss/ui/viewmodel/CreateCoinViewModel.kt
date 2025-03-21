@@ -36,6 +36,8 @@ class CreateCoinViewModel @Inject constructor(
     private val repository: Repository
 ) : AbstractViewModel() {
 
+    val adsRemoved = repository.getAdsRemoved
+
     private val model = CreateCoinModel(
         selectedCoin = repository.getSelectedCustomCoin(),
         customCoins = repository.getCustomCoins(),
