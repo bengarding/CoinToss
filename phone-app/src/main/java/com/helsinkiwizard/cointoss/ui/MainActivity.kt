@@ -7,10 +7,14 @@ import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Menu
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
@@ -19,6 +23,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -29,7 +34,9 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -47,6 +54,7 @@ import com.helsinkiwizard.cointoss.ui.theme.CoinTossTheme
 import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
 import com.helsinkiwizard.cointoss.utils.AdManager
 import com.helsinkiwizard.core.theme.LocalActivity
+import com.helsinkiwizard.core.theme.ThirtyTwo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
@@ -58,6 +66,8 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var repository: Repository
+
+    private val bottomBarItems = listOf(NavRoute.CoinList, NavRoute.Home, NavRoute.CreateCoin)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -134,6 +144,15 @@ class MainActivity : ComponentActivity() {
                         actionIconContentColor = MaterialTheme.colorScheme.onPrimary
                     )
                 )
+            },
+            bottomBar = {
+                BottomAppBar(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    bottomBarItems.forEach { item ->
+                        BottomNavItem(item, currentRoute, navController)
+                    }
+                }
             }
         ) { paddingValues ->
             Surface(
@@ -179,8 +198,58 @@ class MainActivity : ComponentActivity() {
         ) {
             Text(
                 text = it,
-                style = MaterialTheme.typography.displayMedium,
+                style = MaterialTheme.typography.displayLarge,
             )
         }
+    }
+
+    @Composable
+    private fun RowScope.BottomNavItem(
+        item: NavRoute,
+        currentRoute: NavRoute,
+        navController: NavHostController
+    ) {
+        NavigationBarItem(
+            selected = item.name == currentRoute.name,
+            icon = {
+                if (item.icon != null) {
+                    Icon(
+                        imageVector = item.icon,
+                        contentDescription = null,
+                        modifier = Modifier.size(ThirtyTwo)
+                    )
+                } else if (item.iconRes != null) {
+                    Icon(
+                        painter = painterResource(item.iconRes),
+                        contentDescription = null,
+                        modifier = Modifier.size(ThirtyTwo)
+                    )
+                }
+            },
+            label = {
+                Text(
+                    text = stringResource(id = item.titleRes),
+                    style = MaterialTheme.typography.labelSmall,
+                    textAlign = TextAlign.Center
+                )
+            },
+            onClick = {
+                if (item != currentRoute) {
+                    navController.navigate(item.name) {
+                        // Pop up to the start destination of the graph to avoid building up a large stack
+                        // of destinations on the back stack as users select items
+                        navController.graph.startDestinationRoute?.let { route ->
+                            popUpTo(route) {
+                                // Only save the state if the user didn't navigate to another screen via the context
+                                // menu (settings, about, etc.)
+                                saveState = bottomBarItems.contains(currentRoute)
+                            }
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                }
+            }
+        )
     }
 }

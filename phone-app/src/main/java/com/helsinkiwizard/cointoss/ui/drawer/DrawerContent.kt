@@ -36,7 +36,7 @@ object DrawerParams {
     val drawerButtons = mutableStateListOf(
         DrawerModel(
             NavRoute.Home,
-            R.string.home,
+            R.string.coin_toss,
             Icons.Outlined.Home
         ),
         DrawerModel(

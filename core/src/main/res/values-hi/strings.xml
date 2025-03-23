@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">सिक्का टॉस</string>
+    <string name="app_name">सिक्का उछालना</string>
     <string name="choose_a_coin">एक सिक्का चुनें</string>
     <string name="request_coin">"एक ऐसा सिक्का न देखें जो आप चाहते हैं? मुझे एक ईमेल भेजें और मैं इसे जोड़ने की पूरी कोशिश करूंगा।</string>
     <string name="email_address">"cointossrequest@gmail.com"</string>

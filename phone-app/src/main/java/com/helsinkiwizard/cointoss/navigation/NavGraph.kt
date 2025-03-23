@@ -1,5 +1,13 @@
 package com.helsinkiwizard.cointoss.navigation
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AddCircleOutline
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.MonetizationOn
+import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
@@ -14,14 +22,18 @@ import com.helsinkiwizard.cointoss.ui.SettingsScreen
 
 const val MAIN_ROUTE = "mainNavRoute"
 
-enum class NavRoute(val titleRes: Int) {
-    Home(R.string.home),
-    CoinList(R.string.choose_a_coin),
-    Settings(R.string.settings),
-    About(R.string.about),
+enum class NavRoute(
+    @StringRes val titleRes: Int,
+    val icon: ImageVector? = null,
+    @DrawableRes val iconRes: Int? = null
+) {
+    Home(R.string.coin_toss, iconRes = R.drawable.ic_coin_toss),
+    CoinList(R.string.select, Icons.Outlined.MonetizationOn),
+    Settings(R.string.settings, Icons.Outlined.Settings),
+    About(R.string.about, Icons.Outlined.Info),
     Attributions(R.string.attributions),
-    CreateCoin(R.string.create_a_coin),
-    RemoveAds(R.string.remove_ads)
+    CreateCoin(R.string.custom, Icons.Outlined.AddCircleOutline),
+    RemoveAds(R.string.remove_ads, iconRes = R.drawable.ic_no_ads)
 }
 
 fun NavGraphBuilder.mainGraph() {

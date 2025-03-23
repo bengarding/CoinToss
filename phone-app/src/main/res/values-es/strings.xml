@@ -3,7 +3,7 @@
     <string name="confirm">Confirmar</string>
     <string name="menu">Menú</string>
     <string name="crop_image">Delimitar imagen</string>
-    <string name="home">Página principal</string>
+    <string name="coin_toss">Cara o cruz</string>
     <string name="settings">Ajustes</string>
     <string name="about">Acerca</string>
     <string name="remove_ads">Quitar anuncios</string>
@@ -28,6 +28,7 @@
     <string name="save_error">Ocurrió un error al guardar</string>
     <string name="selected_custom_coin">Seleccionado</string>
     <string name="custom_coins">Monedas personalizadas</string>
+    <string name="custom">Costumbre</string>
     <string name="send_to_watch">Enviar a mirar</string>
     <string name="select">Seleccionar</string>
     <string name="edit">Editar</string>
