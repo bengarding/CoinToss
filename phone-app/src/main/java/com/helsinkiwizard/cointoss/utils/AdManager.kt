@@ -30,7 +30,7 @@ private const val ONE_HOUR_IN_MILLIS = 3600000
 
 object AdManager {
 
-    val interstitialAds = mutableMapOf<String, InterstitialAdData?>(
+    private val interstitialAds = mutableMapOf<String, InterstitialAdData?>(
         COIN_LIST_INTERSTITIAL_AD_ID to null,
         CUSTOM_COIN_INTERSTITIAL_AD_ID to null
     )
@@ -58,17 +58,6 @@ object AdManager {
         )
     }
 
-    fun getAdRequest(context: Context): AdRequest {
-        val extras = Bundle().apply {
-            if (canShowPersonalizedAds(context).not()) {
-                putString("npa", "1")
-            }
-        }
-        return AdRequest.Builder()
-            .addNetworkExtrasBundle(AdMobAdapter::class.java, extras)
-            .build()
-    }
-
     fun loadInterstitialAds(context: Context) {
         val currentTime = System.currentTimeMillis()
 
@@ -86,6 +75,29 @@ object AdManager {
         }
     }
 
+    fun clearLoadedAds() {
+        interstitialAds.clear()
+    }
+
+    fun showConsentForm(activity: Activity) {
+        UserMessagingPlatform.showPrivacyOptionsForm(activity) { formError ->
+            formError?.let {
+                Timber.e("Error loading consent form from settings: ${it.message}")
+            }
+        }
+    }
+
+    private fun getAdRequest(context: Context): AdRequest {
+        val extras = Bundle().apply {
+            if (canShowPersonalizedAds(context).not()) {
+                putString("npa", "1")
+            }
+        }
+        return AdRequest.Builder()
+            .addNetworkExtrasBundle(AdMobAdapter::class.java, extras)
+            .build()
+    }
+
     private fun loadInterstitialAd(
         context: Context,
         id: String,
@@ -100,18 +112,6 @@ object AdManager {
                 }
             }
         )
-    }
-
-    fun clearLoadedAds() {
-        interstitialAds.clear()
-    }
-
-    fun showConsentForm(activity: Activity) {
-        UserMessagingPlatform.showPrivacyOptionsForm(activity) { formError ->
-            formError?.let {
-                Timber.e("Error loading consent form from settings: ${it.message}")
-            }
-        }
     }
 
     // The following methods are from https://stackoverflow.com/a/68310602/19034973
@@ -210,7 +210,7 @@ object AdManager {
                     val screenWidth = (displayMetrics.widthPixels / displayMetrics.density).toInt()
                     setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context, screenWidth))
                     adUnitId = if (BuildConfig.DEBUG) DEBUG_BANNER_AD_ID else adId
-                    loadAd(AdManager.getAdRequest(context))
+                    loadAd(getAdRequest(context))
                 }
             }
         )
