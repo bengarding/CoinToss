@@ -9,6 +9,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -103,6 +104,12 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val themeMode = repository.getThemeMode.collectAsState(initial = initialThemeMode).value
+            val darkTheme = when (themeMode) {
+                ThemeMode.LIGHT -> false
+                ThemeMode.DARK -> true
+                ThemeMode.SYSTEM -> isSystemInDarkTheme()
+            }
+
             val navController: NavHostController = rememberNavController()
 
             CoinTossTheme(repository, themeMode, initialMaterialYou) {
@@ -110,7 +117,7 @@ class MainActivity : ComponentActivity() {
                     LocalActivity provides this@MainActivity,
                     LocalNavController provides navController
                 ) {
-                    CoinToss(navController)
+                    CoinToss(navController, darkTheme)
                 }
             }
         }
@@ -127,11 +134,17 @@ class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    private fun CoinToss(navController: NavHostController) {
+    private fun CoinToss(
+        navController: NavHostController,
+        invertColors: Boolean
+    ) {
         val currentDestination = navController.currentBackStackEntryAsState().value?.destination
         val currentRoute = NavRoute.valueOf(currentDestination?.route ?: NavRoute.Home.name)
 
         val adsRemoved = repository.getAdsRemoved.collectAsState(initial = true).value
+
+        val primary = if (invertColors) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.primary
+        val onPrimary = if (invertColors) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onPrimary
 
         Scaffold(
             topBar = {
@@ -142,7 +155,8 @@ class MainActivity : ComponentActivity() {
                     },
                     navigationIcon = {
                         AnimatedVisibility(
-                            visible = bottomBarItems.contains(currentRoute).not() && currentRoute != NavRoute.RemoveAds,
+                            visible = bottomBarItems.contains(currentRoute)
+                                .not() && currentRoute != NavRoute.RemoveAds,
                             enter = fadeIn(),
                             exit = fadeOut(),
                             modifier = Modifier.semantics(mergeDescendants = true) {}
@@ -159,11 +173,11 @@ class MainActivity : ComponentActivity() {
                         }
                     },
                     colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        scrolledContainerColor = MaterialTheme.colorScheme.primary,
-                        navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
-                        titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                        actionIconContentColor = MaterialTheme.colorScheme.onPrimary
+                        containerColor = primary,
+                        scrolledContainerColor = primary,
+                        navigationIconContentColor = onPrimary,
+                        titleContentColor = onPrimary,
+                        actionIconContentColor = onPrimary
                     )
                 )
             },

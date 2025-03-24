@@ -42,7 +42,6 @@ fun SelectWatchDialog(
                 Text(
                     text = stringResource(id = R.string.cancel),
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.surfaceContainerHighest,
                     modifier = Modifier
                         .minimumInteractiveComponentSize()
                         .clickable {

@@ -141,7 +141,7 @@ private fun RowScope.AddCoinImage(
             targetValue = when {
                 hasError -> MaterialTheme.colorScheme.error
                 bitmap != null -> Color.Transparent
-                else -> MaterialTheme.colorScheme.surfaceContainerHighest
+                else -> MaterialTheme.colorScheme.primary
             },
             label = "Border color"
         )

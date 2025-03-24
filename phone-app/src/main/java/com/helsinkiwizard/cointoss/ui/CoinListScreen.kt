@@ -211,7 +211,7 @@ private fun CustomCoin(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(if (showDefault) MaterialTheme.colorScheme.surfaceContainerHighest.copy(Alpha20) else MaterialTheme.colorScheme.primary),
+                .background(if (showDefault) MaterialTheme.colorScheme.primary.copy(Alpha20) else MaterialTheme.colorScheme.primary),
             onState = { state ->
                 showDefault = state is AsyncImagePainter.State.Empty || state is AsyncImagePainter.State.Error
             }
@@ -223,7 +223,7 @@ private fun CustomCoin(
                     .fillMaxWidth()
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
-                        indication = ripple(color = MaterialTheme.colorScheme.surfaceContainerHighest),
+                        indication = ripple(color = MaterialTheme.colorScheme.primary),
                         onClick = onClick
                     )
             ) {
@@ -233,7 +233,7 @@ private fun CustomCoin(
                         .fillMaxWidth()
                         .border(
                             width = Two,
-                            color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                            color = MaterialTheme.colorScheme.primary,
                             shape = RectangleShape
                         )
                 )
@@ -243,14 +243,14 @@ private fun CustomCoin(
                         .fillMaxWidth()
                         .border(
                             width = Two,
-                            color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                            color = MaterialTheme.colorScheme.primary,
                             shape = CoinListShape()
                         )
                 )
                 Icon(
                     imageVector = Icons.Outlined.Add,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.surfaceContainerHighest,
+                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .align(Alignment.Center)
                         .size(Forty)

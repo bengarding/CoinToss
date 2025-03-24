@@ -48,8 +48,8 @@ import com.helsinkiwizard.cointoss.Constants.CUSTOM_COIN_INTERSTITIAL_AD_ID
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.data.Repository
 import com.helsinkiwizard.cointoss.ui.composable.ErrorScreen
+import com.helsinkiwizard.cointoss.ui.composable.FullScreenProgressIndicator
 import com.helsinkiwizard.cointoss.ui.composable.PreviewSurface
-import com.helsinkiwizard.cointoss.ui.composable.ProgressIndicator
 import com.helsinkiwizard.cointoss.ui.composable.dialog.CoinTossDialog
 import com.helsinkiwizard.cointoss.ui.composable.dialog.MediaPicker
 import com.helsinkiwizard.cointoss.ui.composable.dialog.SelectWatchDialog
@@ -117,7 +117,7 @@ private fun CreateCoinContent(viewModel: CreateCoinViewModel) {
         }
 
         is UiState.Loading -> {
-            ProgressIndicator()
+            FullScreenProgressIndicator()
         }
 
         is UiState.Error -> {
@@ -472,7 +472,7 @@ private fun IconButtons(
                 Icon(
                     painter = painterResource(id = R.drawable.ic_send_to_watch),
                     contentDescription = stringResource(id = R.string.send_to_watch),
-                    tint = MaterialTheme.colorScheme.surfaceContainerHighest
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         }
@@ -481,7 +481,7 @@ private fun IconButtons(
                 Icon(
                     imageVector = Icons.Outlined.ArrowUpward,
                     contentDescription = stringResource(id = R.string.select),
-                    tint = MaterialTheme.colorScheme.surfaceContainerHighest
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         }
@@ -489,14 +489,14 @@ private fun IconButtons(
             Icon(
                 imageVector = Icons.Outlined.Edit,
                 contentDescription = stringResource(id = R.string.edit),
-                tint = MaterialTheme.colorScheme.surfaceContainerHighest
+                tint = MaterialTheme.colorScheme.primary
             )
         }
         IconButton(onClick = onDeleteClicked) {
             Icon(
                 imageVector = Icons.Outlined.Delete,
                 contentDescription = stringResource(id = R.string.delete),
-                tint = MaterialTheme.colorScheme.surfaceContainerHighest
+                tint = MaterialTheme.colorScheme.primary
             )
         }
     }

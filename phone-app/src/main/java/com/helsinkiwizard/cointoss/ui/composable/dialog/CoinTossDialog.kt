@@ -57,7 +57,7 @@ fun CoinTossDialog(
                     Text(
                         text = dismissButtonText,
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                        color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .padding(end = Twenty)
                             .minimumInteractiveComponentSize()

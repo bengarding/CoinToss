@@ -1,25 +1,21 @@
 package com.helsinkiwizard.cointoss.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalView
 import com.helsinkiwizard.cointoss.data.Repository
 import com.helsinkiwizard.cointoss.data.ThemeMode
-import com.helsinkiwizard.cointoss.ui.theme.dynamictheme.dynamicDarkColorScheme
-import com.helsinkiwizard.cointoss.ui.theme.dynamictheme.dynamicLightColorScheme
 
 @Composable
 fun CoinTossTheme(
@@ -53,13 +49,6 @@ fun CoinTossTheme(
 
         darkTheme -> darkScheme
         else -> lightScheme
-    }
-    val view = LocalView.current
-    if (!view.isInEditMode) {
-        SideEffect {
-            val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
-        }
     }
 
     MaterialTheme(
@@ -103,8 +92,8 @@ private val lightScheme = lightColorScheme(
     surfaceContainerLowest = surfaceContainerLowestLight,
     surfaceContainerLow = surfaceContainerLowLight,
     surfaceContainer = surfaceContainerLight,
-    surfaceContainerHigh = onPrimaryLight,
-    surfaceContainerHighest = primaryLight, // link color
+    surfaceContainerHigh = surfaceContainerHighLight,
+    surfaceContainerHighest = surfaceContainerHighestLight,
 )
 
 private val darkScheme = darkColorScheme(
@@ -141,8 +130,8 @@ private val darkScheme = darkColorScheme(
     surfaceContainerLowest = surfaceContainerLowestDark,
     surfaceContainerLow = surfaceContainerLowDark,
     surfaceContainer = surfaceContainerDark,
-    surfaceContainerHigh = primaryDark,
-    surfaceContainerHighest = onPrimaryDark, // link color
+    surfaceContainerHigh = surfaceContainerHighDark,
+    surfaceContainerHighest = surfaceContainerHighestDark,
 )
 
 private fun ColorScheme.materialYouLight(): ColorScheme {
@@ -180,15 +169,15 @@ private fun ColorScheme.materialYouLight(): ColorScheme {
         surfaceContainerLowest = this.surfaceContainerLowest,
         surfaceContainerLow = this.surfaceContainerLow,
         surfaceContainer = this.surfaceContainer,
-        surfaceContainerHigh = this.onPrimary,
-        surfaceContainerHighest = this.primary, // link color
+        surfaceContainerHigh = this.surfaceContainerHigh,
+        surfaceContainerHighest = this.surfaceContainerHighest
     )
 }
 
 private fun ColorScheme.materialYouDark(): ColorScheme {
     return darkColorScheme(
-        primary = this.onPrimary,
-        onPrimary = this.primary,
+        primary = this.primary,
+        onPrimary = this.onPrimary,
         primaryContainer = this.primaryContainer,
         onPrimaryContainer = this.onPrimaryContainer,
         secondary = this.secondary,
@@ -220,7 +209,7 @@ private fun ColorScheme.materialYouDark(): ColorScheme {
         surfaceContainerLowest = this.surfaceContainerLowest,
         surfaceContainerLow = this.surfaceContainerLow,
         surfaceContainer = this.surfaceContainer,
-        surfaceContainerHigh = this.onPrimary,
-        surfaceContainerHighest = this.primary, // link color
+        surfaceContainerHigh = this.surfaceContainerHigh,
+        surfaceContainerHighest = this.surfaceContainerHighest
     )
 }
