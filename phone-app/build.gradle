@@ -10,12 +10,12 @@ plugins {
 }
 android {
     namespace 'com.helsinkiwizard.cointoss'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.helsinkiwizard.cointoss"
         minSdk 26
-        targetSdk 34
+        targetSdk 35
         versionCode 140
         versionName "v1.3.1"
 
