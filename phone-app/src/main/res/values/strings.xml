@@ -1,7 +1,7 @@
 <resources>
     <string name="back">Back</string>
     <string name="confirm">Confirm crop</string>
-    <string name="menu">Menu</string>
+    <string name="more">More</string>
     <string name="crop_image">Crop image</string>
     <string name="coin_toss">Coin toss</string>
     <string name="settings">Settings</string>

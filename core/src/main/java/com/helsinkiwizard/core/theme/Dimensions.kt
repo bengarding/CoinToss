@@ -22,6 +22,7 @@ val Twelve = 12.dp
 val Sixteen = 16.dp
 val Twenty = 20.dp
 val TwentyFour = 24.dp
+val TwentyEight = 28.dp
 val ThirtyTwo = 32.dp
 val Forty = 40.dp
 val Sixty = 60.dp

@@ -1,7 +1,7 @@
 <resources>
     <string name="back">Atrás</string>
     <string name="confirm">Confirmar</string>
-    <string name="menu">Menú</string>
+    <string name="more">Más</string>
     <string name="crop_image">Delimitar imagen</string>
     <string name="coin_toss">Cara o cruz</string>
     <string name="settings">Ajustes</string>

@@ -2,7 +2,7 @@
 <resources>
     <string name="back">पीछे</string>
     <string name="confirm">फसल की पुष्टि करें</string>
-    <string name="menu">मेनू</string>
+    <string name="more">अधिक</string>
     <string name="crop_image">छवि सुधारें # क्रॉप इमेज फोटो एडिटर</string>
     <string name="coin_toss">सिक्का उछालना</string>
     <string name="settings">सेटिंग</string>

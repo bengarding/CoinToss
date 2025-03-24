@@ -68,7 +68,7 @@ object DrawerParams {
 }
 
 @Composable
-fun DrawerContent(
+fun  DrawerContent(
     onClick: (NavRoute) -> Unit,
     adsRemoved: Boolean
 ) {
