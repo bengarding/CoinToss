@@ -110,7 +110,14 @@ private fun CoinListContent(
         is UiState.ShowContent -> {
             when (val type = state.type as CoinListContent) {
                 is CoinListContent.LoadingComplete -> CoinList(viewModel, type.customCoinFlow, navController)
-                is CoinListContent.CoinSet -> navController.navigate(NavRoute.Home.name)
+                is CoinListContent.CoinSet -> {
+                    navController.navigate(NavRoute.Home.name) {
+                        navController.graph.startDestinationRoute?.let { route ->
+                            popUpTo(route)
+                        }
+                        launchSingleTop = true
+                    }
+                }
             }
         }
 
