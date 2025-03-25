@@ -1,4 +1,4 @@
-package com.helsinkiwizard.cointoss.ui.model
+package com.helsinkiwizard.core.ui.model
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
