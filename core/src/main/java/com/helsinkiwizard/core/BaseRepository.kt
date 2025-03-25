@@ -3,6 +3,7 @@ package com.helsinkiwizard.core
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
@@ -17,8 +18,9 @@ abstract class BaseRepository(private val context: Context) {
     companion object {
         @JvmStatic
         protected val Context.dataStore: DataStore<Preferences> by preferencesDataStore("preferences")
-        val COIN_TYPE = intPreferencesKey("coin_type")
-        val SPEED = floatPreferencesKey("speed")
+        private val COIN_TYPE = intPreferencesKey("coin_type")
+        private val SPEED = floatPreferencesKey("speed")
+        private val PLAY_SOUND_EFFECT = booleanPreferencesKey("play_sound_effect")
     }
 
     suspend fun setCoinType(coinType: CoinType) = savePreference(COIN_TYPE, coinType.value)
@@ -31,6 +33,12 @@ abstract class BaseRepository(private val context: Context) {
     val getSpeed: Flow<Float> = context.dataStore.data
         .map { preferences ->
             preferences[SPEED] ?: SPEED_DEFAULT
+        }
+
+    suspend fun setPlaySound(play: Boolean) = savePreference(PLAY_SOUND_EFFECT, play)
+    val getPlaySound: Flow<Boolean> = context.dataStore.data
+        .map { preferences ->
+            preferences[PLAY_SOUND_EFFECT] ?: true
         }
 
     protected suspend fun <T> savePreference(key: Preferences.Key<T>, value: T) {

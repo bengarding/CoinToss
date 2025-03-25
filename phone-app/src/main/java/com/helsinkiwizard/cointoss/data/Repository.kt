@@ -26,7 +26,6 @@ class Repository @Inject constructor(
         private val THEME_MODE = stringPreferencesKey("selected_theme")
         private val MATERIAL_YOU = booleanPreferencesKey("material_you")
         private val SHOW_SEND_TO_WATCH_BUTTON = booleanPreferencesKey("show_send_to_watch")
-        private val PLAY_SOUND_EFFECT = booleanPreferencesKey("play_sound_effect")
         private val ADS_REMOVED = booleanPreferencesKey("ads_removed")
         private val SELECTED_COUNT = intPreferencesKey("coin_selected_count")
         private val CUSTOM_COUNT = intPreferencesKey("custom_count")
@@ -51,12 +50,6 @@ class Repository @Inject constructor(
     val getShowSendToWatchButton: Flow<Boolean> = context.dataStore.data
         .map { preferences ->
             preferences[SHOW_SEND_TO_WATCH_BUTTON] ?: true
-        }
-
-    suspend fun setPlaySound(play: Boolean) = savePreference(PLAY_SOUND_EFFECT, play)
-    val getPlaySound: Flow<Boolean> = context.dataStore.data
-        .map { preferences ->
-            preferences[PLAY_SOUND_EFFECT] ?: true
         }
 
     suspend fun setAdsRemoved(adsRemoved: Boolean) = savePreference(ADS_REMOVED, adsRemoved)
