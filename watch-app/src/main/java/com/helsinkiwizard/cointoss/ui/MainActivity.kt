@@ -66,9 +66,9 @@ class MainActivity : ComponentActivity() {
         FirebaseAnalytics.getInstance(applicationContext).logEvent(FirebaseAnalytics.Event.APP_OPEN, params)
     }
 
-    override fun onNewIntent(intent: Intent?) {
+    override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        viewModel.startFlipping = intent?.extras?.getBoolean(EXTRA_START_FLIPPING) ?: false
+        viewModel.startFlipping = intent.extras?.getBoolean(EXTRA_START_FLIPPING) ?: false
     }
 }
 

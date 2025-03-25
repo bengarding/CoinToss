@@ -67,10 +67,10 @@ android {
 dependencies {
     implementation project(':core')
 
-    implementation 'androidx.activity:activity-compose:1.8.1'
-    implementation 'androidx.lifecycle:lifecycle-process:2.7.0'
+    implementation 'androidx.activity:activity-compose:1.10.1'
+    implementation 'androidx.lifecycle:lifecycle-process:2.8.7'
 
-    implementation "androidx.wear:wear-remote-interactions:1.0.0"
+    implementation "androidx.wear:wear-remote-interactions:1.1.0"
     implementation "androidx.wear.compose:compose-material:$wear_compose_version"
     implementation "androidx.wear.compose:compose-foundation:$wear_compose_version"
     implementation "androidx.wear.compose:compose-navigation:$wear_compose_version"
@@ -78,7 +78,7 @@ dependencies {
 
     implementation "com.google.android.horologist:horologist-tiles:$horologist_version"
     implementation "androidx.wear.tiles:tiles-material:$tiles_version"
-    implementation "androidx.wear.protolayout:protolayout:1.1.0"
+    implementation "androidx.wear.protolayout:protolayout:1.2.1"
 
     implementation "com.google.android.horologist:horologist-compose-tools:$horologist_version"
     implementation "com.google.android.horologist:horologist-compose-layout:$horologist_version"
@@ -91,6 +91,5 @@ dependencies {
     implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation_version"
 
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
 }
