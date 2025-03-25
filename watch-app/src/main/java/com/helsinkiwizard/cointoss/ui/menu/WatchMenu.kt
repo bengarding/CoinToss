@@ -32,6 +32,7 @@ import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.navigation.NavRoute
+import com.helsinkiwizard.cointoss.ui.composables.PrimaryChip
 import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
 import com.helsinkiwizard.cointoss.ui.theme.OnPrimaryContainerDark
 import com.helsinkiwizard.cointoss.ui.theme.PrimaryContainerDark
@@ -67,6 +68,7 @@ internal fun WatchMenu() {
     ) {
         val focusRequester = rememberActiveFocusRequester()
         val coroutineScope = rememberCoroutineScope()
+        val navController = LocalNavController.current
 
         ScalingLazyColumn(
             state = listState,
@@ -85,36 +87,12 @@ internal fun WatchMenu() {
                 .focusable()
         ) {
             items(MenuParams.menuItems) { menuItem ->
-                MenuButton(menuItem)
+                PrimaryChip(
+                    text = stringResource(menuItem.title),
+                    icon = menuItem.icon,
+                    onClick = { navController.navigate(menuItem.route.name) }
+                )
             }
-        }
-    }
-}
-
-@Composable
-private fun MenuButton(menuItem: MenuItem) {
-    val navController = LocalNavController.current
-    Button(
-        onClick = { navController.navigate(menuItem.route.name) },
-        colors = ButtonDefaults.primaryButtonColors(
-            backgroundColor = PrimaryContainerDark,
-            contentColor = OnPrimaryContainerDark
-        ),
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = menuItem.icon,
-                contentDescription = null,
-                tint = OnPrimaryContainerDark,
-                modifier = Modifier.padding(horizontal = Twelve)
-            )
-            Text(
-                text = stringResource(id = menuItem.title),
-                modifier = Modifier.fillMaxWidth()
-            )
         }
     }
 }
