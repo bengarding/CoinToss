@@ -7,17 +7,14 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.UrlAnnotation
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
-import com.helsinkiwizard.core.theme.Text12
-import com.helsinkiwizard.core.theme.LinkText
-import com.helsinkiwizard.core.theme.Typography
 
 @OptIn(ExperimentalTextApi::class) // UrlAnnotation
 @Composable
 fun buildTextWithLink(
     fullText: String,
     linkText: String,
-    style: SpanStyle = Typography.body1.copy(fontSize = Text12).toSpanStyle(),
-    linkStyle: SpanStyle = LinkText
+    style: SpanStyle,
+    linkStyle: SpanStyle
 ): AnnotatedString {
     return buildAnnotatedString {
         withStyle(style) {

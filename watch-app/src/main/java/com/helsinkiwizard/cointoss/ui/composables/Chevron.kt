@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.wear.compose.material.Icon
 import com.helsinkiwizard.core.R
-import com.helsinkiwizard.core.theme.WhiteTransparent
+import com.helsinkiwizard.cointoss.ui.theme.WhiteTransparent
 
 const val OFFSET_ANIMATION_DURATION = 750
 const val OFFSET_ANIMATION_TARGET_VALUE = 5f

@@ -31,7 +31,7 @@ import com.helsinkiwizard.cointoss.ui.coinlist.Coin
 import com.helsinkiwizard.cointoss.ui.menu.WatchMenu
 import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinTossViewModel
-import com.helsinkiwizard.core.theme.CoinTossTheme
+import com.helsinkiwizard.cointoss.ui.theme.CoinTossTheme
 import com.helsinkiwizard.core.theme.LocalActivity
 import dagger.hilt.android.AndroidEntryPoint
 

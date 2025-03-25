@@ -35,7 +35,7 @@ import com.helsinkiwizard.core.CoreConstants.NODE_ID
 import com.helsinkiwizard.core.CoreConstants.READY_FOR_COIN_TRANSFER
 import com.helsinkiwizard.core.CoreConstants.TRANSFER_COMPLETE
 import com.helsinkiwizard.core.coin.CoinType
-import com.helsinkiwizard.core.theme.CoinTossTheme
+import com.helsinkiwizard.cointoss.ui.theme.CoinTossTheme
 import com.helsinkiwizard.core.theme.Forty
 import com.helsinkiwizard.core.theme.Twelve
 import com.helsinkiwizard.core.utils.deleteBitmap

@@ -1,7 +1,7 @@
-package com.helsinkiwizard.core.theme
+package com.helsinkiwizard.cointoss.ui.theme
 
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.wear.compose.material.MaterialTheme
 
 @Composable
 fun CoinTossTheme(

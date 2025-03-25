@@ -33,9 +33,8 @@ import androidx.wear.compose.material.Text
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
-import com.helsinkiwizard.core.theme.Forty
-import com.helsinkiwizard.core.theme.OnPrimaryContainerDark
-import com.helsinkiwizard.core.theme.PrimaryContainerDark
+import com.helsinkiwizard.cointoss.ui.theme.OnPrimaryContainerDark
+import com.helsinkiwizard.cointoss.ui.theme.PrimaryContainerDark
 import com.helsinkiwizard.core.theme.Twelve
 import kotlinx.coroutines.launch
 
@@ -71,7 +70,7 @@ internal fun WatchMenu() {
 
         ScalingLazyColumn(
             state = listState,
-            contentPadding = PaddingValues(vertical = Forty, horizontal = Twelve),
+            contentPadding = PaddingValues(all = Twelve),
             modifier = Modifier
                 .fillMaxSize()
                 .onRotaryScrollEvent {

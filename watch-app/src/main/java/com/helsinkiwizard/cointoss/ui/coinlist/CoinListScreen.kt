@@ -66,14 +66,17 @@ import com.helsinkiwizard.core.CoreConstants.EMPTY_STRING
 import com.helsinkiwizard.core.coin.CoinType
 import com.helsinkiwizard.core.coin.CoinType.BITCOIN
 import com.helsinkiwizard.core.coin.CoinType.CUSTOM
-import com.helsinkiwizard.core.theme.BlackTransparent
+import com.helsinkiwizard.cointoss.ui.theme.LinkText
 import com.helsinkiwizard.core.theme.CoinButtonHeight
 import com.helsinkiwizard.core.theme.Eight
 import com.helsinkiwizard.core.theme.Forty
 import com.helsinkiwizard.core.theme.Four
-import com.helsinkiwizard.core.theme.OnPrimaryContainerDark
+import com.helsinkiwizard.cointoss.ui.theme.OnPrimaryContainerDark
 import com.helsinkiwizard.core.theme.PercentEighty
-import com.helsinkiwizard.core.theme.PrimaryContainerDark
+import com.helsinkiwizard.cointoss.ui.theme.PrimaryContainerDark
+import com.helsinkiwizard.cointoss.ui.theme.Typography
+import com.helsinkiwizard.core.theme.BlackTransparent
+import com.helsinkiwizard.core.theme.Text12
 import com.helsinkiwizard.core.theme.Text14
 import com.helsinkiwizard.core.theme.Text20
 import com.helsinkiwizard.core.theme.ThirtyTwo
@@ -321,7 +324,9 @@ private fun RequestCoin() {
     val emailAddress = stringResource(id = R.string.email_address)
     val annotatedString = buildTextWithLink(
         fullText = stringResource(id = R.string.request_coin),
-        linkText = emailAddress
+        linkText = emailAddress,
+        style = Typography.body1.copy(fontSize = Text12).toSpanStyle(),
+        linkStyle = LinkText
     )
     ClickableText(
         text = annotatedString,
