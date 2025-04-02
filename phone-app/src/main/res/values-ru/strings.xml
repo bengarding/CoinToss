@@ -1,12 +1,8 @@
 <resources>
     <string name="back">Назад</string>
     <string name="confirm">Подтверждать</string>
-    <string name="menu">Более</string>
     <string name="more">Более</string>
     <string name="crop_image">Обрезать изображение</string>
-    <string name="coin_toss">Подбрасывание монеты</string>
-    <string name="settings">Настройки</string>
-    <string name="about">Результат перевода</string>
     <string name="remove_ads">Удалить рекламу</string>
     <string name="remove_all_ads_forever">Удалить всю рекламу навсегда</string>
     <string name="image_cropper">Обрезка изображения</string>
