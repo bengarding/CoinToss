@@ -22,6 +22,7 @@ import com.helsinkiwizard.cointoss.BuildConfig
 import com.helsinkiwizard.cointoss.Constants.COIN_LIST_INTERSTITIAL_AD_ID
 import com.helsinkiwizard.cointoss.Constants.CUSTOM_COIN_INTERSTITIAL_AD_ID
 import com.helsinkiwizard.cointoss.Constants.DEBUG_BANNER_AD_ID
+import com.helsinkiwizard.cointoss.Constants.DEBUG_INTERSTITIAL_AD_ID
 import com.helsinkiwizard.cointoss.data.InterstitialAdData
 import com.helsinkiwizard.core.theme.LocalActivity
 import timber.log.Timber
@@ -67,7 +68,7 @@ object AdManager {
 
             loadInterstitialAd(
                 context = context,
-                id = adId,
+                id = if (BuildConfig.DEBUG) DEBUG_INTERSTITIAL_AD_ID else adId,
                 onAdLoaded = { newAd ->
                     interstitialAds[adId] = InterstitialAdData(newAd, currentTime)
                 }
