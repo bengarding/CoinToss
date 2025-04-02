@@ -25,16 +25,18 @@ fun RemoveAdsScreen(
 
     when (val state = viewModel.uiState.collectAsState().value) {
         is UiState.ShowContent -> {
-            when (state.type as RemoveAdsContent) {
-                RemoveAdsContent.ShowDialog -> {
+            when (val type = state.type as RemoveAdsContent) {
+                is RemoveAdsContent.ShowDialog -> {
                     RemoveAdsDialog(
-                        onPurchaseCompleted = { viewModel.onPurchaseCompleted() },
+                        onPurchaseCompleted = { isRestored -> viewModel.onPurchaseCompleted(isRestored) }
                     )
                 }
 
-                RemoveAdsContent.PurchaseComplete -> {
+                is RemoveAdsContent.PurchaseComplete -> {
                     Toast.makeText(context, R.string.purchase_success, Toast.LENGTH_LONG).show()
-                    navController.popBackStack()
+                    if (type.isRestored) {
+                        navController.popBackStack()
+                    }
                 }
             }
         }
@@ -45,7 +47,7 @@ fun RemoveAdsScreen(
 
 @Composable
 fun RemoveAdsDialog(
-    onPurchaseCompleted: () -> Unit
+    onPurchaseCompleted: (isRestored: Boolean) -> Unit
 ) {
     val navController = LocalNavController.current
     PaywallDialog(
@@ -57,12 +59,12 @@ fun RemoveAdsDialog(
                 object : PaywallListener {
                     override fun onPurchaseCompleted(customerInfo: CustomerInfo, storeTransaction: StoreTransaction) {
                         super.onPurchaseCompleted(customerInfo, storeTransaction)
-                        onPurchaseCompleted()
+                        onPurchaseCompleted(false)
                     }
 
                     override fun onRestoreCompleted(customerInfo: CustomerInfo) {
                         super.onRestoreCompleted(customerInfo)
-                        onPurchaseCompleted()
+                        onPurchaseCompleted(true)
                     }
                 }
             )
