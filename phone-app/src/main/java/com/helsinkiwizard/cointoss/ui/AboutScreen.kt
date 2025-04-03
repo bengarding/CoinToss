@@ -2,13 +2,10 @@ package com.helsinkiwizard.cointoss.ui
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -24,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import com.helsinkiwizard.cointoss.BuildConfig
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.navigation.NavRoute
@@ -38,7 +36,6 @@ import com.helsinkiwizard.core.CoreConstants.PLAY_STORE_DEEPLINK
 import com.helsinkiwizard.core.theme.Forty
 import com.helsinkiwizard.core.theme.Four
 import com.helsinkiwizard.core.theme.Sixty
-import com.helsinkiwizard.core.theme.ThirtyTwo
 import com.helsinkiwizard.core.theme.Twelve
 import com.helsinkiwizard.core.theme.TwentyFour
 import com.helsinkiwizard.core.utils.buildTextWithLink
@@ -61,7 +58,6 @@ fun AboutScreen(
         modifier = Modifier.fillMaxWidth()
     ) {
         AppInfo(dateUpdated)
-        Spacer(modifier = Modifier.height(Sixty))
         Contact()
         AddCoinDetailsButtons()
     }
@@ -117,7 +113,7 @@ private fun Contact() {
     )
     ClickableText(
         text = annotatedString,
-        modifier = Modifier.padding(horizontal = Twelve, vertical = ThirtyTwo),
+        modifier = Modifier.padding(horizontal = Twelve, vertical = Sixty),
         onClick = { offset ->
             annotatedString.onLinkClick(
                 offset = offset,
@@ -164,7 +160,7 @@ private fun openGooglePlay(context: Context) {
         context.startActivity(
             Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse(PLAY_STORE_DEEPLINK)
+                PLAY_STORE_DEEPLINK.toUri()
             )
         )
     } catch (e: android.content.ActivityNotFoundException) {
@@ -172,7 +168,7 @@ private fun openGooglePlay(context: Context) {
         context.startActivity(
             Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("https://play.google.com/store/apps/details?id=$PACKAGE_NAME")
+                "https://play.google.com/store/apps/details?id=$PACKAGE_NAME".toUri()
             )
         )
     }
