@@ -27,11 +27,13 @@ class Repository @Inject constructor(
         private val MATERIAL_YOU = booleanPreferencesKey("material_you")
         private val SHOW_SEND_TO_WATCH_BUTTON = booleanPreferencesKey("show_send_to_watch")
         private val ADS_REMOVED = booleanPreferencesKey("ads_removed")
+        private val COIN_TOSS_COUNT = intPreferencesKey("coin_toss_count")
         private val SELECTED_COUNT = intPreferencesKey("coin_selected_count")
         private val CUSTOM_COUNT = intPreferencesKey("custom_count")
 
         private const val DEFAULT_COUNT = 1
         private const val MAX_COUNT = 5
+        private const val MAX_COIN_TOSS_COUNT = 10
     }
 
     suspend fun setTheme(themeMode: ThemeMode) = savePreference(THEME_MODE, themeMode.name)
@@ -99,6 +101,17 @@ class Repository @Inject constructor(
         } ?: flowOf()
     }
 
+    suspend fun showCoinTossInterstitialAd(): Boolean {
+        if (getAdsRemoved.first()) return false
+
+        val count = getCoinTossCount()
+        incrementCoinTossCount()
+
+        val shouldShow = count % MAX_COIN_TOSS_COUNT == 0
+        if (shouldShow) resetCoinTossCount()
+        return shouldShow
+    }
+
     suspend fun showCoinListInterstitialAd(): Boolean {
         if (getAdsRemoved.first()) return false
 
@@ -120,6 +133,12 @@ class Repository @Inject constructor(
         if (shouldShow) resetCustomCount()
         return shouldShow
     }
+
+    private suspend fun incrementCoinTossCount() = savePreference(COIN_TOSS_COUNT, getCoinTossCount().inc())
+    suspend fun resetCoinTossCount() = savePreference(COIN_TOSS_COUNT, DEFAULT_COUNT)
+    private suspend fun getCoinTossCount(): Int = context.dataStore.data
+        .map { preferences -> preferences[COIN_TOSS_COUNT] ?: DEFAULT_COUNT }
+        .first()
 
     private suspend fun incrementSelectedCount() = savePreference(SELECTED_COUNT, getSelectedCount().inc())
     private suspend fun resetSelectedCount() = savePreference(SELECTED_COUNT, DEFAULT_COUNT)

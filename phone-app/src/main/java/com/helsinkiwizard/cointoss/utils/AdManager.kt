@@ -23,6 +23,7 @@ import com.helsinkiwizard.cointoss.Constants.COIN_LIST_INTERSTITIAL_AD_ID
 import com.helsinkiwizard.cointoss.Constants.CUSTOM_COIN_INTERSTITIAL_AD_ID
 import com.helsinkiwizard.cointoss.Constants.DEBUG_BANNER_AD_ID
 import com.helsinkiwizard.cointoss.Constants.DEBUG_INTERSTITIAL_AD_ID
+import com.helsinkiwizard.cointoss.Constants.MAIN_INTERSTITIAL_AD_ID
 import com.helsinkiwizard.cointoss.data.InterstitialAdData
 import com.helsinkiwizard.core.theme.LocalActivity
 import timber.log.Timber
@@ -32,6 +33,7 @@ private const val ONE_HOUR_IN_MILLIS = 3600000
 object AdManager {
 
     private val interstitialAds = mutableMapOf<String, InterstitialAdData?>(
+        MAIN_INTERSTITIAL_AD_ID to null,
         COIN_LIST_INTERSTITIAL_AD_ID to null,
         CUSTOM_COIN_INTERSTITIAL_AD_ID to null
     )
@@ -63,16 +65,16 @@ object AdManager {
         val currentTime = System.currentTimeMillis()
 
         interstitialAds.forEach { (adId, adData) ->
-            val isNotStale = currentTime - (adData?.timestamp ?: 0) < ONE_HOUR_IN_MILLIS
-            if (isNotStale) return@forEach
-
-            loadInterstitialAd(
-                context = context,
-                id = if (BuildConfig.DEBUG) DEBUG_INTERSTITIAL_AD_ID else adId,
-                onAdLoaded = { newAd ->
-                    interstitialAds[adId] = InterstitialAdData(newAd, currentTime)
-                }
-            )
+            val isStale = currentTime - (adData?.timestamp ?: 0) > ONE_HOUR_IN_MILLIS
+            if (isStale) {
+                loadInterstitialAd(
+                    context = context,
+                    id = if (BuildConfig.DEBUG) DEBUG_INTERSTITIAL_AD_ID else adId,
+                    onAdLoaded = { newAd ->
+                        interstitialAds[adId] = InterstitialAdData(newAd, currentTime)
+                    }
+                )
+            }
         }
     }
 
@@ -184,6 +186,7 @@ object AdManager {
         val onDismiss = {
             interstitialAds[adId] = null
             onAdDismissed?.invoke()
+            loadInterstitialAds(activity)
         }
 
         interstitialAd?.let { ad ->

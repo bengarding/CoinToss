@@ -48,6 +48,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -68,6 +69,7 @@ import com.helsinkiwizard.core.theme.TwentyEight
 import com.helsinkiwizard.core.theme.Two
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
@@ -124,6 +126,10 @@ class MainActivity : ComponentActivity() {
 
         if (adsRemoved.not()) {
             AdManager.updateConsentStatus(this)
+        }
+
+        lifecycleScope.launch {
+            repository.resetCoinTossCount()
         }
     }
 
