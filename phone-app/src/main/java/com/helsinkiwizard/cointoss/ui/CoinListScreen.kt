@@ -117,14 +117,6 @@ private fun CoinListContent(
         is UiState.ShowContent -> {
             when (val type = state.type as CoinListContent) {
                 is CoinListContent.LoadingComplete -> CoinList(viewModel, type.customCoinFlow, navController)
-                is CoinListContent.CoinSet -> {
-                    navController.navigate(NavRoute.Home.name) {
-                        navController.graph.startDestinationRoute?.let { route ->
-                            popUpTo(route)
-                        }
-                        launchSingleTop = true
-                    }
-                }
             }
         }
 
@@ -148,6 +140,19 @@ private fun CoinListDialogs(
                             type.onComplete()
                         }
                     )
+                }
+
+                is CoinListDialogs.CoinSet -> {
+                    val navController = LocalNavController.current
+                    navController.navigate(NavRoute.Home.name) {
+                        navController.graph.startDestinationRoute?.let { route ->
+                            popUpTo(route) {
+                                saveState = true
+                            }
+                        }
+                        launchSingleTop = true
+                    }
+                    viewModel.resetDialogState()
                 }
             }
         }

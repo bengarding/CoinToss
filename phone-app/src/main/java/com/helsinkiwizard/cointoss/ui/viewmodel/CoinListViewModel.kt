@@ -33,22 +33,22 @@ internal class CoinListViewModel @Inject constructor(
             val showInAppReview = repository.getCoinType.first() != CoinType.BITCOIN
             repository.setCoinType(coinType)
 
+            val coinSet = { mutableDialogStateFlow.value = DialogState.ShowContent(CoinListDialogs.CoinSet) }
+
             when {
                 repository.showCoinListInterstitialAd() -> {
                     mutableDialogStateFlow.value = DialogState.ShowContent(
-                        CoinListDialogs.ShowInterstitialAd(
-                            onComplete = { mutableUiStateFlow.value = UiState.ShowContent(CoinListContent.CoinSet) }
-                        ))
+                        CoinListDialogs.ShowInterstitialAd(onComplete = coinSet)
+                    )
                 }
 
                 showInAppReview -> {
                     mutableDialogStateFlow.value = DialogState.ShowContent(
-                        CoinListDialogs.InAppReview(
-                            onComplete = { mutableUiStateFlow.value = UiState.ShowContent(CoinListContent.CoinSet) }
-                        ))
+                        CoinListDialogs.InAppReview(onComplete = coinSet)
+                    )
                 }
 
-                else -> mutableUiStateFlow.value = UiState.ShowContent(CoinListContent.CoinSet)
+                else -> coinSet.invoke()
             }
         }
     }
@@ -56,10 +56,10 @@ internal class CoinListViewModel @Inject constructor(
 
 internal sealed interface CoinListContent : BaseType {
     data class LoadingComplete(val customCoinFlow: Flow<CustomCoinUiModel?>) : CoinListContent
-    data object CoinSet : CoinListContent
 }
 
 internal sealed interface CoinListDialogs : BaseDialogType {
     data class InAppReview(val onComplete: () -> Unit) : CoinListDialogs
     data class ShowInterstitialAd(val onComplete: () -> Unit) : CoinListDialogs
+    data object CoinSet : CoinListDialogs
 }
