@@ -1,5 +1,6 @@
 package com.helsinkiwizard.cointoss.ui.composable
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -59,7 +60,7 @@ fun PrimarySwitch(
                 .clearAndSetSemantics { },
             checked = checked,
             onCheckedChange = onCheckChanged,
-            enabled = enabled
+            enabled = enabled,
         )
     }
 }
@@ -68,10 +69,17 @@ fun PrimarySwitch(
 @Composable
 private fun PrimarySwitchPreview() {
     PreviewSurface {
-        PrimarySwitch(
-            label = stringResource(id = R.string.show_send_to_watch_button),
-            checked = true,
-            onCheckChanged = {}
-        )
+        Column {
+            PrimarySwitch(
+                label = stringResource(id = R.string.show_send_to_watch_button),
+                checked = true,
+                onCheckChanged = {}
+            )
+            PrimarySwitch(
+                label = stringResource(id = R.string.show_send_to_watch_button),
+                checked = false,
+                onCheckChanged = {}
+            )
+        }
     }
 }

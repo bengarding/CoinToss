@@ -29,7 +29,7 @@ import com.helsinkiwizard.cointoss.ui.composable.PreviewSurface
 import com.helsinkiwizard.cointoss.ui.composable.PrimaryOutlinedButton
 import com.helsinkiwizard.cointoss.ui.composable.PrimarySlider
 import com.helsinkiwizard.cointoss.ui.composable.PrimarySwitch
-import com.helsinkiwizard.cointoss.ui.model.MutableInputWrapper
+import com.helsinkiwizard.core.ui.model.MutableInputWrapper
 import com.helsinkiwizard.cointoss.ui.model.SettingsModel
 import com.helsinkiwizard.cointoss.ui.viewmodel.SettingsContent
 import com.helsinkiwizard.cointoss.ui.viewmodel.SettingsViewModel

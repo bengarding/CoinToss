@@ -3,12 +3,14 @@ package com.helsinkiwizard.cointoss.data
 import android.content.Context
 import android.net.Uri
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.helsinkiwizard.cointoss.data.room.CoinTossDatabase
 import com.helsinkiwizard.cointoss.data.room.CustomCoin
 import com.helsinkiwizard.core.BaseRepository
 import com.helsinkiwizard.core.ui.model.CustomCoinUiModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -16,7 +18,7 @@ import javax.inject.Singleton
 
 @Singleton
 class Repository @Inject constructor(
-    context: Context,
+    private val context: Context,
     private val database: CoinTossDatabase? = null
 ) : BaseRepository(context) {
 
@@ -24,8 +26,14 @@ class Repository @Inject constructor(
         private val THEME_MODE = stringPreferencesKey("selected_theme")
         private val MATERIAL_YOU = booleanPreferencesKey("material_you")
         private val SHOW_SEND_TO_WATCH_BUTTON = booleanPreferencesKey("show_send_to_watch")
-        private val PLAY_SOUND_EFFECT = booleanPreferencesKey("play_sound_effect")
         private val ADS_REMOVED = booleanPreferencesKey("ads_removed")
+        private val COIN_TOSS_COUNT = intPreferencesKey("coin_toss_count")
+        private val SELECTED_COUNT = intPreferencesKey("coin_selected_count")
+        private val CUSTOM_COUNT = intPreferencesKey("custom_count")
+
+        private const val DEFAULT_COUNT = 1
+        private const val MAX_COUNT = 5
+        private const val MAX_COIN_TOSS_COUNT = 10
     }
 
     suspend fun setTheme(themeMode: ThemeMode) = savePreference(THEME_MODE, themeMode.name)
@@ -44,12 +52,6 @@ class Repository @Inject constructor(
     val getShowSendToWatchButton: Flow<Boolean> = context.dataStore.data
         .map { preferences ->
             preferences[SHOW_SEND_TO_WATCH_BUTTON] ?: true
-        }
-
-    suspend fun setPlaySound(play: Boolean) = savePreference(PLAY_SOUND_EFFECT, play)
-    val getPlaySound: Flow<Boolean> = context.dataStore.data
-        .map { preferences ->
-            preferences[PLAY_SOUND_EFFECT] ?: true
         }
 
     suspend fun setAdsRemoved(adsRemoved: Boolean) = savePreference(ADS_REMOVED, adsRemoved)
@@ -98,4 +100,55 @@ class Repository @Inject constructor(
             list.map { it.toUiModel() }
         } ?: flowOf()
     }
+
+    suspend fun showCoinTossInterstitialAd(): Boolean {
+        if (getAdsRemoved.first()) return false
+
+        val count = getCoinTossCount()
+        incrementCoinTossCount()
+
+        val shouldShow = count % MAX_COIN_TOSS_COUNT == 0
+        if (shouldShow) resetCoinTossCount()
+        return shouldShow
+    }
+
+    suspend fun showCoinListInterstitialAd(): Boolean {
+        if (getAdsRemoved.first()) return false
+
+        val count = getSelectedCount()
+        incrementSelectedCount()
+
+        val shouldShow = count % MAX_COUNT == 0
+        if (shouldShow) resetSelectedCount()
+        return shouldShow
+    }
+
+    suspend fun showCustomCoinInterstitialAd(): Boolean {
+        if (getAdsRemoved.first()) return false
+
+        val count = getCustomCount()
+        incrementCustomCount()
+
+        val shouldShow = count % MAX_COUNT == 0
+        if (shouldShow) resetCustomCount()
+        return shouldShow
+    }
+
+    private suspend fun incrementCoinTossCount() = savePreference(COIN_TOSS_COUNT, getCoinTossCount().inc())
+    suspend fun resetCoinTossCount() = savePreference(COIN_TOSS_COUNT, DEFAULT_COUNT)
+    private suspend fun getCoinTossCount(): Int = context.dataStore.data
+        .map { preferences -> preferences[COIN_TOSS_COUNT] ?: DEFAULT_COUNT }
+        .first()
+
+    private suspend fun incrementSelectedCount() = savePreference(SELECTED_COUNT, getSelectedCount().inc())
+    private suspend fun resetSelectedCount() = savePreference(SELECTED_COUNT, DEFAULT_COUNT)
+    private suspend fun getSelectedCount(): Int = context.dataStore.data
+        .map { preferences -> preferences[SELECTED_COUNT] ?: DEFAULT_COUNT }
+        .first()
+
+    private suspend fun incrementCustomCount() = savePreference(CUSTOM_COUNT, getCustomCount().inc())
+    private suspend fun resetCustomCount() = savePreference(CUSTOM_COUNT, DEFAULT_COUNT)
+    private suspend fun getCustomCount(): Int = context.dataStore.data
+        .map { preferences -> preferences[CUSTOM_COUNT] ?: DEFAULT_COUNT }
+        .first()
 }

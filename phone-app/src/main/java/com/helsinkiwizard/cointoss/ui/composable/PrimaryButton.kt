@@ -1,7 +1,6 @@
 package com.helsinkiwizard.cointoss.ui.composable
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,14 +10,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Image
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,10 +44,9 @@ fun PrimaryButton(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (icon != null) {
-                Image(
+                Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onPrimary),
                     modifier = Modifier.size(ThirtyTwo)
                 )
             }
@@ -69,32 +66,26 @@ fun PrimaryOutlinedButton(
     modifier: Modifier = Modifier,
     icon: ImageVector? = null
 ) {
-    Button(
+    OutlinedButton(
         modifier = modifier
             .fillMaxWidth()
             .heightIn(ButtonHeight),
-        border = BorderStroke(width = One, color = MaterialTheme.colorScheme.surfaceContainerHighest),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color.Transparent,
-            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-        ),
+        border = BorderStroke(width = One, color = MaterialTheme.colorScheme.primary),
         onClick = onClick
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (icon != null) {
-                Image(
+                Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.surfaceContainerHighest),
                     modifier = Modifier.size(ThirtyTwo)
                 )
             }
             Text(
                 text = text,
                 style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.surfaceContainerHighest,
                 textAlign = TextAlign.Center
             )
         }
@@ -122,6 +113,11 @@ private fun PrimaryButtonPreview() {
                 text = "Clear",
                 onClick = {}
             )
+            PrimaryOutlinedButton(
+                text = "Clear",
+                icon = Icons.Outlined.Image,
+                onClick = {}
+            )
         }
     }
 }
@@ -145,6 +141,11 @@ private fun PrimaryButtonDarkPreview() {
             )
             PrimaryOutlinedButton(
                 text = "Clear",
+                onClick = {}
+            )
+            PrimaryOutlinedButton(
+                text = "Clear",
+                icon = Icons.Outlined.Image,
                 onClick = {}
             )
         }

@@ -34,12 +34,12 @@ import com.helsinkiwizard.core.theme.Twelve
 
 @Composable
 fun PrimaryTextFieldColors(): TextFieldColors = TextFieldDefaults.colors(
-    focusedIndicatorColor = MaterialTheme.colorScheme.surfaceContainerHighest,
-    focusedLabelColor = MaterialTheme.colorScheme.surfaceContainerHighest,
-    cursorColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+    focusedIndicatorColor = MaterialTheme.colorScheme.primary,
+    focusedLabelColor = MaterialTheme.colorScheme.primary,
+    cursorColor = MaterialTheme.colorScheme.primary,
     selectionColors = TextSelectionColors(
-        backgroundColor = MaterialTheme.colorScheme.surfaceContainerHighest.copy(alpha = Alpha40),
-        handleColor = MaterialTheme.colorScheme.surfaceContainerHighest
+        backgroundColor = MaterialTheme.colorScheme.primary.copy(alpha = Alpha40),
+        handleColor = MaterialTheme.colorScheme.primary
     )
 )
 

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">सिक्का उछालना</string>
+    <string name="choose_a_coin">एक सिक्का चुनें</string>
+    <string name="request_coin">"एक ऐसा सिक्का न देखें जो आप चाहते हैं? मुझे एक ईमेल भेजें और मैं इसे जोड़ने की पूरी कोशिश करूंगा।</string>
+    <string name="email_address">"cointossrequest@gmail.com"</string>
+    <string name="speed_seconds">"स्पीड (सेकंड)"</string>
+    <string name="create_a_coin">एक सिक्का बनाएं</string>
+    <string name="ok">ठीक है</string>
+    <string name="cancel">रद्द करना</string>
+
+    <string name="about">के बारे में</string>
+    <string name="settings">सेटिंग</string>
+    <string name="coin">"सिक्का"</string>
+    <string name="heads">सिर</string>
+    <string name="tails">पूंछ</string>
+
+    <string name="custom_coin">कस्टम सिक्का</string>
+    <string name="bitcoin">Bitcoin</string>
+    <string name="canada">कनाडा</string>
+    <string name="china">चीन</string>
+    <string name="euro">यूरो</string>
+    <string name="india">भारत</string>
+    <string name="japan">जापान</string>
+    <string name="kuwait">कुवैट</string>
+    <string name="thailand">थाईलैंड</string>
+    <string name="turkey">टर्की</string>
+    <string name="ukraine">यूक्रेन</string>
+    <string name="united_kingdom">यूनाइटेड किंगडम</string>
+    <string name="united_states">संयुक्त राज्य अमेरिका</string>
+    <string name="uzbekistan">उज़्बेकिस्तान</string>
+    <string name="diaper_duty">डायपर ड्यूटी</string>
+    <string name="australia">ऑस्ट्रेलिया</string>
+    <string name="sweden">स्वीडन</string>
+    <string name="russia">रूस</string>
+    <string name="uae">संयुक्त अरब अमीरात</string>
+    <string name="saudi_arabia">सऊदी अरब</string>
+    <string name="jordan">जॉर्डन</string>
+    <string name="mexico">मेक्सिको</string>
+    <string name="spain">स्पेन</string>
+    <string name="egypt">मिस्र</string>
+    <string name="poland">पोलैंड</string>
+    <string name="uruguay">उरुग्वे</string>
+    <string name="iran">ईरान</string>
+    <string name="czech_republic">चेक रिपब्लिक</string>
+    <string name="new_zealand">न्यूज़ीलैंड</string>
+    <string name="pike_place_market">पाइक प्लेस मार्केट</string>
+    <string name="azerbaijan">आज़रबाइजान</string>
+    <string name="brazil">ब्राज़िल</string>
+    <string name="czechoslovakia">चेकोस्लोवाकिया</string>
+    <string name="denmark">डेनमार्क</string>
+    <string name="germany">जर्मनी</string>
+    <string name="indonesia">इंडोनेशिया</string>
+    <string name="israel">इज़राइल</string>
+    <string name="lebanon">लेबनान</string>
+    <string name="norway">नॉर्वे</string>
+    <string name="switzerland">स्विट्ज़रलैंड</string>
+    <string name="colombia">कोलंबिया</string>
+    <string name="palestine">फिलिस्तीन</string>
+    <string name="pakistan">पाकिस्तान</string>
+    <string name="bahrain">बहरीन</string>
+    <string name="macedonia">मैसेडोनिया</string>
+    <string name="hungary">हंगरी</string>
+    <string name="singapore">सिंगापुर</string>
+    <string name="dogecoin">डोगेकोइन</string>
+    <string name="morocco">मोरक्को</string>
+    <string name="peru">पेरू</string>
+    <string name="south_africa">दक्षिण अफ्रीका</string>
+</resources>
+

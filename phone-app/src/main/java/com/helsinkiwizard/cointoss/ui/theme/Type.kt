@@ -100,6 +100,6 @@ val BodyMediumSpan: SpanStyle
 val LinkText: SpanStyle
     @Composable
     get() = MaterialTheme.typography.bodyMedium.toSpanStyle().copy(
-        color = MaterialTheme.colorScheme.surfaceContainerHighest,
+        color = MaterialTheme.colorScheme.primary,
         textDecoration = TextDecoration.Underline
     )

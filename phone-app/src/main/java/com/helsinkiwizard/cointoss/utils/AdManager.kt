@@ -3,15 +3,41 @@ package com.helsinkiwizard.cointoss.utils
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.preference.PreferenceManager
 import com.google.ads.mediation.admob.AdMobAdapter
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.ump.ConsentRequestParameters
 import com.google.android.ump.UserMessagingPlatform
+import com.helsinkiwizard.cointoss.BuildConfig
+import com.helsinkiwizard.cointoss.Constants.COIN_LIST_INTERSTITIAL_AD_ID
+import com.helsinkiwizard.cointoss.Constants.CUSTOM_COIN_INTERSTITIAL_AD_ID
+import com.helsinkiwizard.cointoss.Constants.DEBUG_BANNER_AD_ID
+import com.helsinkiwizard.cointoss.Constants.DEBUG_INTERSTITIAL_AD_ID
+import com.helsinkiwizard.cointoss.Constants.MAIN_INTERSTITIAL_AD_ID
+import com.helsinkiwizard.cointoss.data.InterstitialAdData
+import com.helsinkiwizard.core.theme.LocalActivity
 import timber.log.Timber
 
+private const val ONE_HOUR_IN_MILLIS = 3600000
 
 object AdManager {
+
+    private val interstitialAds = mutableMapOf<String, InterstitialAdData?>(
+        MAIN_INTERSTITIAL_AD_ID to null,
+        COIN_LIST_INTERSTITIAL_AD_ID to null,
+        CUSTOM_COIN_INTERSTITIAL_AD_ID to null
+    )
+
     fun updateConsentStatus(activity: Activity) {
         val consentInfo = UserMessagingPlatform.getConsentInformation(activity)
 
@@ -35,7 +61,36 @@ object AdManager {
         )
     }
 
-    fun getAdRequest(context: Context): AdRequest {
+    fun loadInterstitialAds(context: Context) {
+        val currentTime = System.currentTimeMillis()
+
+        interstitialAds.forEach { (adId, adData) ->
+            val isStale = currentTime - (adData?.timestamp ?: 0) > ONE_HOUR_IN_MILLIS
+            if (isStale) {
+                loadInterstitialAd(
+                    context = context,
+                    id = if (BuildConfig.DEBUG) DEBUG_INTERSTITIAL_AD_ID else adId,
+                    onAdLoaded = { newAd ->
+                        interstitialAds[adId] = InterstitialAdData(newAd, currentTime)
+                    }
+                )
+            }
+        }
+    }
+
+    fun clearLoadedAds() {
+        interstitialAds.clear()
+    }
+
+    fun showConsentForm(activity: Activity) {
+        UserMessagingPlatform.showPrivacyOptionsForm(activity) { formError ->
+            formError?.let {
+                Timber.e("Error loading consent form from settings: ${it.message}")
+            }
+        }
+    }
+
+    private fun getAdRequest(context: Context): AdRequest {
         val extras = Bundle().apply {
             if (canShowPersonalizedAds(context).not()) {
                 putString("npa", "1")
@@ -46,13 +101,20 @@ object AdManager {
             .build()
     }
 
-    fun showConsentForm(activity: Activity) {
-        UserMessagingPlatform.showPrivacyOptionsForm(activity) { formError ->
-            formError?.let {
-                Timber.e("Error loading consent form from settings: ${it.message}")
+    private fun loadInterstitialAd(
+        context: Context,
+        id: String,
+        onAdLoaded: (InterstitialAd) -> Unit
+    ) {
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(
+            context, id, adRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    onAdLoaded(interstitialAd)
+                }
             }
-
-        }
+        )
     }
 
     // The following methods are from https://stackoverflow.com/a/68310602/19034973
@@ -109,8 +171,52 @@ object AdManager {
         hasVendorLI: Boolean
     ): Boolean {
         return purposes.all { p ->
-            (hasAttribute(purposeLI, p) && hasVendorLI) ||
-                    (hasAttribute(purposeConsent, p) && hasVendorConsent)
+            (hasAttribute(purposeLI, p) && hasVendorLI) || (hasAttribute(purposeConsent, p) && hasVendorConsent)
         }
+    }
+
+    @Composable
+    fun ShowInterstitialAd(
+        adId: String,
+        onAdDismissed: (() -> Unit)? = null
+    ) {
+        val activity = LocalActivity.current
+        val interstitialAd = interstitialAds[adId]?.ad
+
+        val onDismiss = {
+            interstitialAds[adId] = null
+            onAdDismissed?.invoke()
+            loadInterstitialAds(activity)
+        }
+
+        interstitialAd?.let { ad ->
+            ad.fullScreenContentCallback = object : FullScreenContentCallback() {
+                override fun onAdDismissedFullScreenContent() {
+                    onDismiss()
+                }
+            }
+            ad.show(activity)
+        } ?: onDismiss()
+    }
+
+    @Composable
+    fun BannerAd(
+        adId: String,
+        modifier: Modifier = Modifier
+    ) {
+        AndroidView(
+            modifier = modifier
+                .fillMaxWidth()
+                .animateContentSize(),
+            factory = { context ->
+                AdView(context).apply {
+                    val displayMetrics = context.resources.displayMetrics
+                    val screenWidth = (displayMetrics.widthPixels / displayMetrics.density).toInt()
+                    setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context, screenWidth))
+                    adUnitId = if (BuildConfig.DEBUG) DEBUG_BANNER_AD_ID else adId
+                    loadAd(getAdRequest(context))
+                }
+            }
+        )
     }
 }

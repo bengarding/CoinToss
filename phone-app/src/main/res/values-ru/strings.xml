@@ -1,11 +1,8 @@
 <resources>
     <string name="back">Назад</string>
     <string name="confirm">Подтверждать</string>
-    <string name="menu">Меню</string>
+    <string name="more">Более</string>
     <string name="crop_image">Обрезать изображение</string>
-    <string name="home">Дом</string>
-    <string name="settings">Настройки</string>
-    <string name="about">Результат перевода</string>
     <string name="remove_ads">Удалить рекламу</string>
     <string name="remove_all_ads_forever">Удалить всю рекламу навсегда</string>
     <string name="image_cropper">Обрезка изображения</string>
@@ -28,6 +25,7 @@
     <string name="save_error">Произошла ошибка при сохранении</string>
     <string name="selected_custom_coin">Выбрано</string>
     <string name="custom_coins">Пользовательские монеты</string>
+    <string name="custom">Обычай</string>
     <string name="send_to_watch">Отправить на просмотр</string>
     <string name="select">Выбирать</string>
     <string name="edit">Редактировать</string>
@@ -50,4 +48,5 @@
     <string name="purchase_success">Реклама удалена!</string>
     <string name="privacy">Конфиденциальность</string>
     <string name="update_privacy_consent">Обновить согласие на конфиденциальность</string>
+    <string name="coin_toss">Подбрасывание монеты</string>
 </resources>

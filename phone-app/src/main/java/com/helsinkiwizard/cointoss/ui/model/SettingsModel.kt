@@ -1,6 +1,7 @@
 package com.helsinkiwizard.cointoss.ui.model
 
 import com.helsinkiwizard.cointoss.data.ThemeMode
+import com.helsinkiwizard.core.ui.model.MutableInputWrapper
 
 class SettingsModel(
     themeMode: ThemeMode,

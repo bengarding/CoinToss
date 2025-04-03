@@ -7,6 +7,8 @@
     <string name="create_a_coin">Создать монету</string>
     <string name="ok">одобрять</string>
     <string name="cancel">Отмена</string>
+    <string name="settings">Настройки</string>
+    <string name="about">Результат перевода</string>
 
     <string name="coin">"Монета"</string>
     <string name="heads">орёл</string>
@@ -62,4 +64,5 @@
     <string name="dogecoin">Dogecoin</string>
     <string name="morocco">Марокко</string>
     <string name="peru">Перу</string>
+    <string name="south_africa">ЮАР</string>
 </resources>

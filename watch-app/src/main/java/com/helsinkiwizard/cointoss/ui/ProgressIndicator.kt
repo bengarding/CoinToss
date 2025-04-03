@@ -7,8 +7,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.CircularProgressIndicator
 import com.helsinkiwizard.core.theme.Four
-import com.helsinkiwizard.core.theme.OnPrimaryContainerDark
-import com.helsinkiwizard.core.theme.PrimaryContainerDark
+import com.helsinkiwizard.cointoss.ui.theme.OnPrimaryContainerDark
+import com.helsinkiwizard.cointoss.ui.theme.PrimaryContainerDark
 
 private const val PROGRESS_INDICATOR_FRACTION = .25f
 

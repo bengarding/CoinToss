@@ -21,8 +21,8 @@ import androidx.wear.compose.material.dialog.Confirmation
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.core.theme.Eight
 import com.helsinkiwizard.core.theme.Forty
-import com.helsinkiwizard.core.theme.OnPrimaryContainerDark
-import com.helsinkiwizard.core.theme.PrimaryContainerDark
+import com.helsinkiwizard.cointoss.ui.theme.OnPrimaryContainerDark
+import com.helsinkiwizard.cointoss.ui.theme.PrimaryContainerDark
 import com.helsinkiwizard.core.theme.Text20
 import com.helsinkiwizard.core.theme.ThirtyTwo
 import com.helsinkiwizard.core.theme.Twelve

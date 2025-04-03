@@ -2,8 +2,10 @@ package com.helsinkiwizard.cointoss.ui
 
 import android.net.Uri
 import android.widget.Toast
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -23,6 +25,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -40,11 +43,13 @@ import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import coil.size.Size
 import com.google.android.gms.wearable.Wearable
+import com.helsinkiwizard.cointoss.Constants.CUSTOM_COIN_BANNER_AD_ID
+import com.helsinkiwizard.cointoss.Constants.CUSTOM_COIN_INTERSTITIAL_AD_ID
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.data.Repository
 import com.helsinkiwizard.cointoss.ui.composable.ErrorScreen
+import com.helsinkiwizard.cointoss.ui.composable.FullScreenProgressIndicator
 import com.helsinkiwizard.cointoss.ui.composable.PreviewSurface
-import com.helsinkiwizard.cointoss.ui.composable.ProgressIndicator
 import com.helsinkiwizard.cointoss.ui.composable.dialog.CoinTossDialog
 import com.helsinkiwizard.cointoss.ui.composable.dialog.MediaPicker
 import com.helsinkiwizard.cointoss.ui.composable.dialog.SelectWatchDialog
@@ -53,6 +58,9 @@ import com.helsinkiwizard.cointoss.ui.viewmodel.CreateCoinContent
 import com.helsinkiwizard.cointoss.ui.viewmodel.CreateCoinDialogs
 import com.helsinkiwizard.cointoss.ui.viewmodel.CreateCoinError
 import com.helsinkiwizard.cointoss.ui.viewmodel.CreateCoinViewModel
+import com.helsinkiwizard.cointoss.utils.AdManager
+import com.helsinkiwizard.cointoss.utils.AdManager.BannerAd
+import com.helsinkiwizard.cointoss.utils.AdManager.ShowInterstitialAd
 import com.helsinkiwizard.cointoss.utils.launchInAppReview
 import com.helsinkiwizard.core.coin.CoinSide
 import com.helsinkiwizard.core.theme.Eight
@@ -78,8 +86,25 @@ private const val INDEX_SELECTED_COIN = 1
 fun CreateCoinScreen(
     viewModel: CreateCoinViewModel = hiltViewModel()
 ) {
-    CreateCoinContent(viewModel)
-    CreateCoinDialogs(viewModel)
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        AdManager.loadInterstitialAds(context)
+    }
+
+    val adsRemoved = viewModel.adsRemoved.collectAsState(initial = true).value
+    Column {
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .animateContentSize()
+        ) {
+            CreateCoinContent(viewModel)
+            CreateCoinDialogs(viewModel)
+        }
+        if (adsRemoved.not()) {
+            BannerAd(CUSTOM_COIN_BANNER_AD_ID)
+        }
+    }
 }
 
 @Composable
@@ -92,7 +117,7 @@ private fun CreateCoinContent(viewModel: CreateCoinViewModel) {
         }
 
         is UiState.Loading -> {
-            ProgressIndicator()
+            FullScreenProgressIndicator()
         }
 
         is UiState.Error -> {
@@ -195,6 +220,13 @@ private fun CreateCoinDialogs(viewModel: CreateCoinViewModel) {
                                 uriToBitmap = type.uriToBitmap
                             )
                         }
+                    )
+                }
+
+                is CreateCoinDialogs.ShowInterstitialAd -> {
+                    ShowInterstitialAd(
+                        adId = CUSTOM_COIN_INTERSTITIAL_AD_ID,
+                        onAdDismissed = viewModel::resetDialogState
                     )
                 }
             }
@@ -443,7 +475,7 @@ private fun IconButtons(
                 Icon(
                     painter = painterResource(id = R.drawable.ic_send_to_watch),
                     contentDescription = stringResource(id = R.string.send_to_watch),
-                    tint = MaterialTheme.colorScheme.surfaceContainerHighest
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         }
@@ -452,7 +484,7 @@ private fun IconButtons(
                 Icon(
                     imageVector = Icons.Outlined.ArrowUpward,
                     contentDescription = stringResource(id = R.string.select),
-                    tint = MaterialTheme.colorScheme.surfaceContainerHighest
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         }
@@ -460,14 +492,14 @@ private fun IconButtons(
             Icon(
                 imageVector = Icons.Outlined.Edit,
                 contentDescription = stringResource(id = R.string.edit),
-                tint = MaterialTheme.colorScheme.surfaceContainerHighest
+                tint = MaterialTheme.colorScheme.primary
             )
         }
         IconButton(onClick = onDeleteClicked) {
             Icon(
                 imageVector = Icons.Outlined.Delete,
                 contentDescription = stringResource(id = R.string.delete),
-                tint = MaterialTheme.colorScheme.surfaceContainerHighest
+                tint = MaterialTheme.colorScheme.primary
             )
         }
     }

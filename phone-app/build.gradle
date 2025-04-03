@@ -10,14 +10,14 @@ plugins {
 }
 android {
     namespace 'com.helsinkiwizard.cointoss'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.helsinkiwizard.cointoss"
         minSdk 26
-        targetSdk 34
-        versionCode 140
-        versionName "v1.3.1"
+        targetSdk 35
+        versionCode 142
+        versionName "v1.4.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -51,6 +51,7 @@ android {
     }
     buildFeatures {
         compose true
+        buildConfig true
     }
     composeOptions {
         kotlinCompilerExtensionVersion "$compose_compiler_version"
@@ -73,7 +74,7 @@ dependencies {
     implementation "androidx.compose.animation:animation:$compose_version"
     implementation "androidx.compose.material3:material3:$material_3_version"
     implementation "androidx.compose.runtime:runtime:$compose_version"
-    implementation 'androidx.activity:activity-compose:1.8.2'
+    implementation 'androidx.activity:activity-compose:1.10.1'
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
     implementation "com.google.android.play:review:2.0.2"
@@ -98,5 +99,5 @@ dependencies {
     implementation "com.revenuecat.purchases:purchases-ui:$revenue_cat_version"
 
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
 }

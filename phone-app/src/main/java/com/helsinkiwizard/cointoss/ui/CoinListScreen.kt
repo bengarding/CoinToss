@@ -1,6 +1,7 @@
 package com.helsinkiwizard.cointoss.ui
 
 import android.os.Bundle
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -8,6 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,11 +21,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,6 +49,8 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.helsinkiwizard.cointoss.Constants.COIN_LIST_BANNER_AD_ID
+import com.helsinkiwizard.cointoss.Constants.COIN_LIST_INTERSTITIAL_AD_ID
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.data.Repository
 import com.helsinkiwizard.cointoss.navigation.NavRoute
@@ -54,6 +59,9 @@ import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListContent
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListDialogs
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListViewModel
+import com.helsinkiwizard.cointoss.utils.AdManager
+import com.helsinkiwizard.cointoss.utils.AdManager.BannerAd
+import com.helsinkiwizard.cointoss.utils.AdManager.ShowInterstitialAd
 import com.helsinkiwizard.cointoss.utils.launchInAppReview
 import com.helsinkiwizard.core.CoreConstants
 import com.helsinkiwizard.core.coin.CoinType
@@ -79,8 +87,25 @@ import kotlinx.coroutines.flow.flowOf
 internal fun CoinListScreen(
     viewModel: CoinListViewModel = hiltViewModel()
 ) {
-    CoinListContent(viewModel)
-    CoinListDialogs(viewModel)
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        AdManager.loadInterstitialAds(context)
+    }
+
+    val adsRemoved = viewModel.adsRemoved.collectAsState(initial = true).value
+    Column {
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .animateContentSize()
+        ) {
+            CoinListContent(viewModel)
+            CoinListDialogs(viewModel)
+        }
+        if (adsRemoved.not()) {
+            BannerAd(COIN_LIST_BANNER_AD_ID)
+        }
+    }
 }
 
 @Composable
@@ -92,7 +117,6 @@ private fun CoinListContent(
         is UiState.ShowContent -> {
             when (val type = state.type as CoinListContent) {
                 is CoinListContent.LoadingComplete -> CoinList(viewModel, type.customCoinFlow, navController)
-                is CoinListContent.CoinSet -> navController.navigate(NavRoute.Home.name)
             }
         }
 
@@ -104,14 +128,31 @@ private fun CoinListContent(
 private fun CoinListDialogs(
     viewModel: CoinListViewModel
 ) {
-    val activity = LocalActivity.current
     when (val state = viewModel.dialogState.collectAsState().value) {
         is DialogState.ShowContent -> {
             when (val type = state.type as CoinListDialogs) {
-                is CoinListDialogs.InAppReview -> {
-                    activity.launchInAppReview(
-                        onComplete = type.onComplete
+                is CoinListDialogs.InAppReview -> LocalActivity.current.launchInAppReview(onComplete = type.onComplete)
+                is CoinListDialogs.ShowInterstitialAd -> {
+                    ShowInterstitialAd(
+                        adId = COIN_LIST_INTERSTITIAL_AD_ID,
+                        onAdDismissed = {
+                            viewModel.resetDialogState()
+                            type.onComplete()
+                        }
                     )
+                }
+
+                is CoinListDialogs.CoinSet -> {
+                    val navController = LocalNavController.current
+                    navController.navigate(NavRoute.Home.name) {
+                        navController.graph.startDestinationRoute?.let { route ->
+                            popUpTo(route) {
+                                saveState = true
+                            }
+                        }
+                        launchSingleTop = true
+                    }
+                    viewModel.resetDialogState()
                 }
             }
         }
@@ -135,7 +176,7 @@ private fun CoinList(
     val customCoin = customCoinFlow.collectAsState(initial = null).value
 
     LazyColumn(
-        contentPadding = PaddingValues(vertical = Forty),
+        contentPadding = PaddingValues(vertical = Eight),
         verticalArrangement = Arrangement.spacedBy(Eight),
         modifier = Modifier
             .fillMaxSize()
@@ -192,7 +233,7 @@ private fun CustomCoin(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(if (showDefault) MaterialTheme.colorScheme.surfaceContainerHighest.copy(Alpha20) else MaterialTheme.colorScheme.primary),
+                .background(if (showDefault) MaterialTheme.colorScheme.primary.copy(Alpha20) else MaterialTheme.colorScheme.primary),
             onState = { state ->
                 showDefault = state is AsyncImagePainter.State.Empty || state is AsyncImagePainter.State.Error
             }
@@ -204,7 +245,7 @@ private fun CustomCoin(
                     .fillMaxWidth()
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
-                        indication = rememberRipple(color = MaterialTheme.colorScheme.surfaceContainerHighest),
+                        indication = ripple(color = MaterialTheme.colorScheme.primary),
                         onClick = onClick
                     )
             ) {
@@ -214,7 +255,7 @@ private fun CustomCoin(
                         .fillMaxWidth()
                         .border(
                             width = Two,
-                            color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                            color = MaterialTheme.colorScheme.primary,
                             shape = RectangleShape
                         )
                 )
@@ -224,14 +265,14 @@ private fun CustomCoin(
                         .fillMaxWidth()
                         .border(
                             width = Two,
-                            color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                            color = MaterialTheme.colorScheme.primary,
                             shape = CoinListShape()
                         )
                 )
                 Icon(
                     imageVector = Icons.Outlined.Add,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.surfaceContainerHighest,
+                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .align(Alignment.Center)
                         .size(Forty)

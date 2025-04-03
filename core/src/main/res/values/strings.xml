@@ -7,6 +7,8 @@
     <string name="create_a_coin">Create a coin</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
 
     <string name="coin">"Coin"</string>
     <string name="heads">heads</string>
@@ -62,4 +64,5 @@
     <string name="dogecoin">Dogecoin</string>
     <string name="morocco">Morocco</string>
     <string name="peru">Peru</string>
+    <string name="south_africa">South Africa</string>
 </resources>

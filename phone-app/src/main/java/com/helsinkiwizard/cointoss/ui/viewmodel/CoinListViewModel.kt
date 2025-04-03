@@ -21,6 +21,7 @@ internal class CoinListViewModel @Inject constructor(
 ) : AbstractViewModel() {
 
     private val customCoin = repository.getSelectedCustomCoin()
+    val adsRemoved = repository.getAdsRemoved
 
     init {
         mutableUiStateFlow.value = UiState.ShowContent(CoinListContent.LoadingComplete(customCoin))
@@ -32,12 +33,22 @@ internal class CoinListViewModel @Inject constructor(
             val showInAppReview = repository.getCoinType.first() != CoinType.BITCOIN
             repository.setCoinType(coinType)
 
-            if (showInAppReview) {
-                mutableDialogStateFlow.value = DialogState.ShowContent(CoinListDialogs.InAppReview(
-                    onComplete = { mutableUiStateFlow.value = UiState.ShowContent(CoinListContent.CoinSet) }
-                ))
-            } else {
-                mutableUiStateFlow.value = UiState.ShowContent(CoinListContent.CoinSet)
+            val coinSet = { mutableDialogStateFlow.value = DialogState.ShowContent(CoinListDialogs.CoinSet) }
+
+            when {
+                repository.showCoinListInterstitialAd() -> {
+                    mutableDialogStateFlow.value = DialogState.ShowContent(
+                        CoinListDialogs.ShowInterstitialAd(onComplete = coinSet)
+                    )
+                }
+
+                showInAppReview -> {
+                    mutableDialogStateFlow.value = DialogState.ShowContent(
+                        CoinListDialogs.InAppReview(onComplete = coinSet)
+                    )
+                }
+
+                else -> coinSet.invoke()
             }
         }
     }
@@ -45,9 +56,10 @@ internal class CoinListViewModel @Inject constructor(
 
 internal sealed interface CoinListContent : BaseType {
     data class LoadingComplete(val customCoinFlow: Flow<CustomCoinUiModel?>) : CoinListContent
-    data object CoinSet : CoinListContent
 }
 
 internal sealed interface CoinListDialogs : BaseDialogType {
     data class InAppReview(val onComplete: () -> Unit) : CoinListDialogs
+    data class ShowInterstitialAd(val onComplete: () -> Unit) : CoinListDialogs
+    data object CoinSet : CoinListDialogs
 }

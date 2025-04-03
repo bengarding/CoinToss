@@ -3,7 +3,7 @@ package com.helsinkiwizard.cointoss.ui.viewmodel
 import androidx.lifecycle.viewModelScope
 import com.helsinkiwizard.cointoss.data.Repository
 import com.helsinkiwizard.cointoss.data.ThemeMode
-import com.helsinkiwizard.cointoss.ui.model.MutableInputWrapper
+import com.helsinkiwizard.core.ui.model.MutableInputWrapper
 import com.helsinkiwizard.cointoss.ui.model.SettingsModel
 import com.helsinkiwizard.core.viewmodel.AbstractViewModel
 import com.helsinkiwizard.core.viewmodel.BaseType

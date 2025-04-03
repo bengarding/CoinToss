@@ -13,7 +13,7 @@ buildscript {
         hilt_version = '2.50'
         hilt_navigation_version = '1.2.0'
 
-        navigation_version = '2.7.7'
+        navigation_version = '2.8.9'
         room_version = '2.6.1'
 
         compose_version = '1.6.2'
@@ -22,7 +22,7 @@ buildscript {
         compose_compiler_version = '1.5.15'
 
         billing_version = '7.1.1'
-        revenue_cat_version = '8.7.2'
+        revenue_cat_version = '8.14.2'
     }
 
     repositories {
@@ -31,9 +31,9 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.7.0'
-        classpath 'com.google.gms:google-services:4.4.0'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
+        classpath 'com.android.tools.build:gradle:8.9.1'
+        classpath 'com.google.gms:google-services:4.4.2'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.3'
         classpath 'com.google.firebase:perf-plugin:1.4.2'
 
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"

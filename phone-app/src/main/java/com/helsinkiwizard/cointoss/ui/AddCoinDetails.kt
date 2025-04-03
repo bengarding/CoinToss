@@ -21,11 +21,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -141,7 +141,7 @@ private fun RowScope.AddCoinImage(
             targetValue = when {
                 hasError -> MaterialTheme.colorScheme.error
                 bitmap != null -> Color.Transparent
-                else -> MaterialTheme.colorScheme.surfaceContainerHighest
+                else -> MaterialTheme.colorScheme.primary
             },
             label = "Border color"
         )
@@ -159,7 +159,7 @@ private fun RowScope.AddCoinImage(
                 .background(backgroundColor)
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
-                    indication = rememberRipple(color = borderColor),
+                    indication = ripple(color = borderColor),
                     onClick = onClick
                 )
         ) {

@@ -4,7 +4,9 @@ import androidx.lifecycle.viewModelScope
 import com.helsinkiwizard.cointoss.data.Repository
 import com.helsinkiwizard.core.coin.CoinType
 import com.helsinkiwizard.core.viewmodel.AbstractViewModel
+import com.helsinkiwizard.core.viewmodel.BaseDialogType
 import com.helsinkiwizard.core.viewmodel.BaseType
+import com.helsinkiwizard.core.viewmodel.DialogState
 import com.helsinkiwizard.core.viewmodel.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.filterNotNull
@@ -33,6 +35,14 @@ internal class HomeViewModel @Inject constructor(
             )
         }
     }
+
+    fun onFlip() {
+        viewModelScope.launch {
+            if (repository.showCoinTossInterstitialAd()) {
+                mutableDialogStateFlow.value = DialogState.ShowContent(HomeScreenDialogs.ShowInterstitialAd)
+            }
+        }
+    }
 }
 
 internal sealed interface HomeScreenContent : BaseType {
@@ -41,4 +51,8 @@ internal sealed interface HomeScreenContent : BaseType {
         val initialSpeed: Float,
         val playSound: Boolean,
     ) : HomeScreenContent
+}
+
+internal sealed interface HomeScreenDialogs : BaseDialogType {
+    data object ShowInterstitialAd: HomeScreenDialogs
 }

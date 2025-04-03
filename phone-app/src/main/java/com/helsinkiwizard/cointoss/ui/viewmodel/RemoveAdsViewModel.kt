@@ -13,15 +13,15 @@ import javax.inject.Inject
 class RemoveAdsViewModel @Inject constructor(
     private val repo: Repository
 ) : AbstractViewModel(defaultState = UiState.ShowContent(RemoveAdsContent.ShowDialog)) {
-    fun onPurchaseCompleted() {
+    fun onPurchaseCompleted(isRestored: Boolean) {
         viewModelScope.launch {
             repo.setAdsRemoved(true)
-            mutableUiStateFlow.value = UiState.ShowContent(RemoveAdsContent.PurchaseComplete)
+            mutableUiStateFlow.value = UiState.ShowContent(RemoveAdsContent.PurchaseComplete(isRestored))
         }
     }
 }
 
 sealed interface RemoveAdsContent : BaseType {
     data object ShowDialog : RemoveAdsContent
-    data object PurchaseComplete : RemoveAdsContent
+    data class PurchaseComplete(val isRestored: Boolean) : RemoveAdsContent
 }
