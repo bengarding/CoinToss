@@ -26,6 +26,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -58,6 +59,7 @@ import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListContent
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListDialogs
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListViewModel
+import com.helsinkiwizard.cointoss.utils.AdManager
 import com.helsinkiwizard.cointoss.utils.AdManager.BannerAd
 import com.helsinkiwizard.cointoss.utils.AdManager.ShowInterstitialAd
 import com.helsinkiwizard.cointoss.utils.launchInAppReview
@@ -85,6 +87,11 @@ import kotlinx.coroutines.flow.flowOf
 internal fun CoinListScreen(
     viewModel: CoinListViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        AdManager.loadInterstitialAds(context)
+    }
+
     val adsRemoved = viewModel.adsRemoved.collectAsState(initial = true).value
     Column {
         Box(
@@ -136,7 +143,10 @@ private fun CoinListDialogs(
                 is CoinListDialogs.ShowInterstitialAd -> {
                     ShowInterstitialAd(
                         adId = COIN_LIST_INTERSTITIAL_AD_ID,
-                        onAdDismissed = { type.onComplete() }
+                        onAdDismissed = {
+                            viewModel.resetDialogState()
+                            type.onComplete()
+                        }
                     )
                 }
             }

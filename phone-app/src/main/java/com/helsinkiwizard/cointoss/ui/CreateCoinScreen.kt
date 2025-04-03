@@ -224,7 +224,10 @@ private fun CreateCoinDialogs(viewModel: CreateCoinViewModel) {
                 }
 
                 is CreateCoinDialogs.ShowInterstitialAd -> {
-                    ShowInterstitialAd(CUSTOM_COIN_INTERSTITIAL_AD_ID)
+                    ShowInterstitialAd(
+                        adId = CUSTOM_COIN_INTERSTITIAL_AD_ID,
+                        onAdDismissed = viewModel::resetDialogState
+                    )
                 }
             }
         }
