@@ -6,6 +6,8 @@ import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
@@ -13,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
@@ -21,6 +25,7 @@ import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
+import androidx.wear.compose.material.Text
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.navigation.SPEED_PICKER_RESULT
@@ -30,6 +35,9 @@ import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
 import com.helsinkiwizard.cointoss.ui.viewmodel.WatchSettingsContent
 import com.helsinkiwizard.cointoss.ui.viewmodel.WatchSettingsViewModel
 import com.helsinkiwizard.cointoss.utils.GetResult
+import com.helsinkiwizard.core.theme.Eight
+import com.helsinkiwizard.core.theme.PercentEighty
+import com.helsinkiwizard.core.theme.Text20
 import com.helsinkiwizard.core.theme.Twelve
 import com.helsinkiwizard.core.ui.model.MutableInputWrapper
 import com.helsinkiwizard.core.viewmodel.UiState
@@ -88,6 +96,9 @@ internal fun Content(
                 .focusable()
         ) {
             item {
+                Title()
+            }
+            item {
                 SpeedChip(
                     wrapper = model.speed,
                     onPickerResult = viewModel::onSpeedSelected
@@ -95,6 +106,19 @@ internal fun Content(
             }
         }
     }
+}
+
+@Composable
+private fun Title() {
+    Text(
+        text = stringResource(id = R.string.settings),
+        fontSize = Text20,
+        fontWeight = FontWeight.SemiBold,
+        textAlign = TextAlign.Center,
+        modifier = Modifier
+            .padding(bottom = Eight)
+            .fillMaxWidth(PercentEighty)
+    )
 }
 
 @Composable
