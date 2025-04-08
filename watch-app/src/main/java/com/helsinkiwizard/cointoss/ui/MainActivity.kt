@@ -29,9 +29,10 @@ import com.helsinkiwizard.cointoss.navigation.MAIN_ROUTE
 import com.helsinkiwizard.cointoss.navigation.mainGraph
 import com.helsinkiwizard.cointoss.ui.coinlist.Coin
 import com.helsinkiwizard.cointoss.ui.menu.WatchMenu
+import com.helsinkiwizard.cointoss.ui.theme.CoinTossTheme
 import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinTossViewModel
-import com.helsinkiwizard.cointoss.ui.theme.CoinTossTheme
+import com.helsinkiwizard.core.CoreConstants.SPEED_DEFAULT
 import com.helsinkiwizard.core.theme.LocalActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -89,6 +90,7 @@ fun CoinTossScreen(
 ) {
     val coinType = viewModel.coinTypeFlow.collectAsState().value
     val customCoin = viewModel.customCoinFlow.collectAsState(initial = null).value
+    val coinSpeed = viewModel.coinSpeedFlow.collectAsState(initial = SPEED_DEFAULT).value
 
     val pagerState = rememberPagerState()
 
@@ -103,6 +105,7 @@ fun CoinTossScreen(
                 0 -> Coin(
                     coinType = coinType,
                     customCoin = customCoin,
+                    speed = coinSpeed,
                     pagerState = pagerState,
                     startFlipping = viewModel.startFlipping,
                     onStartFlipping = {

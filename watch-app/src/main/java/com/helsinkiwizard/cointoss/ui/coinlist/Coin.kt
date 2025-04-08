@@ -24,7 +24,8 @@ fun Coin(
     customCoin: CustomCoinUiModel?,
     pagerState: PagerState,
     startFlipping: Boolean,
-    onStartFlipping: () -> Unit
+    onStartFlipping: () -> Unit,
+    speed: Float,
 ) {
     var showChevron by remember { mutableStateOf(startFlipping.not()) }
 
@@ -49,11 +50,11 @@ fun Coin(
         CoinAnimation(
             coinType = coinType,
             customCoin = customCoin,
+            speed = speed,
             startFlipping = startFlipping,
             onStartFlipping = onStartFlipping,
             onFlip = { showChevron = false },
             modifier = Modifier.fillMaxSize(),
-            speed = 3f
         )
     }
 }
