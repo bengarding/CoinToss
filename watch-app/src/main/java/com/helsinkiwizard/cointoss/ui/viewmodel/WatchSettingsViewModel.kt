@@ -35,6 +35,13 @@ class WatchSettingsViewModel @Inject constructor(
             repository.setSpeed(speed)
         }
     }
+
+    fun onPlaySoundChecked(checked: Boolean) {
+        viewModelScope.launch {
+            model.playSound.value = checked
+            repository.setPlaySound(checked)
+        }
+    }
 }
 
 internal sealed interface WatchSettingsContent : BaseType {

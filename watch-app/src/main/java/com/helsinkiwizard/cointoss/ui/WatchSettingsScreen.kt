@@ -30,6 +30,7 @@ import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.navigation.SPEED_PICKER_RESULT
 import com.helsinkiwizard.cointoss.ui.composables.PrimaryChip
+import com.helsinkiwizard.cointoss.ui.composables.PrimarySwitchChip
 import com.helsinkiwizard.cointoss.ui.model.WatchSettingsModel
 import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
 import com.helsinkiwizard.cointoss.ui.viewmodel.WatchSettingsContent
@@ -104,6 +105,12 @@ internal fun Content(
                     onPickerResult = viewModel::onSpeedSelected
                 )
             }
+            item {
+                PlaySoundChip(
+                    wrapper = model.playSound,
+                    onCheckedChanged = viewModel::onPlaySoundChecked
+                )
+            }
         }
     }
 }
@@ -143,3 +150,16 @@ private fun SpeedChip(
         onClick = { navController.navigate("${NavRoute.Picker.name}/${wrapper.value}") }
     )
 }
+
+@Composable
+private fun PlaySoundChip(
+    wrapper: MutableInputWrapper<Boolean>,
+    onCheckedChanged: (Boolean) -> Unit
+) {
+    PrimarySwitchChip(
+        label = stringResource(id = R.string.play_sound),
+        checked = wrapper.value,
+        onCheckedChanged = onCheckedChanged
+    )
+}
+

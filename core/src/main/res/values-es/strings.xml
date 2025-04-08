@@ -10,6 +10,7 @@
     <string name="settings">Ajustes</string>
     <string name="about">Acerca</string>
 
+    <string name="play_sound">Reproducir sonido</string>
     <string name="coin">"Moneda"</string>
     <string name="heads">cara</string>
     <string name="tails">cruz</string>

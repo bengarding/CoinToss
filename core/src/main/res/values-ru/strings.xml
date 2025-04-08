@@ -10,6 +10,7 @@
     <string name="settings">Настройки</string>
     <string name="about">Результат перевода</string>
 
+    <string name="play_sound">Воспроизвести звук</string>
     <string name="coin">"Монета"</string>
     <string name="heads">орёл</string>
     <string name="tails">решка</string>
