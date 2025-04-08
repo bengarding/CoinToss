@@ -10,6 +10,7 @@ val Text18 = 18.sp
 val Text20 = 20.sp
 val Text22 = 22.sp
 val Text24 = 24.sp
+val Text28 = 28.sp
 val Text60 = 60.sp
 
 val Zero = 0.dp
