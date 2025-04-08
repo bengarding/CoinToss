@@ -26,5 +26,6 @@ class CoinTossViewModel @Inject constructor(
 
     val customCoinFlow = repo.getCustomCoin
     val coinSpeedFlow = repo.getSpeed
+    val playSoundFlow = repo.getPlaySound
     var startFlipping by mutableStateOf(false)
 }

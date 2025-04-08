@@ -1,5 +1,6 @@
 package com.helsinkiwizard.cointoss.ui.composables
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material.Switch
@@ -20,6 +21,6 @@ fun PrimarySwitchChip(
         secondaryLabel = { if (secondaryLabel != null) Text(secondaryLabel) },
         onCheckedChange = onCheckedChanged,
         toggleControl = { Switch(checked) },
-        modifier = modifier
+        modifier = modifier.fillMaxWidth()
     )
 }

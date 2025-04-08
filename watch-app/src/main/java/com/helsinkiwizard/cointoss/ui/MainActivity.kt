@@ -91,6 +91,7 @@ fun CoinTossScreen(
     val coinType = viewModel.coinTypeFlow.collectAsState().value
     val customCoin = viewModel.customCoinFlow.collectAsState(initial = null).value
     val coinSpeed = viewModel.coinSpeedFlow.collectAsState(initial = SPEED_DEFAULT).value
+    val playSound = viewModel.playSoundFlow.collectAsState(initial = false).value
 
     val pagerState = rememberPagerState()
 
@@ -106,6 +107,7 @@ fun CoinTossScreen(
                     coinType = coinType,
                     customCoin = customCoin,
                     speed = coinSpeed,
+                    playSound = playSound,
                     pagerState = pagerState,
                     startFlipping = viewModel.startFlipping,
                     onStartFlipping = {
