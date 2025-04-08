@@ -13,16 +13,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.wear.compose.material.Chip
-import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Confirmation
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.core.theme.Eight
 import com.helsinkiwizard.core.theme.Forty
-import com.helsinkiwizard.cointoss.ui.theme.OnPrimaryContainerDark
-import com.helsinkiwizard.cointoss.ui.theme.PrimaryContainerDark
 import com.helsinkiwizard.core.theme.Text20
 import com.helsinkiwizard.core.theme.ThirtyTwo
 import com.helsinkiwizard.core.theme.Twelve
@@ -65,7 +63,7 @@ internal fun DownloadMobileAppConfirmation(
         item {
             Text(
                 stringResource(id = R.string.download_mobile_app),
-                color = OnPrimaryContainerDark,
+                color = MaterialTheme.colors.onPrimary,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.SemiBold,
                 fontSize = Text20
@@ -80,10 +78,6 @@ internal fun DownloadMobileAppConfirmation(
             Chip(
                 label = { Text(stringResource(id = R.string.ok)) },
                 onClick = onClick,
-                colors = ChipDefaults.primaryChipColors(
-                    backgroundColor = PrimaryContainerDark,
-                    contentColor = OnPrimaryContainerDark
-                )
             )
         }
     }

@@ -44,6 +44,7 @@ import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.Icon
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
@@ -59,6 +60,8 @@ import com.helsinkiwizard.cointoss.tile.CoinTileService
 import com.helsinkiwizard.cointoss.ui.DownloadMobileAppConfirmation
 import com.helsinkiwizard.cointoss.ui.ProgressIndicator
 import com.helsinkiwizard.cointoss.ui.ShowOnPhoneConfirmation
+import com.helsinkiwizard.cointoss.ui.theme.LinkText
+import com.helsinkiwizard.cointoss.ui.theme.Typography
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListDialogs
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListViewModel
 import com.helsinkiwizard.core.CoreConstants.COIN_SELECTED
@@ -66,16 +69,12 @@ import com.helsinkiwizard.core.CoreConstants.EMPTY_STRING
 import com.helsinkiwizard.core.coin.CoinType
 import com.helsinkiwizard.core.coin.CoinType.BITCOIN
 import com.helsinkiwizard.core.coin.CoinType.CUSTOM
-import com.helsinkiwizard.cointoss.ui.theme.LinkText
+import com.helsinkiwizard.core.theme.BlackTransparent
 import com.helsinkiwizard.core.theme.CoinButtonHeight
 import com.helsinkiwizard.core.theme.Eight
 import com.helsinkiwizard.core.theme.Forty
 import com.helsinkiwizard.core.theme.Four
-import com.helsinkiwizard.cointoss.ui.theme.OnPrimaryContainerDark
 import com.helsinkiwizard.core.theme.PercentEighty
-import com.helsinkiwizard.cointoss.ui.theme.PrimaryContainerDark
-import com.helsinkiwizard.cointoss.ui.theme.Typography
-import com.helsinkiwizard.core.theme.BlackTransparent
 import com.helsinkiwizard.core.theme.Text12
 import com.helsinkiwizard.core.theme.Text14
 import com.helsinkiwizard.core.theme.Text20
@@ -279,12 +278,12 @@ private fun BlankCustomCoin(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = PrimaryContainerDark)
+                .background(color = MaterialTheme.colors.primary)
         ) {
             Icon(
                 imageVector = Icons.Outlined.Add,
                 contentDescription = null,
-                tint = OnPrimaryContainerDark,
+                tint = MaterialTheme.colors.onPrimary,
                 modifier = Modifier
                     .align(Alignment.Center)
                     .size(Forty)
