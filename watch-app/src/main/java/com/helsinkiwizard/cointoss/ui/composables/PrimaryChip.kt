@@ -18,12 +18,12 @@ import com.helsinkiwizard.core.theme.Twelve
 internal fun PrimaryChip(
     text: String,
     onClick: () -> Unit,
-    subLabel: String? = null,
+    secondaryLabel: String? = null,
     icon: ImageVector? = null,
 ) {
     Chip(
         label = { Text(text) },
-        secondaryLabel = { if (subLabel != null) Text(subLabel) },
+        secondaryLabel = { if (secondaryLabel != null) Text(secondaryLabel) },
         onClick = onClick,
         icon = {
             if (icon != null) Icon(imageVector = icon, contentDescription = null)
@@ -45,7 +45,7 @@ private fun PrimaryChipPreview() {
         )
         PrimaryChip(
             text = "Choose a coin",
-            subLabel = "Subtext",
+            secondaryLabel = "Subtext",
             onClick = {},
             icon = Icons.Outlined.MonetizationOn
         )
@@ -55,7 +55,7 @@ private fun PrimaryChipPreview() {
         )
         PrimaryChip(
             text = "No icon",
-            subLabel = "Subtext",
+            secondaryLabel = "Subtext",
             onClick = {},
         )
     }

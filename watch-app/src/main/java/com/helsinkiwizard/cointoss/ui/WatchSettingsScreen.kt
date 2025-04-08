@@ -139,7 +139,7 @@ private fun SpeedChip(
     }
     PrimaryChip(
         text = stringResource(id = R.string.speed),
-        subLabel = String.format(stringResource(id = R.string.number_seconds), formattedSpeed),
+        secondaryLabel = String.format(stringResource(id = R.string.number_seconds), formattedSpeed),
         onClick = { navController.navigate("${NavRoute.Picker.name}/${wrapper.value}") }
     )
 }
