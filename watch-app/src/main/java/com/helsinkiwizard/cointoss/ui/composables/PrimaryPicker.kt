@@ -24,13 +24,17 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberPickerState
 import androidx.wear.tooling.preview.devices.WearDevices
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.cointoss.navigation.BEZEL_SENSITIVITY_PICKER_RESULT
 import com.helsinkiwizard.cointoss.navigation.SPEED_PICKER_RESULT
 import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
 import com.helsinkiwizard.core.CoreConstants.VALUE_UNDEFINED
 import com.helsinkiwizard.core.theme.Text28
 
+const val SPEED_TYPE = "speedType"
+const val BEZEL_SENSITIVITY_TYPE = "bezelSensitivityType"
 private const val SPEED_PICKER_OPTIONS_COUNT = 12
 private const val DEFAULT_SPEED_INDEX = 5
+private const val DEFAULT_BEZEL_SENSITIVITY_INDEX = 6
 
 @Composable
 internal fun SpeedPicker(startValue: Float) {
@@ -44,6 +48,23 @@ internal fun SpeedPicker(startValue: Float) {
         initiallySelectedOption = startValueIndex.takeIf { it != VALUE_UNDEFINED } ?: DEFAULT_SPEED_INDEX,
         onSelected = { result ->
             navController.previousBackStackEntry?.savedStateHandle?.set(SPEED_PICKER_RESULT, result)
+            navController.popBackStack()
+        }
+    )
+}
+
+@Composable
+internal fun BezelSensitivityPicker(startValue: Int) {
+    val navController = LocalNavController.current
+    val sensitivityList = (1..10).toList()
+    val startValueIndex = sensitivityList.indexOf(startValue)
+
+    PrimaryPicker(
+        label = stringResource(id = R.string.bezel_sensitivity),
+        items = sensitivityList,
+        initiallySelectedOption = startValueIndex.takeIf { it != VALUE_UNDEFINED } ?: DEFAULT_BEZEL_SENSITIVITY_INDEX,
+        onSelected = { result ->
+            navController.previousBackStackEntry?.savedStateHandle?.set(BEZEL_SENSITIVITY_PICKER_RESULT, result)
             navController.popBackStack()
         }
     )

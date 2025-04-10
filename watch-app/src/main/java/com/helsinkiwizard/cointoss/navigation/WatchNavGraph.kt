@@ -9,12 +9,16 @@ import com.helsinkiwizard.cointoss.ui.AboutScreen
 import com.helsinkiwizard.cointoss.ui.CoinTossScreen
 import com.helsinkiwizard.cointoss.ui.WatchSettingsScreen
 import com.helsinkiwizard.cointoss.ui.coinlist.CoinListScreen
+import com.helsinkiwizard.cointoss.ui.composables.BEZEL_SENSITIVITY_TYPE
+import com.helsinkiwizard.cointoss.ui.composables.BezelSensitivityPicker
+import com.helsinkiwizard.cointoss.ui.composables.SPEED_TYPE
 import com.helsinkiwizard.cointoss.ui.composables.SpeedPicker
+import com.helsinkiwizard.core.CoreConstants.EMPTY_STRING
 import com.helsinkiwizard.core.CoreConstants.VALUE_UNDEFINED
 
 const val MAIN_ROUTE = "mainNavRoute"
-const val SPEED_PICKER_RESULT = "pickerResult"
-const val BEZEL_SENSITIVITY_PICKER_RESULT = "pickerResult"
+const val SPEED_PICKER_RESULT = "speedPickerResult"
+const val BEZEL_SENSITIVITY_PICKER_RESULT = "bezelSensitivityPickerResult"
 
 enum class NavRoute {
     Home,
@@ -43,11 +47,18 @@ fun NavGraphBuilder.mainGraph() {
             AboutScreen()
         }
         composable(
-            route = NavRoute.Picker.name + "/{startValue}",
-            arguments = listOf(navArgument("startValue") { type = NavType.FloatType })
+            route = NavRoute.Picker.name + "/{pickerType}/{startValue}",
+            arguments = listOf(
+                navArgument("pickerType") { type = NavType.StringType },
+                navArgument("startValue") { type = NavType.StringType }
+            )
         ) { backStackEntry ->
-            val startValue = backStackEntry.arguments?.getFloat("startValue") ?: VALUE_UNDEFINED.toFloat()
-            SpeedPicker(startValue)
+            val pickerType = backStackEntry.arguments?.getString("pickerType") ?: EMPTY_STRING
+            val startValue = backStackEntry.arguments?.getString("startValue") ?: EMPTY_STRING
+            when (pickerType) {
+                SPEED_TYPE -> SpeedPicker(startValue.toFloatOrNull() ?: VALUE_UNDEFINED.toFloat())
+                BEZEL_SENSITIVITY_TYPE -> BezelSensitivityPicker(startValue.toIntOrNull() ?: VALUE_UNDEFINED)
+            }
         }
     }
 }

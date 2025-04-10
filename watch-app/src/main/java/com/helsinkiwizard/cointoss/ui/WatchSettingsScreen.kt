@@ -35,8 +35,10 @@ import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.navigation.BEZEL_SENSITIVITY_PICKER_RESULT
 import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.navigation.SPEED_PICKER_RESULT
+import com.helsinkiwizard.cointoss.ui.composables.BEZEL_SENSITIVITY_TYPE
 import com.helsinkiwizard.cointoss.ui.composables.PrimaryChip
 import com.helsinkiwizard.cointoss.ui.composables.PrimarySwitchChip
+import com.helsinkiwizard.cointoss.ui.composables.SPEED_TYPE
 import com.helsinkiwizard.cointoss.ui.model.WatchSettingsModel
 import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
 import com.helsinkiwizard.cointoss.ui.viewmodel.WatchSettingsContent
@@ -165,7 +167,7 @@ private fun SpeedChip(
     PrimaryChip(
         text = stringResource(id = R.string.speed),
         secondaryLabel = String.format(stringResource(id = R.string.number_seconds), formattedSpeed),
-        onClick = { navController.navigate("${NavRoute.Picker.name}/${wrapper.value}") }
+        onClick = { navController.navigate("${NavRoute.Picker.name}/$SPEED_TYPE/${wrapper.value}") }
     )
 }
 
@@ -212,8 +214,8 @@ private fun BezelSensitivityChip(
     ) {
         PrimaryChip(
             text = stringResource(id = R.string.bezel_sensitivity),
-            secondaryLabel = "${wrapper.value}",
-            onClick = { navController.navigate("${NavRoute.Picker.name}/${wrapper.value}") }
+            secondaryLabel = wrapper.value.toString(),
+            onClick = { navController.navigate("${NavRoute.Picker.name}/$BEZEL_SENSITIVITY_TYPE/${wrapper.value}") }
         )
     }
 }
