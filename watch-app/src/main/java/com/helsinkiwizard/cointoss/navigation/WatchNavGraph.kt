@@ -14,6 +14,7 @@ import com.helsinkiwizard.core.CoreConstants.VALUE_UNDEFINED
 
 const val MAIN_ROUTE = "mainNavRoute"
 const val SPEED_PICKER_RESULT = "pickerResult"
+const val BEZEL_SENSITIVITY_PICKER_RESULT = "pickerResult"
 
 enum class NavRoute {
     Home,

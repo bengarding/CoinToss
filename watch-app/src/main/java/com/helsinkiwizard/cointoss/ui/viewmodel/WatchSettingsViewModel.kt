@@ -23,7 +23,9 @@ class WatchSettingsViewModel @Inject constructor(
         viewModelScope.launch {
             model = WatchSettingsModel(
                 speed = repository.getSpeed.filterNotNull().first(),
-                playSoundEffect = repository.getPlaySound.filterNotNull().first()
+                playSoundEffect = repository.getPlaySound.filterNotNull().first(),
+                tossFromBezel = repository.getTossFromBezel.filterNotNull().first(),
+                bezelSensitivity = repository.getBezelSensitivity.filterNotNull().first(),
             )
             mutableUiStateFlow.value = UiState.ShowContent(WatchSettingsContent.LoadingComplete(model))
         }
@@ -40,6 +42,21 @@ class WatchSettingsViewModel @Inject constructor(
         viewModelScope.launch {
             model.playSound.value = checked
             repository.setPlaySound(checked)
+        }
+    }
+
+    fun onTossFromBezelChecked(checked: Boolean){
+        viewModelScope.launch {
+            model.tossFromBezel.value = checked
+            model.bezelSensitivity.isVisible = checked
+            repository.setTossFromBezel(checked)
+        }
+    }
+
+    fun onBezelSensitivitySelected(sensitivity: Int) {
+        viewModelScope.launch {
+            model.bezelSensitivity.value = sensitivity
+            repository.setBezelSensitivity(sensitivity)
         }
     }
 }

@@ -2,6 +2,8 @@ package com.helsinkiwizard.cointoss
 
 import android.content.Context
 import android.net.Uri
+import androidx.core.net.toUri
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.helsinkiwizard.core.BaseRepository
@@ -19,6 +21,10 @@ class Repository(context: Context) : BaseRepository(context) {
         val CUSTOM_COIN_HEADS = stringPreferencesKey("custom_coin_heads")
         val CUSTOM_COIN_TAILS = stringPreferencesKey("custom_coin_tails")
         val CUSTOM_COIN_NAME = stringPreferencesKey("custom_coin_name")
+        val TOSS_FROM_BEZEL = booleanPreferencesKey("toss_from_bezel")
+        val BEZEL_SENSITIVITY = intPreferencesKey("bezel_sensitivity")
+
+        private const val DEFAULT_BEZEL_SENSITIVITY = 5
     }
 
     val getResourceVersion: Flow<Int> = context.dataStore.data
@@ -41,11 +47,23 @@ class Repository(context: Context) : BaseRepository(context) {
                 null
             } else {
                 CustomCoinUiModel(
-                    headsUri = Uri.parse(headsUri),
-                    tailsUri = Uri.parse(tailsUri),
+                    headsUri = headsUri.toUri(),
+                    tailsUri = tailsUri.toUri(),
                     name = preferences[CUSTOM_COIN_NAME] ?: EMPTY_STRING
                 )
             }
+        }
+
+    suspend fun setTossFromBezel(tossFromBezel: Boolean) = savePreference(TOSS_FROM_BEZEL, tossFromBezel)
+    val getTossFromBezel: Flow<Boolean> = context.dataStore.data
+        .map { preferences ->
+            preferences[TOSS_FROM_BEZEL] ?: false
+        }
+
+    suspend fun setBezelSensitivity(sensitivity: Int) = savePreference(BEZEL_SENSITIVITY, sensitivity)
+    val getBezelSensitivity: Flow<Int> = context.dataStore.data
+        .map { preferences ->
+            preferences[BEZEL_SENSITIVITY] ?: DEFAULT_BEZEL_SENSITIVITY
         }
 
     suspend fun setResourceVersion(value: Int) = savePreference(TILE_RESOURCE_VERSION, value)

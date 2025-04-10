@@ -7,4 +7,7 @@
     <string name="speed">रफ़्तार</string>
     <string name="number_seconds">%s सेकंड</string>
     <string name="done">हो गया</string>
+    <string name="rotate_bezel_to_toss">टॉस करने के लिए बेज़ल घुमाएँ</string>
+    <string name="if_supported">(यदि समर्थित हो)</string>
+    <string name="bezel_sensitivity">बेज़ल संवेदनशीलता</string>
 </resources>

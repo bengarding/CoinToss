@@ -7,4 +7,7 @@
     <string name="speed">Скорость</string>
     <string name="number_seconds">%s секунд</string>
     <string name="done">Сделанный</string>
+    <string name="rotate_bezel_to_toss">Поверните безель, чтобы бросить</string>
+    <string name="if_supported">(Если поддерживается)</string>
+    <string name="bezel_sensitivity">Чувствительность безеля</string>
 </resources>

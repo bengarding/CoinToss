@@ -1,5 +1,10 @@
 package com.helsinkiwizard.cointoss.ui
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.gestures.animateScrollBy
@@ -27,6 +32,7 @@ import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.cointoss.navigation.BEZEL_SENSITIVITY_PICKER_RESULT
 import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.navigation.SPEED_PICKER_RESULT
 import com.helsinkiwizard.cointoss.ui.composables.PrimaryChip
@@ -111,6 +117,18 @@ internal fun Content(
                     onCheckedChanged = viewModel::onPlaySoundChecked
                 )
             }
+            item {
+                TossFromBezelChip(
+                    wrapper = model.tossFromBezel,
+                    onCheckedChanged = viewModel::onTossFromBezelChecked
+                )
+            }
+            item {
+                BezelSensitivityChip(
+                    wrapper = model.bezelSensitivity,
+                    onPickerResult = viewModel::onBezelSensitivitySelected
+                )
+            }
         }
     }
 }
@@ -163,3 +181,39 @@ private fun PlaySoundChip(
     )
 }
 
+@Composable
+private fun TossFromBezelChip(
+    wrapper: MutableInputWrapper<Boolean>,
+    onCheckedChanged: (Boolean) -> Unit
+) {
+    PrimarySwitchChip(
+        label = stringResource(id = R.string.rotate_bezel_to_toss),
+        secondaryLabel = stringResource(id = R.string.if_supported),
+        checked = wrapper.value,
+        onCheckedChanged = onCheckedChanged
+    )
+}
+
+@Composable
+private fun BezelSensitivityChip(
+    wrapper: MutableInputWrapper<Int>,
+    onPickerResult: (Int) -> Unit
+) {
+    val navController = LocalNavController.current
+    navController.GetResult(
+        key = BEZEL_SENSITIVITY_PICKER_RESULT,
+        onResult = onPickerResult
+    )
+
+    AnimatedVisibility(
+        visible = wrapper.isVisible,
+        enter = fadeIn() + expandVertically(),
+        exit = fadeOut() + shrinkVertically()
+    ) {
+        PrimaryChip(
+            text = stringResource(id = R.string.bezel_sensitivity),
+            secondaryLabel = "${wrapper.value}",
+            onClick = { navController.navigate("${NavRoute.Picker.name}/${wrapper.value}") }
+        )
+    }
+}

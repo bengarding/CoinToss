@@ -7,4 +7,7 @@
     <string name="speed">Speed</string>
     <string name="number_seconds">%s seconds</string>
     <string name="done">Done</string>
+    <string name="rotate_bezel_to_toss">Rotate bezel to toss</string>
+    <string name="if_supported">(If supported)</string>
+    <string name="bezel_sensitivity">Bezel sensitivity</string>
 </resources>
