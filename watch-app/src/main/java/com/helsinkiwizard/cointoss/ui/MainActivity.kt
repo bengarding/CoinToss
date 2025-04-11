@@ -25,6 +25,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.helsinkiwizard.cointoss.Constants.APP_DRAWER
 import com.helsinkiwizard.cointoss.Constants.EXTRA_START_FLIPPING
 import com.helsinkiwizard.cointoss.Constants.TILE
+import com.helsinkiwizard.cointoss.Repository.Companion.DEFAULT_BEZEL_SENSITIVITY
 import com.helsinkiwizard.cointoss.navigation.MAIN_ROUTE
 import com.helsinkiwizard.cointoss.navigation.mainGraph
 import com.helsinkiwizard.cointoss.ui.coinlist.Coin
@@ -91,6 +92,8 @@ fun CoinTossScreen(
     val customCoin = viewModel.customCoinFlow.collectAsState(initial = null).value
     val coinSpeed = viewModel.coinSpeedFlow.collectAsState(initial = SPEED_DEFAULT).value
     val playSound = viewModel.playSoundFlow.collectAsState(initial = false).value
+    val tossFromBezel = viewModel.tossFromBezelFlow.collectAsState(initial = false).value
+    val bezelSensitivity = viewModel.bezelSensitivityFlow.collectAsState(initial = DEFAULT_BEZEL_SENSITIVITY).value
 
     val pagerState = rememberPagerState()
 
@@ -107,6 +110,8 @@ fun CoinTossScreen(
                     customCoin = customCoin,
                     speed = coinSpeed,
                     playSound = playSound,
+                    tossFromBezel = tossFromBezel,
+                    bezelSensitivity = bezelSensitivity,
                     pagerState = pagerState,
                     startFlipping = viewModel.startFlipping,
                     onStartFlipping = {

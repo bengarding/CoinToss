@@ -24,7 +24,7 @@ class Repository(context: Context) : BaseRepository(context) {
         val TOSS_FROM_BEZEL = booleanPreferencesKey("toss_from_bezel")
         val BEZEL_SENSITIVITY = intPreferencesKey("bezel_sensitivity")
 
-        private const val DEFAULT_BEZEL_SENSITIVITY = 5
+        const val DEFAULT_BEZEL_SENSITIVITY = 5
     }
 
     val getResourceVersion: Flow<Int> = context.dataStore.data
