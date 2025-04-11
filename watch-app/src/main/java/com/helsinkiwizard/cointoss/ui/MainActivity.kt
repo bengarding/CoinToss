@@ -48,7 +48,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
-        viewModel.startFlipping = intent.extras?.getBoolean(EXTRA_START_FLIPPING) ?: false
 
         setContent {
             CoinTossTheme {
