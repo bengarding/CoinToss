@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
+import com.helsinkiwizard.cointoss.ui.theme.CoinTossTheme
 import com.helsinkiwizard.core.theme.Twelve
 
 @Composable
@@ -35,28 +36,30 @@ internal fun PrimaryChip(
 @Preview
 @Composable
 private fun PrimaryChipPreview() {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(Twelve)
-    ) {
-        PrimaryChip(
-            text = "Choose a coin",
-            onClick = {},
-            icon = Icons.Outlined.MonetizationOn
-        )
-        PrimaryChip(
-            text = "Choose a coin",
-            secondaryLabel = "Subtext",
-            onClick = {},
-            icon = Icons.Outlined.MonetizationOn
-        )
-        PrimaryChip(
-            text = "No icon",
-            onClick = {}
-        )
-        PrimaryChip(
-            text = "No icon",
-            secondaryLabel = "Subtext",
-            onClick = {},
-        )
+    CoinTossTheme {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(Twelve)
+        ) {
+            PrimaryChip(
+                text = "Choose a coin",
+                onClick = {},
+                icon = Icons.Outlined.MonetizationOn
+            )
+            PrimaryChip(
+                text = "Choose a coin",
+                secondaryLabel = "Subtext",
+                onClick = {},
+                icon = Icons.Outlined.MonetizationOn
+            )
+            PrimaryChip(
+                text = "No icon",
+                onClick = {}
+            )
+            PrimaryChip(
+                text = "No icon",
+                secondaryLabel = "Subtext",
+                onClick = {},
+            )
+        }
     }
 }
