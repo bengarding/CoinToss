@@ -3,6 +3,7 @@ package com.helsinkiwizard.cointoss.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
@@ -15,6 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -40,6 +42,7 @@ import com.helsinkiwizard.cointoss.ui.viewmodel.CoinTossViewModel
 import com.helsinkiwizard.core.CoreConstants.SPEED_DEFAULT
 import com.helsinkiwizard.core.theme.LocalActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -92,6 +95,14 @@ private fun HomeScreen() {
 fun CoinTossScreen(
     viewModel: CoinTossViewModel = hiltViewModel(LocalActivity.current)
 ) {
+    val pagerState = rememberPagerState()
+    val scope = rememberCoroutineScope()
+    BackHandler(enabled = pagerState.currentPage == 1) {
+        scope.launch {
+            pagerState.animateScrollToPage(0)
+        }
+    }
+
     val coinType = viewModel.coinTypeFlow.collectAsState().value
     val customCoin = viewModel.customCoinFlow.collectAsState(initial = null).value
     val coinSpeed = viewModel.coinSpeedFlow.collectAsState(initial = SPEED_DEFAULT).value
@@ -100,8 +111,6 @@ fun CoinTossScreen(
     val tossFromBezel = viewModel.tossFromBezelFlow.collectAsState(initial = false).value
     val bezelSensitivity = viewModel.bezelSensitivityFlow.collectAsState(initial = DEFAULT_BEZEL_SENSITIVITY).value
     var showChevron by remember { mutableStateOf(viewModel.startFlipping.not()) }
-
-    val pagerState = rememberPagerState()
 
     Column(
         modifier = Modifier
