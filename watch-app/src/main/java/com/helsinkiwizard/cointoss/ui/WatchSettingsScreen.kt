@@ -114,14 +114,24 @@ internal fun Content(
                 )
             }
             item {
-                PlaySoundChip(
-                    wrapper = model.playSound,
+                PrimarySwitchChip(
+                    label = stringResource(id = R.string.play_sound),
+                    checked = model.playSound.value,
                     onCheckedChanged = viewModel::onPlaySoundChecked
                 )
             }
             item {
-                TossFromBezelChip(
-                    wrapper = model.tossFromBezel,
+                PrimarySwitchChip(
+                    label = stringResource(id = R.string.flip_wrist_to_toss),
+                    checked = model.tossFromWristMotion.value,
+                    onCheckedChanged = viewModel::onTossFromWristMovement
+                )
+            }
+            item {
+                PrimarySwitchChip(
+                    label = stringResource(id = R.string.rotate_bezel_to_toss),
+                    secondaryLabel = stringResource(id = R.string.if_supported),
+                    checked = model.tossFromBezel.value,
                     onCheckedChanged = viewModel::onTossFromBezelChecked
                 )
             }
@@ -168,31 +178,6 @@ private fun SpeedChip(
         text = stringResource(id = R.string.speed),
         secondaryLabel = String.format(stringResource(id = R.string.number_seconds), formattedSpeed),
         onClick = { navController.navigate("${NavRoute.Picker.name}/$SPEED_TYPE/${wrapper.value}") }
-    )
-}
-
-@Composable
-private fun PlaySoundChip(
-    wrapper: MutableInputWrapper<Boolean>,
-    onCheckedChanged: (Boolean) -> Unit
-) {
-    PrimarySwitchChip(
-        label = stringResource(id = R.string.play_sound),
-        checked = wrapper.value,
-        onCheckedChanged = onCheckedChanged
-    )
-}
-
-@Composable
-private fun TossFromBezelChip(
-    wrapper: MutableInputWrapper<Boolean>,
-    onCheckedChanged: (Boolean) -> Unit
-) {
-    PrimarySwitchChip(
-        label = stringResource(id = R.string.rotate_bezel_to_toss),
-        secondaryLabel = stringResource(id = R.string.if_supported),
-        checked = wrapper.value,
-        onCheckedChanged = onCheckedChanged
     )
 }
 

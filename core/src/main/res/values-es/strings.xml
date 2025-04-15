@@ -11,6 +11,7 @@
     <string name="about">Acerca</string>
 
     <string name="play_sound">Reproducir sonido</string>
+    <string name="flip_wrist_to_toss">Girar la muñeca para lanzar</string>
     <string name="coin">"Moneda"</string>
     <string name="heads">cara</string>
     <string name="tails">cruz</string>

@@ -23,6 +23,7 @@ class Repository(context: Context) : BaseRepository(context) {
         val CUSTOM_COIN_NAME = stringPreferencesKey("custom_coin_name")
         val TOSS_FROM_BEZEL = booleanPreferencesKey("toss_from_bezel")
         val BEZEL_SENSITIVITY = intPreferencesKey("bezel_sensitivity")
+        val TOSS_FROM_WRIST_FLIP = booleanPreferencesKey("toss_from_wrist_motion")
 
         const val DEFAULT_BEZEL_SENSITIVITY = 5
     }
@@ -52,6 +53,12 @@ class Repository(context: Context) : BaseRepository(context) {
                     name = preferences[CUSTOM_COIN_NAME] ?: EMPTY_STRING
                 )
             }
+        }
+
+    suspend fun setTossFromWristFlip(tossFromWrist: Boolean) = savePreference(TOSS_FROM_WRIST_FLIP, tossFromWrist)
+    val getTossFromWristFlip: Flow<Boolean> = context.dataStore.data
+        .map { preferences ->
+            preferences[TOSS_FROM_WRIST_FLIP] ?: false
         }
 
     suspend fun setTossFromBezel(tossFromBezel: Boolean) = savePreference(TOSS_FROM_BEZEL, tossFromBezel)

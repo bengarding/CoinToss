@@ -24,6 +24,7 @@ class WatchSettingsViewModel @Inject constructor(
             model = WatchSettingsModel(
                 speed = repository.getSpeed.filterNotNull().first(),
                 playSoundEffect = repository.getPlaySound.filterNotNull().first(),
+                tossFromWristMotion = repository.getTossFromWristFlip.filterNotNull().first(),
                 tossFromBezel = repository.getTossFromBezel.filterNotNull().first(),
                 bezelSensitivity = repository.getBezelSensitivity.filterNotNull().first(),
             )
@@ -42,6 +43,13 @@ class WatchSettingsViewModel @Inject constructor(
         viewModelScope.launch {
             model.playSound.value = checked
             repository.setPlaySound(checked)
+        }
+    }
+
+    fun onTossFromWristMovement(checked: Boolean) {
+        viewModelScope.launch {
+            model.tossFromWristMotion.value = checked
+            repository.setTossFromWristFlip(checked)
         }
     }
 

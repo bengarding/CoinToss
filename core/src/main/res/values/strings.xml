@@ -10,7 +10,7 @@
     <string name="settings">Settings</string>
     <string name="about">About</string>
     <string name="play_sound">Play sound</string>
-
+    <string name="flip_wrist_to_toss">Flip wrist to toss</string>
 
     <string name="coin">"Coin"</string>
     <string name="heads">heads</string>
