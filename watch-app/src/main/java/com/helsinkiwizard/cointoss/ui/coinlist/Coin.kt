@@ -40,11 +40,12 @@ fun Coin(
     tossFromWristFlip: Boolean,
     tossFromBezel: Boolean,
     bezelSensitivity: Int,
+    showChevron: Boolean,
     pagerState: PagerState,
     startFlipping: Boolean,
     onStartFlipping: () -> Unit,
+    onFlip: () -> Unit,
 ) {
-    var showChevron by remember { mutableStateOf(startFlipping.not()) }
     val focusRequester: FocusRequester = remember { FocusRequester() }
 
     LaunchedEffect(pagerState.currentPage) {
@@ -94,8 +95,8 @@ fun Coin(
             onStartFlipping = onStartFlipping,
             onFlip = {
                 if (playSound) soundEffect.start()
-                showChevron = false
                 tossFromRotaryInput = false
+                onFlip()
             },
             modifier = Modifier
                 .fillMaxSize()

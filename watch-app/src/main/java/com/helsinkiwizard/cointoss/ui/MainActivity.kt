@@ -12,6 +12,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -95,6 +99,7 @@ fun CoinTossScreen(
     val tossFromWristFlip = viewModel.tossFromWristFlipFlow.collectAsState(initial = false).value
     val tossFromBezel = viewModel.tossFromBezelFlow.collectAsState(initial = false).value
     val bezelSensitivity = viewModel.bezelSensitivityFlow.collectAsState(initial = DEFAULT_BEZEL_SENSITIVITY).value
+    var showChevron by remember { mutableStateOf(viewModel.startFlipping.not()) }
 
     val pagerState = rememberPagerState()
 
@@ -114,14 +119,21 @@ fun CoinTossScreen(
                     tossFromWristFlip = tossFromWristFlip,
                     tossFromBezel = tossFromBezel,
                     bezelSensitivity = bezelSensitivity,
+                    showChevron = showChevron,
                     pagerState = pagerState,
                     startFlipping = viewModel.startFlipping,
                     onStartFlipping = {
                         viewModel.startFlipping = false
+                    },
+                    onFlip = {
+                        showChevron = false
                     }
                 )
 
-                1 -> WatchMenu()
+                1 -> {
+                    showChevron = false
+                    WatchMenu()
+                }
             }
         }
     }
