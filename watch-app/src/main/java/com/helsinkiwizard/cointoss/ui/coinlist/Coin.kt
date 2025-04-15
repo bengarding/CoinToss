@@ -5,6 +5,7 @@ import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -21,6 +22,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.ui.composables.Chevron
+import com.helsinkiwizard.cointoss.utils.FlipGestureDetector
 import com.helsinkiwizard.core.coin.CoinAnimation
 import com.helsinkiwizard.core.coin.CoinType
 import com.helsinkiwizard.core.ui.model.CustomCoinUiModel
@@ -35,6 +37,7 @@ fun Coin(
     customCoin: CustomCoinUiModel?,
     speed: Float,
     playSound: Boolean,
+    tossFromWristFlip: Boolean,
     tossFromBezel: Boolean,
     bezelSensitivity: Int,
     pagerState: PagerState,
@@ -61,12 +64,26 @@ fun Coin(
         var tossFromRotaryInput by remember { mutableStateOf(false) }
         var accumulatedDelta by remember { mutableFloatStateOf(0f) }
 
+        val gestureDetector = remember {
+            FlipGestureDetector(
+                context = context,
+                onFlipDetected = { tossFromRotaryInput = true }
+            )
+        }
+
         LaunchedEffect(coinType, startFlipping) {
             // When a new coin type is selected, move page to this Composable
             if (pagerState.currentPage != 0) {
                 pagerState.animateScrollToPage(0)
             }
             focusRequester.requestFocus()
+        }
+
+        DisposableEffect(tossFromWristFlip) {
+            if (tossFromWristFlip) gestureDetector.start() else gestureDetector.stop()
+            onDispose {
+                gestureDetector.stop()
+            }
         }
 
         CoinAnimation(

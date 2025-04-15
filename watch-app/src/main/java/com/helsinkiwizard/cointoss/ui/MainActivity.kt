@@ -92,6 +92,7 @@ fun CoinTossScreen(
     val customCoin = viewModel.customCoinFlow.collectAsState(initial = null).value
     val coinSpeed = viewModel.coinSpeedFlow.collectAsState(initial = SPEED_DEFAULT).value
     val playSound = viewModel.playSoundFlow.collectAsState(initial = false).value
+    val tossFromWristFlip = viewModel.tossFromWristFlipFlow.collectAsState(initial = false).value
     val tossFromBezel = viewModel.tossFromBezelFlow.collectAsState(initial = false).value
     val bezelSensitivity = viewModel.bezelSensitivityFlow.collectAsState(initial = DEFAULT_BEZEL_SENSITIVITY).value
 
@@ -110,6 +111,7 @@ fun CoinTossScreen(
                     customCoin = customCoin,
                     speed = coinSpeed,
                     playSound = playSound,
+                    tossFromWristFlip = tossFromWristFlip,
                     tossFromBezel = tossFromBezel,
                     bezelSensitivity = bezelSensitivity,
                     pagerState = pagerState,
