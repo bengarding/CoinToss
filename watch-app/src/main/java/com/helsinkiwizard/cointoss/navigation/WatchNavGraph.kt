@@ -28,7 +28,6 @@ enum class NavRoute {
     Picker
 }
 
-// https://medium.com/androiddevelopers/navigation-compose-meet-type-safety-e081fb3cf2f8
 fun NavGraphBuilder.mainGraph() {
     navigation(
         startDestination = NavRoute.Home.name,

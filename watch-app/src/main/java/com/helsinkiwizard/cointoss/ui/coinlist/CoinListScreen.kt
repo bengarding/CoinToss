@@ -56,11 +56,13 @@ import com.google.android.gms.wearable.Wearable
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.Repository
+import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.tile.CoinTileService
 import com.helsinkiwizard.cointoss.ui.DownloadMobileAppConfirmation
 import com.helsinkiwizard.cointoss.ui.ProgressIndicator
 import com.helsinkiwizard.cointoss.ui.ShowOnPhoneConfirmation
 import com.helsinkiwizard.cointoss.ui.theme.LinkText
+import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
 import com.helsinkiwizard.cointoss.ui.theme.Typography
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListDialogs
 import com.helsinkiwizard.cointoss.ui.viewmodel.CoinListViewModel
@@ -206,6 +208,7 @@ fun CoinButton(
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
+    val navController = LocalNavController.current
     val dataStore = Repository(context)
     val analytics = FirebaseAnalytics.getInstance(context)
 
@@ -219,6 +222,10 @@ fun CoinButton(
                 analytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, params)
                 dataStore.setCoinType(coin)
                 TileService.getUpdater(context).requestUpdate(CoinTileService::class.java)
+                navController.navigate(NavRoute.Home.name) {
+                    popUpTo(navController.graph.startDestinationId)
+                    launchSingleTop = true
+                }
             }
         },
         modifier = Modifier
