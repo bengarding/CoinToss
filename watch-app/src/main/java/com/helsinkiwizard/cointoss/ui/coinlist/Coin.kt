@@ -44,12 +44,6 @@ fun Coin(
     var showChevron by remember { mutableStateOf(startFlipping.not()) }
     val focusRequester: FocusRequester = remember { FocusRequester() }
 
-    LaunchedEffect(startFlipping) {
-        if (showChevron) {
-            showChevron = false
-        }
-    }
-
     LaunchedEffect(pagerState.currentPage) {
         // Request focus each time this page loads, so the rotary event can be handled
         if (pagerState.currentPage == 0) {
