@@ -21,7 +21,6 @@
     <string name="get_picture_from">से चित्र प्राप्त करना</string>
     <string name="camera">झगड़ा</string>
     <string name="gallery">गैलरी</string>
-    <string name="save">बचाना</string>
     <string name="clear">स्पष्ट</string>
     <string name="add_both_images_to_save">सहेजने के लिए दोनों चित्र जोड़ें</string>
     <string name="save_error">बचत करते समय एक त्रुटि हुई</string>

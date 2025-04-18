@@ -130,7 +130,7 @@ internal fun <T> PrimaryPicker(
                 colors = ButtonDefaults.primaryButtonColors(),
                 onClick = { onSelected(items[pickerState.selectedOption]) }
             ) {
-                Text(text = stringResource(id = R.string.done))
+                Text(text = stringResource(id = R.string.save))
             }
         }
     }

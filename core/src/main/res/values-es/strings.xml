@@ -12,7 +12,6 @@
 
     <string name="play_sound">Reproducir sonido</string>
     <string name="flip_wrist_to_toss">Girar la muñeca para lanzar</string>
-    <string name="wrist_movement_sensitivity">Sensibilidad al movimiento de la muñeca</string>
     <string name="coin">"Moneda"</string>
     <string name="heads">cara</string>
     <string name="tails">cruz</string>
@@ -68,4 +67,5 @@
     <string name="morocco">Marruecos</string>
     <string name="peru">Perú</string>
     <string name="south_africa">Sudáfrica</string>
+    <string name="save">Guardar</string>
 </resources>

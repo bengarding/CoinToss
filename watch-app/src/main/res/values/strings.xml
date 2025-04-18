@@ -6,8 +6,8 @@
     <string name="download_mobile_app_message">Create custom coins and send them to your watch from the Coin Toss mobile app</string>
     <string name="speed">Speed</string>
     <string name="number_seconds">%s seconds</string>
-    <string name="done">Done</string>
     <string name="rotate_bezel_to_toss">Rotate bezel to toss</string>
     <string name="if_supported">(If supported)</string>
     <string name="bezel_sensitivity">Bezel sensitivity</string>
+    <string name="wrist_sensitivity">Wrist sensitivity</string>
 </resources>

@@ -6,8 +6,8 @@
     <string name="download_mobile_app_message">Crea monedas personalizadas y envíalas a tu reloj desde la aplicación móvil Coin Toss</string>
     <string name="speed">Velocidad</string>
     <string name="number_seconds">%s segundos</string>
-    <string name="done">Hecho</string>
     <string name="rotate_bezel_to_toss">Gire el bisel para lanzar</string>
     <string name="if_supported">(Si es compatible)</string>
     <string name="bezel_sensitivity">Sensibilidad del bisel</string>
+    <string name="wrist_sensitivity">Sensibilidad de la muñeca</string>
 </resources>
