@@ -34,4 +34,5 @@ class CoinTossViewModel @Inject constructor(
     val tossFromBezelFlow = repo.getTossFromBezel
     val bezelSensitivityFlow = repo.getBezelSensitivity
     var startFlipping by mutableStateOf(savedStateHandle.get<Boolean>(EXTRA_START_FLIPPING) ?: false)
+    var showChevron by mutableStateOf(startFlipping.not())
 }
