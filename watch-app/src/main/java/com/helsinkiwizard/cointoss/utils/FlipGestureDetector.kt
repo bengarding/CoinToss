@@ -5,6 +5,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import com.helsinkiwizard.cointoss.Repository.Companion.DEFAULT_SENSITIVITY
 import kotlin.math.abs
 
 class FlipGestureDetector(
@@ -14,6 +15,8 @@ class FlipGestureDetector(
 
     private val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
     private val accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
+    var sensitivity: Int = DEFAULT_SENSITIVITY
 
     private var lastZ: Float = 0f
     private var lastFlipTime: Long = 0
@@ -31,7 +34,7 @@ class FlipGestureDetector(
         val z = event.values[2]
         val now = System.currentTimeMillis()
 
-        if (abs(z - lastZ) > 10 && (now - lastFlipTime) > debounceMillis) {
+        if (abs(z - lastZ) > (sensitivity + 5) && (now - lastFlipTime) > debounceMillis) {
             lastFlipTime = now
             onFlipDetected()
         }

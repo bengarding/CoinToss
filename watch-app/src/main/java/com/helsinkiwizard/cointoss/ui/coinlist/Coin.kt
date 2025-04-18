@@ -38,6 +38,7 @@ fun Coin(
     speed: Float,
     playSound: Boolean,
     tossFromWristFlip: Boolean,
+    wristSensitivity: Int,
     tossFromBezel: Boolean,
     bezelSensitivity: Int,
     showChevron: Boolean,
@@ -71,6 +72,7 @@ fun Coin(
                 onFlipDetected = { tossFromRotaryInput = true }
             )
         }
+        gestureDetector.sensitivity = wristSensitivity
 
         LaunchedEffect(coinType, startFlipping) {
             // When a new coin type is selected, move page to this Composable

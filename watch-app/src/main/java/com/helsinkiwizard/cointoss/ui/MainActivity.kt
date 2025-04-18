@@ -104,6 +104,7 @@ fun CoinTossScreen(
     val coinSpeed = viewModel.coinSpeedFlow.collectAsState(initial = SPEED_DEFAULT).value
     val playSound = viewModel.playSoundFlow.collectAsState(initial = false).value
     val tossFromWristFlip = viewModel.tossFromWristFlipFlow.collectAsState(initial = false).value
+    val wristSensitivity = viewModel.wristSensitivityFlow.collectAsState(initial = DEFAULT_SENSITIVITY).value
     val tossFromBezel = viewModel.tossFromBezelFlow.collectAsState(initial = false).value
     val bezelSensitivity = viewModel.bezelSensitivityFlow.collectAsState(initial = DEFAULT_SENSITIVITY).value
 
@@ -121,6 +122,7 @@ fun CoinTossScreen(
                     speed = coinSpeed,
                     playSound = playSound,
                     tossFromWristFlip = tossFromWristFlip,
+                    wristSensitivity = wristSensitivity,
                     tossFromBezel = tossFromBezel,
                     bezelSensitivity = bezelSensitivity,
                     showChevron = viewModel.showChevron,
