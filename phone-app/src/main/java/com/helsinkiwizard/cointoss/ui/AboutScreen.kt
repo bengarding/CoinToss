@@ -25,7 +25,6 @@ import androidx.core.net.toUri
 import com.helsinkiwizard.cointoss.BuildConfig
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.navigation.NavRoute
-import com.helsinkiwizard.cointoss.ui.composable.AppIconPainterResource
 import com.helsinkiwizard.cointoss.ui.composable.PreviewSurface
 import com.helsinkiwizard.cointoss.ui.composable.PrimaryButton
 import com.helsinkiwizard.cointoss.ui.theme.BodyMediumSpan
@@ -38,6 +37,7 @@ import com.helsinkiwizard.core.theme.Four
 import com.helsinkiwizard.core.theme.Sixty
 import com.helsinkiwizard.core.theme.Twelve
 import com.helsinkiwizard.core.theme.TwentyFour
+import com.helsinkiwizard.core.ui.composable.appIconPainterResource
 import com.helsinkiwizard.core.utils.buildTextWithLink
 import com.helsinkiwizard.core.utils.getEmailIntent
 import com.helsinkiwizard.core.utils.onLinkClick
@@ -70,7 +70,7 @@ private fun AppInfo(dateUpdated: LocalDate) {
         modifier = Modifier.fillMaxWidth()
     ) {
         Image(
-            painter = AppIconPainterResource(id = R.mipmap.ic_launcher_round),
+            painter = appIconPainterResource(id = R.mipmap.ic_launcher_round),
             contentDescription = null,
             modifier = Modifier
                 .size(AppIconSize)
