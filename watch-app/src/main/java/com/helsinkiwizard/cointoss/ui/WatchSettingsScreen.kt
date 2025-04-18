@@ -35,10 +35,12 @@ import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.navigation.BEZEL_SENSITIVITY_PICKER_RESULT
 import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.navigation.SPEED_PICKER_RESULT
+import com.helsinkiwizard.cointoss.navigation.WRIST_SENSITIVITY_PICKER_RESULT
 import com.helsinkiwizard.cointoss.ui.composables.BEZEL_SENSITIVITY_TYPE
 import com.helsinkiwizard.cointoss.ui.composables.PrimaryChip
 import com.helsinkiwizard.cointoss.ui.composables.PrimarySwitchChip
 import com.helsinkiwizard.cointoss.ui.composables.SPEED_TYPE
+import com.helsinkiwizard.cointoss.ui.composables.WRIST_SENSITIVITY_TYPE
 import com.helsinkiwizard.cointoss.ui.model.WatchSettingsModel
 import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
 import com.helsinkiwizard.cointoss.ui.viewmodel.WatchSettingsContent
@@ -128,6 +130,13 @@ internal fun Content(
                 )
             }
             item {
+                SensitivityChip(
+                    type = WRIST_SENSITIVITY_TYPE,
+                    wrapper = model.wristSensitivity,
+                    onPickerResult = viewModel::onWristSensitivitySelected
+                )
+            }
+            item {
                 PrimarySwitchChip(
                     label = stringResource(id = R.string.rotate_bezel_to_toss),
                     secondaryLabel = stringResource(id = R.string.if_supported),
@@ -136,7 +145,8 @@ internal fun Content(
                 )
             }
             item {
-                BezelSensitivityChip(
+                SensitivityChip(
+                    type = BEZEL_SENSITIVITY_TYPE,
                     wrapper = model.bezelSensitivity,
                     onPickerResult = viewModel::onBezelSensitivitySelected
                 )
@@ -182,13 +192,24 @@ private fun SpeedChip(
 }
 
 @Composable
-private fun BezelSensitivityChip(
+private fun SensitivityChip(
+    type: String,
     wrapper: MutableInputWrapper<Int>,
-    onPickerResult: (Int) -> Unit
+    onPickerResult: (Int) -> Unit,
 ) {
     val navController = LocalNavController.current
+    val titleRes: Int
+    val pickerResult: String
+    if (type == BEZEL_SENSITIVITY_TYPE) {
+        titleRes = R.string.bezel_sensitivity
+        pickerResult = BEZEL_SENSITIVITY_PICKER_RESULT
+    } else {
+        titleRes = R.string.wrist_sensitivity
+        pickerResult = WRIST_SENSITIVITY_PICKER_RESULT
+    }
+
     navController.GetResult(
-        key = BEZEL_SENSITIVITY_PICKER_RESULT,
+        key = pickerResult,
         onResult = onPickerResult
     )
 
@@ -198,9 +219,9 @@ private fun BezelSensitivityChip(
         exit = fadeOut() + shrinkVertically()
     ) {
         PrimaryChip(
-            text = stringResource(id = R.string.bezel_sensitivity),
+            text = stringResource(id = titleRes),
             secondaryLabel = wrapper.value.toString(),
-            onClick = { navController.navigate("${NavRoute.Picker.name}/$BEZEL_SENSITIVITY_TYPE/${wrapper.value}") }
+            onClick = { navController.navigate("${NavRoute.Picker.name}/$type/${wrapper.value}") }
         )
     }
 }

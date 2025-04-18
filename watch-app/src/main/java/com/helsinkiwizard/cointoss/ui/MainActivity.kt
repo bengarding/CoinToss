@@ -27,7 +27,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.helsinkiwizard.cointoss.Constants.APP_DRAWER
 import com.helsinkiwizard.cointoss.Constants.EXTRA_START_FLIPPING
 import com.helsinkiwizard.cointoss.Constants.TILE
-import com.helsinkiwizard.cointoss.Repository.Companion.DEFAULT_BEZEL_SENSITIVITY
+import com.helsinkiwizard.cointoss.Repository.Companion.DEFAULT_SENSITIVITY
 import com.helsinkiwizard.cointoss.navigation.MAIN_ROUTE
 import com.helsinkiwizard.cointoss.navigation.mainGraph
 import com.helsinkiwizard.cointoss.ui.coinlist.Coin
@@ -105,7 +105,7 @@ fun CoinTossScreen(
     val playSound = viewModel.playSoundFlow.collectAsState(initial = false).value
     val tossFromWristFlip = viewModel.tossFromWristFlipFlow.collectAsState(initial = false).value
     val tossFromBezel = viewModel.tossFromBezelFlow.collectAsState(initial = false).value
-    val bezelSensitivity = viewModel.bezelSensitivityFlow.collectAsState(initial = DEFAULT_BEZEL_SENSITIVITY).value
+    val bezelSensitivity = viewModel.bezelSensitivityFlow.collectAsState(initial = DEFAULT_SENSITIVITY).value
 
     Column(
         modifier = Modifier

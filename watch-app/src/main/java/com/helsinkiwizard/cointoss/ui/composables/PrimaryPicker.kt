@@ -32,9 +32,10 @@ import com.helsinkiwizard.core.theme.Text28
 
 const val SPEED_TYPE = "speedType"
 const val BEZEL_SENSITIVITY_TYPE = "bezelSensitivityType"
+const val WRIST_SENSITIVITY_TYPE = "wristSensitivityType"
 private const val SPEED_PICKER_OPTIONS_COUNT = 12
 private const val DEFAULT_SPEED_INDEX = 5
-private const val DEFAULT_BEZEL_SENSITIVITY_INDEX = 6
+private const val DEFAULT_SENSITIVITY_INDEX = 6
 
 @Composable
 internal fun SpeedPicker(startValue: Float) {
@@ -54,17 +55,25 @@ internal fun SpeedPicker(startValue: Float) {
 }
 
 @Composable
-internal fun BezelSensitivityPicker(startValue: Int) {
+internal fun SensitivityPicker(
+    startValue: Int,
+    pickerResult: String
+) {
     val navController = LocalNavController.current
     val sensitivityList = (1..10).toList()
     val startValueIndex = sensitivityList.indexOf(startValue)
+    val labelRes = if (pickerResult == BEZEL_SENSITIVITY_PICKER_RESULT) {
+        R.string.bezel_sensitivity
+    } else {
+        R.string.wrist_sensitivity
+    }
 
     PrimaryPicker(
-        label = stringResource(id = R.string.bezel_sensitivity),
+        label = stringResource(id = labelRes),
         items = sensitivityList,
-        initiallySelectedOption = startValueIndex.takeIf { it != VALUE_UNDEFINED } ?: DEFAULT_BEZEL_SENSITIVITY_INDEX,
+        initiallySelectedOption = startValueIndex.takeIf { it != VALUE_UNDEFINED } ?: DEFAULT_SENSITIVITY_INDEX,
         onSelected = { result ->
-            navController.previousBackStackEntry?.savedStateHandle?.set(BEZEL_SENSITIVITY_PICKER_RESULT, result)
+            navController.previousBackStackEntry?.savedStateHandle?.set(pickerResult, result)
             navController.popBackStack()
         }
     )

@@ -13,6 +13,7 @@
     <string name="settings">सेटिंग</string>
     <string name="play_sound">आवाज़ बजाएं</string>
     <string name="flip_wrist_to_toss">टॉस करने के लिए कलाई को पलटें</string>
+    <string name="wrist_movement_sensitivity">कलाई की संवेदनशीलता</string>
     <string name="coin">"सिक्का"</string>
     <string name="heads">सिर</string>
     <string name="tails">पूंछ</string>

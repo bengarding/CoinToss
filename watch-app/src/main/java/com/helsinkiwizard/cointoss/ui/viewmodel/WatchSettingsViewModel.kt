@@ -25,6 +25,7 @@ class WatchSettingsViewModel @Inject constructor(
                 speed = repository.getSpeed.filterNotNull().first(),
                 playSoundEffect = repository.getPlaySound.filterNotNull().first(),
                 tossFromWristMotion = repository.getTossFromWristFlip.filterNotNull().first(),
+                wristSensitivity = repository.getWristSensitivity.filterNotNull().first(),
                 tossFromBezel = repository.getTossFromBezel.filterNotNull().first(),
                 bezelSensitivity = repository.getBezelSensitivity.filterNotNull().first(),
             )
@@ -49,11 +50,19 @@ class WatchSettingsViewModel @Inject constructor(
     fun onTossFromWristMovement(checked: Boolean) {
         viewModelScope.launch {
             model.tossFromWristMotion.value = checked
+            model.wristSensitivity.isVisible = checked
             repository.setTossFromWristFlip(checked)
         }
     }
 
-    fun onTossFromBezelChecked(checked: Boolean){
+    fun onWristSensitivitySelected(sensitivity: Int) {
+        viewModelScope.launch {
+            model.wristSensitivity.value = sensitivity
+            repository.setWristSensitivity(sensitivity)
+        }
+    }
+
+    fun onTossFromBezelChecked(checked: Boolean) {
         viewModelScope.launch {
             model.tossFromBezel.value = checked
             model.bezelSensitivity.isVisible = checked
