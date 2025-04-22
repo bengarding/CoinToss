@@ -9,6 +9,7 @@
     <string name="cancel">Cancelar</string>
     <string name="settings">Ajustes</string>
     <string name="about">Acerca</string>
+    <string name="save">Guardar</string>
 
     <string name="play_sound">Reproducir sonido</string>
     <string name="flip_wrist_to_toss">Girar la muñeca para lanzar</string>
@@ -67,5 +68,4 @@
     <string name="morocco">Marruecos</string>
     <string name="peru">Perú</string>
     <string name="south_africa">Sudáfrica</string>
-    <string name="save">Guardar</string>
 </resources>

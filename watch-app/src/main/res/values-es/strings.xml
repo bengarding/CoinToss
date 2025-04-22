@@ -10,4 +10,5 @@
     <string name="if_supported">(Si es compatible)</string>
     <string name="bezel_sensitivity">Sensibilidad del bisel</string>
     <string name="wrist_sensitivity">Sensibilidad de la muñeca</string>
+    <string name="copyright_split">Derechos de autor © %d\n%s</string>
 </resources>

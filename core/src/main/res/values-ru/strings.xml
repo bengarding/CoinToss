@@ -9,6 +9,7 @@
     <string name="cancel">Отмена</string>
     <string name="settings">Настройки</string>
     <string name="about">Результат перевода</string>
+    <string name="save">Сохранять</string>
 
     <string name="play_sound">Воспроизвести звук</string>
     <string name="flip_wrist_to_toss">Поверните запястье, чтобы бросить</string>
@@ -67,5 +68,4 @@
     <string name="morocco">Марокко</string>
     <string name="peru">Перу</string>
     <string name="south_africa">ЮАР</string>
-    <string name="save">Сохранять</string>
 </resources>

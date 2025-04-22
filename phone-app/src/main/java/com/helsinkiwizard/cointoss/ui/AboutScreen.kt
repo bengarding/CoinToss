@@ -8,14 +8,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -40,10 +38,9 @@ import com.helsinkiwizard.core.theme.TwentyFour
 import com.helsinkiwizard.core.ui.composable.appIconPainterResource
 import com.helsinkiwizard.core.utils.buildTextWithLink
 import com.helsinkiwizard.core.utils.getEmailIntent
+import com.helsinkiwizard.core.utils.getLastUpdatedDate
 import com.helsinkiwizard.core.utils.onLinkClick
-import java.time.Instant
 import java.time.LocalDate
-import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
@@ -74,7 +71,6 @@ private fun AppInfo(dateUpdated: LocalDate) {
             contentDescription = null,
             modifier = Modifier
                 .size(AppIconSize)
-                .clip(CircleShape)
                 .padding(top = Forty, bottom = Twelve)
         )
         Text(
@@ -147,11 +143,6 @@ private fun AddCoinDetailsButtons() {
             onClick = { openGooglePlay(context) }
         )
     }
-}
-
-private fun getLastUpdatedDate(context: Context): LocalDate {
-    val time = context.packageManager.getPackageInfo(PACKAGE_NAME, 0).lastUpdateTime
-    return Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).toLocalDate()
 }
 
 private fun openGooglePlay(context: Context) {

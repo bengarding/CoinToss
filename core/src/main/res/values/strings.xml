@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_owner" translatable="false">Coin Toss LLC</string>
     <string name="app_name">Coin Toss</string>
     <string name="choose_a_coin">Choose a coin</string>
     <string name="request_coin">"Don't see a coin you want? Send me an email and I'll do my best to add it.\ncointossrequest@gmail.com"</string>
@@ -11,6 +12,7 @@
     <string name="about">About</string>
     <string name="play_sound">Play sound</string>
     <string name="flip_wrist_to_toss">Flip wrist to toss</string>
+    <string name="save">Save</string>
 
     <string name="coin">"Coin"</string>
     <string name="heads">heads</string>
@@ -67,5 +69,4 @@
     <string name="morocco">Morocco</string>
     <string name="peru">Peru</string>
     <string name="south_africa">South Africa</string>
-    <string name="save">Save</string>
 </resources>

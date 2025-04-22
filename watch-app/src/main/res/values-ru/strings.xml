@@ -10,4 +10,5 @@
     <string name="if_supported">(Если поддерживается)</string>
     <string name="bezel_sensitivity">Чувствительность безеля</string>
     <string name="wrist_sensitivity">Чувствительность запястья</string>
+    <string name="copyright_split">Авторские права © %d\n%s</string>
 </resources>

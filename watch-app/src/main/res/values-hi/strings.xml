@@ -10,4 +10,5 @@
     <string name="if_supported">यदि समर्थित हो</string>
     <string name="bezel_sensitivity">बेज़ल संवेदनशीलता</string>
     <string name="wrist_sensitivity">कलाई की संवेदनशीलता</string>
+    <string name="copyright_split">कॉपीराइट © %d\n%s</string>
 </resources>
