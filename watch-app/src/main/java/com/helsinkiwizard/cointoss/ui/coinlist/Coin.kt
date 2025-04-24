@@ -1,6 +1,7 @@
 package com.helsinkiwizard.cointoss.ui.coinlist
 
 import android.media.MediaPlayer
+import android.view.WindowManager
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
-import androidx.compose.ui.platform.LocalContext
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 import com.helsinkiwizard.cointoss.R
@@ -25,6 +25,7 @@ import com.helsinkiwizard.cointoss.ui.composables.Chevron
 import com.helsinkiwizard.cointoss.utils.FlipGestureDetector
 import com.helsinkiwizard.core.coin.CoinAnimation
 import com.helsinkiwizard.core.coin.CoinType
+import com.helsinkiwizard.core.theme.LocalActivity
 import com.helsinkiwizard.core.ui.model.CustomCoinUiModel
 import kotlin.math.absoluteValue
 
@@ -61,14 +62,14 @@ fun Coin(
     Box(
         contentAlignment = Alignment.Center
     ) {
-        val context = LocalContext.current
-        val soundEffect = remember { MediaPlayer.create(context, R.raw.coin_toss) }
+        val activity = LocalActivity.current
+        val soundEffect = remember { MediaPlayer.create(activity, R.raw.coin_toss) }
         var tossFromRotaryInput by remember { mutableStateOf(false) }
         var accumulatedDelta by remember { mutableFloatStateOf(0f) }
 
         val gestureDetector = remember {
             FlipGestureDetector(
-                context = context,
+                context = activity,
                 onFlipDetected = { tossFromRotaryInput = true }
             )
         }
@@ -83,9 +84,16 @@ fun Coin(
         }
 
         DisposableEffect(tossFromWristFlip) {
-            if (tossFromWristFlip) gestureDetector.start() else gestureDetector.stop()
+            if (tossFromWristFlip) {
+                gestureDetector.start()
+                activity.window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            } else {
+                gestureDetector.stop()
+                activity.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            }
             onDispose {
                 gestureDetector.stop()
+                activity.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
             }
         }
 
