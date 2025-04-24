@@ -57,10 +57,6 @@ internal fun DownloadMobileAppConfirmation(
         contentPadding = PaddingValues(vertical = ThirtyTwo, horizontal = Twelve),
         verticalArrangement = Arrangement.spacedBy(Eight, Alignment.CenterVertically),
         title = {
-            // The title was not being shown as the top item, so display it as part of the content instead
-        },
-    ) {
-        item {
             Text(
                 stringResource(id = R.string.download_mobile_app),
                 color = MaterialTheme.colors.onPrimary,
@@ -68,17 +64,19 @@ internal fun DownloadMobileAppConfirmation(
                 fontWeight = FontWeight.SemiBold,
                 fontSize = Text20
             )
+        },
+        content = {
+            item {
+                Text(
+                    stringResource(id = R.string.download_mobile_app_message),
+                )
+            }
+            item {
+                Chip(
+                    label = { Text(stringResource(id = R.string.ok)) },
+                    onClick = onClick,
+                )
+            }
         }
-        item {
-            Text(
-                stringResource(id = R.string.download_mobile_app_message),
-            )
-        }
-        item {
-            Chip(
-                label = { Text(stringResource(id = R.string.ok)) },
-                onClick = onClick,
-            )
-        }
-    }
+    )
 }
