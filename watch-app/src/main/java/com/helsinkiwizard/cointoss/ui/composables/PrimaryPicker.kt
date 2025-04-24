@@ -16,8 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.wear.compose.material.Button
-import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Picker
 import androidx.wear.compose.material.Text
@@ -126,12 +124,10 @@ internal fun <T> PrimaryPicker(
             modifier = Modifier.weight(1f),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Button(
-                colors = ButtonDefaults.primaryButtonColors(),
+            PrimaryButton(
+                text = stringResource(id = R.string.save),
                 onClick = { onSelected(items[pickerState.selectedOption]) }
-            ) {
-                Text(text = stringResource(id = R.string.save))
-            }
+            )
         }
     }
 }
