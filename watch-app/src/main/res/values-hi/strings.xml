@@ -4,6 +4,7 @@
     <string name="create_coin_on_phone">फोन पर सिक्का बनाएं</string>
     <string name="download_coin_toss_mobile_app">सिक्का टॉस मोबाइल ऐप डाउनलोड करें</string>
     <string name="download_mobile_app_message">कस्टम सिक्के बनाएं और उन्हें सिक्का टॉस मोबाइल ऐप से अपनी घड़ी पर भेजें</string>
+    <string name="download_mobile_app">मोबाइल ऐप डाउनलोड करें</string>
     <string name="speed">रफ़्तार</string>
     <string name="number_seconds">%s सेकंड</string>
     <string name="rotate_bezel_to_toss">टॉस करने के लिए बेज़ल घुमाएँ</string>
