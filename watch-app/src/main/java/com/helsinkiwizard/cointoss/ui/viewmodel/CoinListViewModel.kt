@@ -2,11 +2,9 @@ package com.helsinkiwizard.cointoss.ui.viewmodel
 
 import androidx.annotation.StringRes
 import androidx.lifecycle.viewModelScope
-import androidx.wear.remote.interactions.RemoteActivityHelper
-import com.google.android.gms.wearable.CapabilityClient
-import com.google.android.gms.wearable.NodeClient
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.Repository
+import com.helsinkiwizard.cointoss.di.WearClients
 import com.helsinkiwizard.cointoss.utils.isAppInstalledOnPhone
 import com.helsinkiwizard.cointoss.utils.isConnectedToAnyNode
 import com.helsinkiwizard.cointoss.utils.launchDeepLinkOnPhone
@@ -23,33 +21,29 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CoinListViewModel @Inject constructor(
-    repository: Repository
+    repository: Repository,
+    private val wearClients: WearClients
 ) : AbstractViewModel(defaultState = UiState.ShowContent(CoinListContent.ShowCoinList)) {
 
     val customCoinFlow = repository.getCustomCoin
 
-    fun onBlankCustomCoinClicked(
-        capabilityClient: CapabilityClient,
-        nodeClient: NodeClient,
-        remoteActivityHelper: RemoteActivityHelper
-    ) {
+    fun onBlankCustomCoinClicked() {
         viewModelScope.launch {
             mutableUiStateFlow.value = UiState.Loading
 
-            val appInstalledOnPhone = isAppInstalledOnPhone(capabilityClient)
-            val connectedToAnyNode = isConnectedToAnyNode(nodeClient)
-
+            val connectedToAnyNode = isConnectedToAnyNode(wearClients.nodeClient)
             if (connectedToAnyNode.not()) {
                 mutableUiStateFlow.value = UiState.ShowContent(CoinListContent.ShowCoinList)
                 mutableDialogStateFlow.value = DialogState.ShowContent(CoinListDialogs.DownloadMobileApp)
                 return@launch
             }
 
+            val appInstalledOnPhone = isAppInstalledOnPhone(wearClients.capabilityClient)
             val deepLink = if (appInstalledOnPhone) CREATE_COIN_DEEPLINK else PLAY_STORE_DEEPLINK
             val messageRes = if (appInstalledOnPhone) R.string.create_coin_on_phone else R.string.download_mobile_app
 
             val deepLinkLaunched = launchDeepLinkOnPhone(
-                remoteActivityHelper = remoteActivityHelper,
+                remoteActivityHelper = wearClients.remoteActivityHelper,
                 deepLink = deepLink
             )
 

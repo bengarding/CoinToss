@@ -48,11 +48,9 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
-import androidx.wear.remote.interactions.RemoteActivityHelper
 import androidx.wear.tiles.TileService
 import androidx.wear.tooling.preview.devices.WearDevices
 import coil.compose.SubcomposeAsyncImage
-import com.google.android.gms.wearable.Wearable
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.Repository
@@ -169,12 +167,9 @@ private fun CoinList(viewModel: CoinListViewModel) {
                         customCoinHeadsUri = customCoin.headsUri
                     )
                 } else {
-                    val capabilityClient by lazy { Wearable.getCapabilityClient(context) }
-                    val nodeClient by lazy { Wearable.getNodeClient(context) }
-                    val remoteActivityHelper by lazy { RemoteActivityHelper(context) }
                     BlankCustomCoin(
                         onclick = {
-                            viewModel.onBlankCustomCoinClicked(capabilityClient, nodeClient, remoteActivityHelper)
+                            viewModel.onBlankCustomCoinClicked()
                         }
                     )
                 }
