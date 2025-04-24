@@ -2,7 +2,7 @@
 <resources>
     <string name="receiving_custom_coin">Recibir moneda personalizada</string>
     <string name="create_coin_on_phone">Crear moneda en el teléfono</string>
-    <string name="download_mobile_app">Descargue la aplicación móvil Coin Toss</string>
+    <string name="download_coin_toss_mobile_app">Descargue la aplicación móvil Coin Toss</string>
     <string name="download_mobile_app_message">Crea monedas personalizadas y envíalas a tu reloj desde la aplicación móvil Coin Toss</string>
     <string name="speed">Velocidad</string>
     <string name="number_seconds">%s segundos</string>

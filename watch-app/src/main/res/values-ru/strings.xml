@@ -2,7 +2,7 @@
 <resources>
     <string name="receiving_custom_coin">Получение пользовательской монеты</string>
     <string name="create_coin_on_phone">Создать монету на телефоне</string>
-    <string name="download_mobile_app">Загрузите мобильное приложение Coin Toss</string>
+    <string name="download_coin_toss_mobile_app">Загрузите мобильное приложение Coin Toss</string>
     <string name="download_mobile_app_message">Создавайте собственные монеты и отправляйте их на свои часы из мобильного приложения Coin Toss</string>
     <string name="speed">Скорость</string>
     <string name="number_seconds">%s секунд</string>

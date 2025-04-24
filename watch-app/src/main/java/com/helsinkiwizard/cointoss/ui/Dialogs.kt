@@ -12,12 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.wear.compose.material.Chip
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Confirmation
+import androidx.wear.tooling.preview.devices.WearDevices
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.core.theme.Eight
 import com.helsinkiwizard.core.theme.Forty
@@ -58,7 +60,7 @@ internal fun DownloadMobileAppConfirmation(
         verticalArrangement = Arrangement.spacedBy(Eight, Alignment.CenterVertically),
         title = {
             Text(
-                stringResource(id = R.string.download_mobile_app),
+                stringResource(id = R.string.download_coin_toss_mobile_app),
                 color = MaterialTheme.colors.onPrimary,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.SemiBold,
@@ -80,3 +82,21 @@ internal fun DownloadMobileAppConfirmation(
         }
     )
 }
+
+@Preview(name = "large round", device = WearDevices.LARGE_ROUND)
+@Preview(name = "square", device = WearDevices.SQUARE)
+@Composable
+private fun DownloadMobileAppConfirmationPreview() {
+    DownloadMobileAppConfirmation {  }
+}
+
+@Preview(name = "large round", device = WearDevices.LARGE_ROUND)
+@Preview(name = "square", device = WearDevices.SQUARE)
+@Composable
+private fun ShowOnPhoneConfirmationPreview() {
+    ShowOnPhoneConfirmation(
+        onTimeout = {},
+        messageRes = R.string.create_coin_on_phone
+    )
+}
+

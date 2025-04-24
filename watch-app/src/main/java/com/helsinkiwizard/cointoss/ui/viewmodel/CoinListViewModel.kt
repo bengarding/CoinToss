@@ -40,7 +40,7 @@ class CoinListViewModel @Inject constructor(
 
             val appInstalledOnPhone = isAppInstalledOnPhone(wearClients.capabilityClient)
             val deepLink = if (appInstalledOnPhone) CREATE_COIN_DEEPLINK else PLAY_STORE_DEEPLINK
-            val messageRes = if (appInstalledOnPhone) R.string.create_coin_on_phone else R.string.download_mobile_app
+            val messageRes = if (appInstalledOnPhone) R.string.create_coin_on_phone else R.string.download_coin_toss_mobile_app
 
             val deepLinkLaunched = launchDeepLinkOnPhone(
                 remoteActivityHelper = wearClients.remoteActivityHelper,
