@@ -182,11 +182,18 @@ class CreateCoinViewModel @Inject constructor(
                 .nodes
 
             when (nodes.size) {
-                0 -> mutableDialogStateFlow.value = DialogState.ShowContent(CreateCoinDialogs.NoNodesFoundDialog)
+                0 -> {
+                    mutableDialogStateFlow.value = DialogState.ShowContent(CreateCoinDialogs.NoNodesFoundDialog)
+                    showContent()
+                }
+
                 1 -> sendCoinToNode(nodes.first(), coin, messageClient, channelClient, uriToBitmap)
-                else -> mutableDialogStateFlow.value = DialogState.ShowContent(
-                    CreateCoinDialogs.SelectNodesDialog(coin, nodes, messageClient, channelClient, uriToBitmap)
-                )
+                else -> {
+                    mutableDialogStateFlow.value = DialogState.ShowContent(
+                        CreateCoinDialogs.SelectNodesDialog(coin, nodes, messageClient, channelClient, uriToBitmap)
+                    )
+                    showContent()
+                }
             }
         }
     }

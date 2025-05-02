@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,12 +19,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.helsinkiwizard.cointoss.R
-import com.helsinkiwizard.core.theme.Eighty
 import com.helsinkiwizard.core.theme.Sixteen
 import com.helsinkiwizard.core.theme.ThirtyTwo
 import com.helsinkiwizard.core.theme.TwentyFour
 
-private const val IMAGE_WIDTH_PERCENT = .8f
+private const val IMAGE_WIDTH_PERCENT = .6f
 
 @Composable
 fun ErrorScreen(
@@ -35,7 +36,8 @@ fun ErrorScreen(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxSize()
-            .padding(start = TwentyFour, bottom = Eighty, end = TwentyFour)
+            .padding(all = TwentyFour)
+            .verticalScroll(rememberScrollState())
     ) {
         Image(
             painter = painterResource(id = R.drawable.broken_coin),
