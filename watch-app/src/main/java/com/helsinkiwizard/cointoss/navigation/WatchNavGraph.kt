@@ -1,20 +1,33 @@
 package com.helsinkiwizard.cointoss.navigation
 
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import androidx.wear.compose.navigation.composable
 import com.helsinkiwizard.cointoss.ui.AboutScreen
 import com.helsinkiwizard.cointoss.ui.CoinTossScreen
-import com.helsinkiwizard.cointoss.ui.SettingsScreen
+import com.helsinkiwizard.cointoss.ui.WatchSettingsScreen
 import com.helsinkiwizard.cointoss.ui.coinlist.CoinListScreen
+import com.helsinkiwizard.cointoss.ui.composables.BEZEL_SENSITIVITY_TYPE
+import com.helsinkiwizard.cointoss.ui.composables.SPEED_TYPE
+import com.helsinkiwizard.cointoss.ui.composables.SensitivityPicker
+import com.helsinkiwizard.cointoss.ui.composables.SpeedPicker
+import com.helsinkiwizard.cointoss.ui.composables.WRIST_SENSITIVITY_TYPE
+import com.helsinkiwizard.core.CoreConstants.EMPTY_STRING
+import com.helsinkiwizard.core.CoreConstants.VALUE_UNDEFINED
 
 const val MAIN_ROUTE = "mainNavRoute"
+const val SPEED_PICKER_RESULT = "speedPickerResult"
+const val BEZEL_SENSITIVITY_PICKER_RESULT = "bezelSensitivityPickerResult"
+const val WRIST_SENSITIVITY_PICKER_RESULT = "wristSensitivityPickerResult"
 
 enum class NavRoute {
     Home,
     CoinList,
     Settings,
-    About
+    About,
+    Picker
 }
 
 fun NavGraphBuilder.mainGraph() {
@@ -29,10 +42,32 @@ fun NavGraphBuilder.mainGraph() {
             CoinListScreen()
         }
         composable(NavRoute.Settings.name) {
-            SettingsScreen()
+            WatchSettingsScreen()
         }
         composable(NavRoute.About.name) {
             AboutScreen()
+        }
+        composable(
+            route = NavRoute.Picker.name + "/{pickerType}/{startValue}",
+            arguments = listOf(
+                navArgument("pickerType") { type = NavType.StringType },
+                navArgument("startValue") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val pickerType = backStackEntry.arguments?.getString("pickerType") ?: EMPTY_STRING
+            val startValue = backStackEntry.arguments?.getString("startValue") ?: EMPTY_STRING
+            when (pickerType) {
+                SPEED_TYPE -> SpeedPicker(startValue.toFloatOrNull() ?: VALUE_UNDEFINED.toFloat())
+                BEZEL_SENSITIVITY_TYPE -> SensitivityPicker(
+                    startValue = startValue.toIntOrNull() ?: VALUE_UNDEFINED,
+                    pickerResult = BEZEL_SENSITIVITY_PICKER_RESULT
+                )
+
+                WRIST_SENSITIVITY_TYPE -> SensitivityPicker(
+                    startValue = startValue.toIntOrNull() ?: VALUE_UNDEFINED,
+                    pickerResult = WRIST_SENSITIVITY_PICKER_RESULT
+                )
+            }
         }
     }
 }

@@ -3,7 +3,9 @@ package com.helsinkiwizard.cointoss.ui.viewmodel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.helsinkiwizard.cointoss.Constants.EXTRA_START_FLIPPING
 import com.helsinkiwizard.cointoss.Repository
 import com.helsinkiwizard.core.viewmodel.AbstractViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,15 +17,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CoinTossViewModel @Inject constructor(
-    repo: Repository
+    repo: Repository,
+    savedStateHandle: SavedStateHandle,
 ) : AbstractViewModel() {
 
     val coinTypeFlow = repo.getCoinType.stateIn(
-       scope =  viewModelScope,
+        scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(),
         initialValue = runBlocking { repo.getCoinType.first() }
     )
 
     val customCoinFlow = repo.getCustomCoin
-    var startFlipping by mutableStateOf(false)
+    val coinSpeedFlow = repo.getSpeed
+    val playSoundFlow = repo.getPlaySound
+    val tossFromWristFlipFlow = repo.getTossFromWristFlip
+    val wristSensitivityFlow = repo.getWristSensitivity
+    val tossFromBezelFlow = repo.getTossFromBezel
+    val bezelSensitivityFlow = repo.getBezelSensitivity
+    var startFlipping by mutableStateOf(savedStateHandle.get<Boolean>(EXTRA_START_FLIPPING) ?: false)
+    var showChevron by mutableStateOf(startFlipping.not())
 }

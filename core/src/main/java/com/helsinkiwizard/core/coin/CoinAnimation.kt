@@ -51,9 +51,9 @@ fun CoinAnimation(
     customCoin: CustomCoinUiModel?,
     modifier: Modifier,
     speed: Float,
+    onFlip: () -> Unit,
     startFlipping: Boolean? = null,
     onStartFlipping: (() -> Unit)? = null,
-    onFlip: (() -> Unit)? = null,
 ) {
     var flipping by remember { mutableStateOf(startFlipping == true) }
     val context = LocalContext.current
@@ -78,6 +78,7 @@ fun CoinAnimation(
             randomizeRotationAmount()
             flipping = !flipping
             onStartFlipping?.invoke()
+            onFlip()
         }
     }
 
@@ -99,7 +100,7 @@ fun CoinAnimation(
                 flipCount++
                 randomizeRotationAmount()
                 flipping = !flipping
-                onFlip?.invoke()
+                onFlip()
             },
         contentAlignment = Alignment.Center
     ) {

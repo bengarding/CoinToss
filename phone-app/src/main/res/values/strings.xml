@@ -12,7 +12,6 @@
     <string name="theme_system">System</string>
     <string name="use_device_color_scheme">Use device color scheme</string>
     <string name="contact">Questions? Comments? Shoot me an email at cointossrequest@gmail.com</string>
-    <string name="app_owner" translatable="false">Coin Toss LLC</string>
     <string name="copyright">Copyright © %d %s</string>
     <string name="attributions">Attributions</string>
     <string name="rate_on_google_play">Rate on Google Play</string>
@@ -20,7 +19,6 @@
     <string name="get_picture_from">Get picture from</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
-    <string name="save">Save</string>
     <string name="clear">Clear</string>
     <string name="add_both_images_to_save">Add both images to save</string>
     <string name="save_error">An error occurred while saving</string>
@@ -40,7 +38,6 @@
     <string name="watch_not_found">Watch not found</string>
     <string name="watch_not_found_message">No connected devices detected. Make sure your Wear OS device is nearby, powered on, paired with your phone, and the app has been updated to the latest version.\nInstall the Coin Toss app on your watch.</string>
     <string name="show_send_to_watch_button">Show send custom coin to watch button</string>
-    <string name="play_sound">Play sound</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="error_sending_coin_to_watch">Oops! An error occurred while sending your coin to the watch. Please make sure your watch is nearby and connected, then try again.</string>
     <string name="error_sending_coin_api_exception">This feature requires a connected Wear OS device, but it seems that your device does not support Wear OS. Please ensure your phone is paired with a compatible smartwatch and try again.</string>

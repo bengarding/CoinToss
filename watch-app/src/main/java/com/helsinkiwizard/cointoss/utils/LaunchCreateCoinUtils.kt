@@ -3,7 +3,7 @@ package com.helsinkiwizard.cointoss.utils
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.content.Intent.CATEGORY_BROWSABLE
-import android.net.Uri
+import androidx.core.net.toUri
 import androidx.wear.remote.interactions.RemoteActivityHelper
 import com.google.android.gms.wearable.CapabilityClient
 import com.google.android.gms.wearable.CapabilityClient.FILTER_REACHABLE
@@ -40,7 +40,7 @@ suspend fun launchDeepLinkOnPhone(
     remoteActivityHelper: RemoteActivityHelper,
     deepLink: String
 ): Boolean {
-    val data = Uri.parse(deepLink)
+    val data = deepLink.toUri()
     val intent = Intent(ACTION_VIEW)
         .addCategory(CATEGORY_BROWSABLE)
         .setData(data)

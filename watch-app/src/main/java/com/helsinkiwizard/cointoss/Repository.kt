@@ -2,6 +2,8 @@ package com.helsinkiwizard.cointoss
 
 import android.content.Context
 import android.net.Uri
+import androidx.core.net.toUri
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.helsinkiwizard.core.BaseRepository
@@ -15,10 +17,16 @@ import javax.inject.Singleton
 class Repository(context: Context) : BaseRepository(context) {
 
     companion object {
-        val TILE_RESOURCE_VERSION = intPreferencesKey("tile_resources_version")
-        val CUSTOM_COIN_HEADS = stringPreferencesKey("custom_coin_heads")
-        val CUSTOM_COIN_TAILS = stringPreferencesKey("custom_coin_tails")
-        val CUSTOM_COIN_NAME = stringPreferencesKey("custom_coin_name")
+        private val TILE_RESOURCE_VERSION = intPreferencesKey("tile_resources_version")
+        private val CUSTOM_COIN_HEADS = stringPreferencesKey("custom_coin_heads")
+        private val CUSTOM_COIN_TAILS = stringPreferencesKey("custom_coin_tails")
+        private val CUSTOM_COIN_NAME = stringPreferencesKey("custom_coin_name")
+        private val TOSS_FROM_BEZEL = booleanPreferencesKey("toss_from_bezel")
+        private val BEZEL_SENSITIVITY = intPreferencesKey("bezel_sensitivity")
+        private val TOSS_FROM_WRIST_FLIP = booleanPreferencesKey("toss_from_wrist_motion")
+        private val WRIST_SENSITIVITY = intPreferencesKey("wrist_flip_sensitivity")
+
+        const val DEFAULT_SENSITIVITY = 5
     }
 
     val getResourceVersion: Flow<Int> = context.dataStore.data
@@ -41,11 +49,35 @@ class Repository(context: Context) : BaseRepository(context) {
                 null
             } else {
                 CustomCoinUiModel(
-                    headsUri = Uri.parse(headsUri),
-                    tailsUri = Uri.parse(tailsUri),
+                    headsUri = headsUri.toUri(),
+                    tailsUri = tailsUri.toUri(),
                     name = preferences[CUSTOM_COIN_NAME] ?: EMPTY_STRING
                 )
             }
+        }
+
+    suspend fun setTossFromWristFlip(tossFromWrist: Boolean) = savePreference(TOSS_FROM_WRIST_FLIP, tossFromWrist)
+    val getTossFromWristFlip: Flow<Boolean> = context.dataStore.data
+        .map { preferences ->
+            preferences[TOSS_FROM_WRIST_FLIP] ?: false
+        }
+
+    suspend fun setWristSensitivity(sensitivity: Int) = savePreference(WRIST_SENSITIVITY, sensitivity)
+    val getWristSensitivity: Flow<Int> = context.dataStore.data
+        .map { preferences ->
+            preferences[WRIST_SENSITIVITY] ?: DEFAULT_SENSITIVITY
+        }
+
+    suspend fun setTossFromBezel(tossFromBezel: Boolean) = savePreference(TOSS_FROM_BEZEL, tossFromBezel)
+    val getTossFromBezel: Flow<Boolean> = context.dataStore.data
+        .map { preferences ->
+            preferences[TOSS_FROM_BEZEL] ?: false
+        }
+
+    suspend fun setBezelSensitivity(sensitivity: Int) = savePreference(BEZEL_SENSITIVITY, sensitivity)
+    val getBezelSensitivity: Flow<Int> = context.dataStore.data
+        .map { preferences ->
+            preferences[BEZEL_SENSITIVITY] ?: DEFAULT_SENSITIVITY
         }
 
     suspend fun setResourceVersion(value: Int) = savePreference(TILE_RESOURCE_VERSION, value)

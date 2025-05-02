@@ -8,14 +8,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -25,7 +23,6 @@ import androidx.core.net.toUri
 import com.helsinkiwizard.cointoss.BuildConfig
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.navigation.NavRoute
-import com.helsinkiwizard.cointoss.ui.composable.AppIconPainterResource
 import com.helsinkiwizard.cointoss.ui.composable.PreviewSurface
 import com.helsinkiwizard.cointoss.ui.composable.PrimaryButton
 import com.helsinkiwizard.cointoss.ui.theme.BodyMediumSpan
@@ -38,12 +35,12 @@ import com.helsinkiwizard.core.theme.Four
 import com.helsinkiwizard.core.theme.Sixty
 import com.helsinkiwizard.core.theme.Twelve
 import com.helsinkiwizard.core.theme.TwentyFour
+import com.helsinkiwizard.core.ui.composable.appIconPainterResource
 import com.helsinkiwizard.core.utils.buildTextWithLink
 import com.helsinkiwizard.core.utils.getEmailIntent
+import com.helsinkiwizard.core.utils.getLastUpdatedDate
 import com.helsinkiwizard.core.utils.onLinkClick
-import java.time.Instant
 import java.time.LocalDate
-import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
@@ -70,11 +67,10 @@ private fun AppInfo(dateUpdated: LocalDate) {
         modifier = Modifier.fillMaxWidth()
     ) {
         Image(
-            painter = AppIconPainterResource(id = R.mipmap.ic_launcher_round),
+            painter = appIconPainterResource(id = R.mipmap.ic_launcher_round),
             contentDescription = null,
             modifier = Modifier
                 .size(AppIconSize)
-                .clip(CircleShape)
                 .padding(top = Forty, bottom = Twelve)
         )
         Text(
@@ -147,11 +143,6 @@ private fun AddCoinDetailsButtons() {
             onClick = { openGooglePlay(context) }
         )
     }
-}
-
-private fun getLastUpdatedDate(context: Context): LocalDate {
-    val time = context.packageManager.getPackageInfo(PACKAGE_NAME, 0).lastUpdateTime
-    return Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).toLocalDate()
 }
 
 private fun openGooglePlay(context: Context) {

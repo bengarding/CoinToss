@@ -162,7 +162,7 @@ private fun CoinSettings(
             modifier = Modifier.padding(horizontal = Twenty)
         )
         PrimarySwitch(
-            label =stringResource(id = R.string.play_sound),
+            label = stringResource(id = R.string.play_sound),
             checked = playSoundEffectWrapper.value,
             onCheckChanged = onPlaySoundEffectChecked,
             modifier = Modifier.padding(horizontal = Twenty)

@@ -7,10 +7,14 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import androidx.core.content.FileProvider
+import com.helsinkiwizard.core.CoreConstants.PACKAGE_NAME
 import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
 import kotlin.random.Random
 
 fun getEmailIntent(email: String): Intent {
@@ -55,4 +59,9 @@ fun deleteBitmap(context: Context, uri: Uri): Boolean {
         Timber.e(e, "Failed to delete bitmap")
         false
     }
+}
+
+fun getLastUpdatedDate(context: Context): LocalDate {
+    val time = context.packageManager.getPackageInfo(PACKAGE_NAME, 0).lastUpdateTime
+    return Instant.ofEpochMilli(time).atZone(ZoneId.systemDefault()).toLocalDate()
 }

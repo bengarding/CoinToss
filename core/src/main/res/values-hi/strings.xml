@@ -8,9 +8,12 @@
     <string name="create_a_coin">एक सिक्का बनाएं</string>
     <string name="ok">ठीक है</string>
     <string name="cancel">रद्द करना</string>
+    <string name="save">बचाना</string>
 
     <string name="about">के बारे में</string>
     <string name="settings">सेटिंग</string>
+    <string name="play_sound">आवाज़ बजाएं</string>
+    <string name="flip_wrist_to_toss">टॉस करने के लिए कलाई को पलटें</string>
     <string name="coin">"सिक्का"</string>
     <string name="heads">सिर</string>
     <string name="tails">पूंछ</string>

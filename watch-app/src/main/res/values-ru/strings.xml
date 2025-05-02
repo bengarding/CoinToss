@@ -2,6 +2,14 @@
 <resources>
     <string name="receiving_custom_coin">Получение пользовательской монеты</string>
     <string name="create_coin_on_phone">Создать монету на телефоне</string>
-    <string name="download_mobile_app">Загрузите мобильное приложение Coin Toss</string>
+    <string name="download_coin_toss_mobile_app">Загрузите мобильное приложение Coin Toss</string>
     <string name="download_mobile_app_message">Создавайте собственные монеты и отправляйте их на свои часы из мобильного приложения Coin Toss</string>
+    <string name="download_mobile_app">Загрузить мобильное приложение</string>
+    <string name="speed">Скорость</string>
+    <string name="number_seconds">%s секунд</string>
+    <string name="rotate_bezel_to_toss">Поверните безель, чтобы бросить</string>
+    <string name="if_supported">(Если поддерживается)</string>
+    <string name="bezel_sensitivity">Чувствительность безеля</string>
+    <string name="wrist_sensitivity">Чувствительность запястья</string>
+    <string name="copyright_split">Авторские права © %d\n%s</string>
 </resources>
