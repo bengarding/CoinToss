@@ -10,6 +10,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -23,13 +24,17 @@ import com.google.accompanist.pager.PagerState
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.ui.composables.Chevron
 import com.helsinkiwizard.cointoss.utils.FlipGestureDetector
+import com.helsinkiwizard.core.CoreConstants.VALUE_UNDEFINED
 import com.helsinkiwizard.core.coin.CoinAnimation
 import com.helsinkiwizard.core.coin.CoinType
 import com.helsinkiwizard.core.theme.LocalActivity
 import com.helsinkiwizard.core.ui.model.CustomCoinUiModel
+import kotlinx.coroutines.delay
 import kotlin.math.absoluteValue
 
 private const val SENSITIVITY_MULTIPLIER = 100
+private const val ONE_SECOND_MILLIS = 1000L
+private const val TEN_SECONDS = 10
 
 @OptIn(ExperimentalPagerApi::class) // pager
 @Composable
@@ -66,6 +71,7 @@ fun Coin(
         val soundEffect = remember { MediaPlayer.create(activity, R.raw.coin_toss) }
         var tossFromRotaryInput by remember { mutableStateOf(false) }
         var accumulatedDelta by remember { mutableFloatStateOf(0f) }
+        var secondsSinceLastFlip: Int by remember { mutableIntStateOf(VALUE_UNDEFINED) }
 
         val gestureDetector = remember {
             FlipGestureDetector(
@@ -97,6 +103,21 @@ fun Coin(
             }
         }
 
+        LaunchedEffect(secondsSinceLastFlip) {
+            when {
+                secondsSinceLastFlip == TEN_SECONDS -> {
+                    gestureDetector.stop()
+                    activity.window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                    secondsSinceLastFlip = VALUE_UNDEFINED
+                }
+
+                tossFromWristFlip -> {
+                    delay(ONE_SECOND_MILLIS)
+                    secondsSinceLastFlip++
+                }
+            }
+        }
+
         CoinAnimation(
             coinType = coinType,
             customCoin = customCoin,
@@ -107,6 +128,7 @@ fun Coin(
                 if (playSound) soundEffect.start()
                 tossFromRotaryInput = false
                 onFlip()
+                if (tossFromWristFlip && secondsSinceLastFlip == VALUE_UNDEFINED) secondsSinceLastFlip = 0
             },
             modifier = Modifier
                 .fillMaxSize()
