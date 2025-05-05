@@ -20,6 +20,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -48,6 +50,10 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.TimeText
+import androidx.wear.compose.material.Vignette
+import androidx.wear.compose.material.VignettePosition
+import androidx.wear.compose.material.scrollAway
 import androidx.wear.tiles.TileService
 import androidx.wear.tooling.preview.devices.WearDevices
 import coil.compose.SubcomposeAsyncImage
@@ -131,8 +137,12 @@ private fun CoinListContent(viewModel: CoinListViewModel) {
 private fun CoinList(viewModel: CoinListViewModel) {
     val customCoin = viewModel.customCoinFlow.collectAsState(initial = null).value
     val listState = rememberScalingLazyListState()
+    val vignetteState by remember { mutableStateOf(VignettePosition.TopAndBottom) }
+
     Scaffold(
-        positionIndicator = { PositionIndicator(scalingLazyListState = listState) }
+        positionIndicator = { PositionIndicator(scalingLazyListState = listState) },
+        vignette = { Vignette(vignetteState) },
+        timeText = { TimeText(modifier = Modifier.scrollAway(listState)) }
     ) {
         val context = LocalContext.current
         val focusRequester = rememberActiveFocusRequester()

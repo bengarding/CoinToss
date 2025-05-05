@@ -15,6 +15,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
@@ -31,6 +34,10 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.Text
+import androidx.wear.compose.material.TimeText
+import androidx.wear.compose.material.Vignette
+import androidx.wear.compose.material.VignettePosition
+import androidx.wear.compose.material.scrollAway
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.navigation.BEZEL_SENSITIVITY_PICKER_RESULT
 import com.helsinkiwizard.cointoss.navigation.NavRoute
@@ -49,7 +56,7 @@ import com.helsinkiwizard.cointoss.utils.GetResult
 import com.helsinkiwizard.core.theme.Eight
 import com.helsinkiwizard.core.theme.PercentEighty
 import com.helsinkiwizard.core.theme.Text20
-import com.helsinkiwizard.core.theme.Twelve
+import com.helsinkiwizard.core.theme.Twenty
 import com.helsinkiwizard.core.ui.model.MutableInputWrapper
 import com.helsinkiwizard.core.viewmodel.UiState
 import kotlinx.coroutines.launch
@@ -83,15 +90,18 @@ internal fun Content(
     viewModel: WatchSettingsViewModel
 ) {
     val listState = rememberScalingLazyListState()
+    val vignetteState by remember { mutableStateOf(VignettePosition.TopAndBottom)}
     Scaffold(
-        positionIndicator = { PositionIndicator(scalingLazyListState = listState) }
+        positionIndicator = { PositionIndicator(scalingLazyListState = listState) },
+        vignette = { Vignette(vignetteState) },
+        timeText = { TimeText(modifier = Modifier.scrollAway(listState)) }
     ) {
         val focusRequester = rememberActiveFocusRequester()
         val coroutineScope = rememberCoroutineScope()
 
         ScalingLazyColumn(
             state = listState,
-            contentPadding = PaddingValues(all = Twelve),
+            contentPadding = PaddingValues(horizontal = Twenty),
             modifier = Modifier
                 .background(color = MaterialTheme.colors.background)
                 .fillMaxSize()
