@@ -10,6 +10,9 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.MonetizationOn
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
@@ -22,11 +25,15 @@ import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.foundation.rememberActiveFocusRequester
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
+import androidx.wear.compose.material.TimeText
+import androidx.wear.compose.material.Vignette
+import androidx.wear.compose.material.VignettePosition
+import androidx.wear.compose.material.scrollAway
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.ui.composables.PrimaryChip
 import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
-import com.helsinkiwizard.core.theme.Twelve
+import com.helsinkiwizard.core.theme.Twenty
 import kotlinx.coroutines.launch
 
 private object MenuParams {
@@ -53,8 +60,11 @@ private object MenuParams {
 @Composable
 internal fun WatchMenu() {
     val listState = rememberScalingLazyListState()
+    val vignetteState by remember { mutableStateOf(VignettePosition.TopAndBottom) }
     Scaffold(
-        positionIndicator = { PositionIndicator(scalingLazyListState = listState) }
+        positionIndicator = { PositionIndicator(scalingLazyListState = listState) },
+        vignette = { Vignette(vignetteState) },
+        timeText = { TimeText(modifier = Modifier.scrollAway(listState)) }
     ) {
         val focusRequester = rememberActiveFocusRequester()
         val coroutineScope = rememberCoroutineScope()
@@ -62,7 +72,7 @@ internal fun WatchMenu() {
 
         ScalingLazyColumn(
             state = listState,
-            contentPadding = PaddingValues(all = Twelve),
+            contentPadding = PaddingValues(horizontal = Twenty),
             modifier = Modifier
                 .fillMaxSize()
                 .onRotaryScrollEvent {
@@ -76,6 +86,9 @@ internal fun WatchMenu() {
                 .focusRequester(focusRequester)
                 .focusable()
         ) {
+            item {
+                // Empty item so that the first chip shows in the center of the screen
+            }
             items(MenuParams.menuItems) { menuItem ->
                 PrimaryChip(
                     text = stringResource(menuItem.title),

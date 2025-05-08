@@ -23,8 +23,8 @@ import androidx.wear.tooling.preview.devices.WearDevices
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.core.theme.Eight
 import com.helsinkiwizard.core.theme.Forty
+import com.helsinkiwizard.core.theme.Sixty
 import com.helsinkiwizard.core.theme.Text20
-import com.helsinkiwizard.core.theme.ThirtyTwo
 import com.helsinkiwizard.core.theme.Twelve
 
 @Composable
@@ -56,18 +56,21 @@ internal fun DownloadMobileAppConfirmation(
     onClick: () -> Unit
 ) {
     Alert(
-        contentPadding = PaddingValues(vertical = ThirtyTwo, horizontal = Twelve),
+        contentPadding = PaddingValues(vertical = Sixty, horizontal = Twelve),
         verticalArrangement = Arrangement.spacedBy(Eight, Alignment.CenterVertically),
         title = {
-            Text(
-                stringResource(id = R.string.download_coin_toss_mobile_app),
-                color = MaterialTheme.colors.onPrimary,
-                textAlign = TextAlign.Center,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = Text20
-            )
+            // The title is the first item in content. The text is long so it was cut off when it was here.
         },
         content = {
+            item {
+                Text(
+                    stringResource(id = R.string.download_coin_toss_mobile_app),
+                    color = MaterialTheme.colors.onPrimary,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = Text20
+                )
+            }
             item {
                 Text(
                     stringResource(id = R.string.download_mobile_app_message),
@@ -87,7 +90,7 @@ internal fun DownloadMobileAppConfirmation(
 @Preview(name = "square", device = WearDevices.SQUARE)
 @Composable
 private fun DownloadMobileAppConfirmationPreview() {
-    DownloadMobileAppConfirmation {  }
+    DownloadMobileAppConfirmation { }
 }
 
 @Preview(name = "large round", device = WearDevices.LARGE_ROUND)
