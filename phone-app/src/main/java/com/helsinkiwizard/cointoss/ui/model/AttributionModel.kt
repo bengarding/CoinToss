@@ -183,5 +183,10 @@ object AttributionParams {
             name = "saupal",
             source = UCoin
         ),
+        AttributionModel(
+            coin = CoinType.IRAQ,
+            name = "Фанис 67",
+            source = UCoin
+        ),
     )
 }
