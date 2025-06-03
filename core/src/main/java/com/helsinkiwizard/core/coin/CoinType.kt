@@ -64,6 +64,7 @@ enum class CoinType(
     MOROCCO(52, R.drawable.morocco_heads, R.drawable.morocco_tails, R.string.morocco),
     PERU(53, R.drawable.peru_heads, R.drawable.peru_tails, R.string.peru),
     SOUTH_AFRICA(54, R.drawable.south_africa_heads, R.drawable.south_africa_tails, R.string.south_africa),
+    IRAQ(55, R.drawable.iraq_heads, R.drawable.iraq_tails, R.string.iraq),
     ;
 
     companion object {
