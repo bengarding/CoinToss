@@ -188,5 +188,25 @@ object AttributionParams {
             name = "Фанис 67",
             source = UCoin
         ),
+        AttributionModel(
+            coin = CoinType.DOMINICAN_REPUBLIC,
+            name = "Руслан Николаевич",
+            source = UCoin
+        ),
+        AttributionModel(
+            coin = CoinType.BANGLADESH,
+            name = "Angry Raven",
+            source = UCoin
+        ),
+        AttributionModel(
+            coin = CoinType.NEPAL,
+            name = "manturs",
+            source = UCoin
+        ),
+        AttributionModel(
+            coin = CoinType.UAE,
+            name = "TravaSV",
+            source = UCoin
+        ),
     )
 }

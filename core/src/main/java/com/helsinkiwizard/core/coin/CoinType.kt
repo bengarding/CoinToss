@@ -65,6 +65,9 @@ enum class CoinType(
     PERU(53, R.drawable.peru_heads, R.drawable.peru_tails, R.string.peru),
     SOUTH_AFRICA(54, R.drawable.south_africa_heads, R.drawable.south_africa_tails, R.string.south_africa),
     IRAQ(55, R.drawable.iraq_heads, R.drawable.iraq_tails, R.string.iraq),
+    DOMINICAN_REPUBLIC(56, R.drawable.dominican_heads, R.drawable.dominican_tails, R.string.dominican_republic),
+    BANGLADESH(57, R.drawable.bangladesh_heads, R.drawable.bangladesh_tails, R.string.bangladesh),
+    NEPAL(58, R.drawable.nepal_heads, R.drawable.nepal_tails, R.string.nepal),
     ;
 
     companion object {
