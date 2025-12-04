@@ -73,4 +73,8 @@
     <string name="dominican_republic">Dominican Republic</string>
     <string name="bangladesh">Bangladesh</string>
     <string name="nepal">Nepal</string>
+    <string name="yes_no">Yes/No</string>
+    <string name="guatemala">Guatemala</string>
+    <string name="romania">Romania</string>
+    <string name="fazcoin">Fazcoin</string>
 </resources>

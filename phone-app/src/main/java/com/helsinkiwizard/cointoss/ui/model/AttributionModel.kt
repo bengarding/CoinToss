@@ -208,5 +208,15 @@ object AttributionParams {
             name = "TravaSV",
             source = UCoin
         ),
+        AttributionModel(
+            coin = CoinType.ROMANIA,
+            name = "ampgo",
+            source = UCoin
+        ),
+        AttributionModel(
+            coin = CoinType.GUATEMALA,
+            name = "Monetka",
+            source = UCoin
+        ),
     )
 }

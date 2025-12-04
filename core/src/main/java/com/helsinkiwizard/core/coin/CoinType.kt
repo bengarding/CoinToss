@@ -68,6 +68,10 @@ enum class CoinType(
     DOMINICAN_REPUBLIC(56, R.drawable.dominican_heads, R.drawable.dominican_tails, R.string.dominican_republic),
     BANGLADESH(57, R.drawable.bangladesh_heads, R.drawable.bangladesh_tails, R.string.bangladesh),
     NEPAL(58, R.drawable.nepal_heads, R.drawable.nepal_tails, R.string.nepal),
+    YES_NO(59, R.drawable.yes_no_heads, R.drawable.yes_no_tails, R.string.yes_no),
+    GUATEMALA(60, R.drawable.guatemala_heads, R.drawable.guatemala_tails, R.string.guatemala),
+    ROMANIA(61, R.drawable.romania_heads, R.drawable.romania_tails, R.string.romania),
+    FAZCOIN(62, R.drawable.fazcoin_heads, R.drawable.fazcoin_tails, R.string.fazcoin),
     ;
 
     companion object {
