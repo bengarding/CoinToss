@@ -77,4 +77,5 @@
     <string name="guatemala">Guatemala</string>
     <string name="romania">Romania</string>
     <string name="fazcoin">Fazcoin</string>
+    <string translatable="false" name="xrp">XRP</string>
 </resources>

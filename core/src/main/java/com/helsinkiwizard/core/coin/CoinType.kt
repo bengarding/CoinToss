@@ -72,6 +72,7 @@ enum class CoinType(
     GUATEMALA(60, R.drawable.guatemala_heads, R.drawable.guatemala_tails, R.string.guatemala),
     ROMANIA(61, R.drawable.romania_heads, R.drawable.romania_tails, R.string.romania),
     FAZCOIN(62, R.drawable.fazcoin_heads, R.drawable.fazcoin_tails, R.string.fazcoin),
+    XRP(63, R.drawable.xrp_heads, R.drawable.xrp_tails, R.string.xrp),
     ;
 
     companion object {
