@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ad-services-config>
+    <gma-sdk-config
+        app-id="ca-app-pub-6145401003007704~9015764750"
+        app-set-id-enabled="true"
+        app-set-id-scope="app"
+        omid-partner-name="Google"
+        omid-partner-version="24.0.0" />
+</ad-services-config>

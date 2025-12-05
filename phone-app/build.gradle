@@ -1,6 +1,7 @@
 plugins {
     id "com.android.application"
     id "org.jetbrains.kotlin.android"
+    id 'org.jetbrains.kotlin.plugin.compose' version '2.2.21'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
     id 'com.google.firebase.firebase-perf'
@@ -16,8 +17,8 @@ android {
         applicationId "com.helsinkiwizard.cointoss"
         minSdk 26
         targetSdk 35
-        versionCode 150
-        versionName "v1.4.3"
+        versionCode 153
+        versionName "v1.4.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -53,9 +54,6 @@ android {
         compose true
         buildConfig true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion "$compose_compiler_version"
-    }
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -78,7 +76,7 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
     implementation "com.google.android.play:review:2.0.2"
-    implementation "com.google.android.gms:play-services-ads:23.5.0"
+    implementation "com.google.android.gms:play-services-ads:24.8.0"
     implementation "com.google.android.ump:user-messaging-platform:3.1.0"
 
     implementation "io.coil-kt:coil-compose:$compose_coil_version"
@@ -100,4 +98,5 @@ dependencies {
 
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1"
 }
