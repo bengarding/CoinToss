@@ -7,8 +7,7 @@ buildscript {
         material_3_version = '1.2.0'
         material_icons_version = '1.6.3'
 
-        // TODO update ASAP. Needed to select a coin
-        tiles_version = '1.5.0-beta01'
+        tiles_version = '1.5.0'
         horologist_version = '0.6.2'
 
         hilt_version = '2.57.2'
