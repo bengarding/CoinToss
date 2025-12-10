@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -36,6 +37,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -63,15 +65,16 @@ import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.navigation.mainGraph
 import com.helsinkiwizard.cointoss.ui.theme.CoinTossTheme
 import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
+import com.helsinkiwizard.cointoss.ui.viewmodel.MainActivityContent
+import com.helsinkiwizard.cointoss.ui.viewmodel.MainActivityViewModel
 import com.helsinkiwizard.cointoss.utils.AdManager
 import com.helsinkiwizard.core.theme.LocalActivity
 import com.helsinkiwizard.core.theme.ThirtyTwo
 import com.helsinkiwizard.core.theme.TwentyEight
 import com.helsinkiwizard.core.theme.Two
+import com.helsinkiwizard.core.viewmodel.UiState
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -84,49 +87,52 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var repository: Repository
 
+    private val viewModel: MainActivityViewModel by viewModels()
+
     private val bottomBarItems = listOf(NavRoute.CoinList, NavRoute.Home, NavRoute.CreateCoin)
     private val contextMenuItems = listOf(NavRoute.Settings, NavRoute.About, NavRoute.RemoveAds)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
+        installSplashScreen().apply {
+            setKeepOnScreenCondition { viewModel.uiState.value is UiState.Loading }
+        }
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT)
         )
 
-        var initialThemeMode: ThemeMode
-        var initialMaterialYou: Boolean
-        var adsRemoved: Boolean
-
-        runBlocking {
-            initialThemeMode = repository.getThemeMode.firstOrNull() ?: ThemeMode.SYSTEM
-            initialMaterialYou = repository.getMaterialYou.firstOrNull() ?: true
-            adsRemoved = repository.getAdsRemoved.firstOrNull() ?: false
-        }
-
         setContent {
-            val themeMode = repository.getThemeMode.collectAsState(initial = initialThemeMode).value
-            val darkTheme = when (themeMode) {
-                ThemeMode.LIGHT -> false
-                ThemeMode.DARK -> true
-                ThemeMode.SYSTEM -> isSystemInDarkTheme()
-            }
+            val uiState by viewModel.uiState.collectAsState()
+            if (uiState is UiState.ShowContent) {
+                val content = (uiState as UiState.ShowContent).type as MainActivityContent
+                val themeMode = content.themeMode.collectAsState().value
+                val materialYou = content.materialYou.collectAsState().value
+                val adsRemoved = content.adsRemoved.collectAsState().value
 
-            val navController: NavHostController = rememberNavController()
+                val isDarkTheme = when (themeMode) {
+                    ThemeMode.LIGHT -> false
+                    ThemeMode.DARK -> true
+                    ThemeMode.SYSTEM -> isSystemInDarkTheme()
+                }
 
-            CoinTossTheme(repository, themeMode, initialMaterialYou) {
-                CompositionLocalProvider(
-                    LocalActivity provides this@MainActivity,
-                    LocalNavController provides navController
-                ) {
-                    CoinToss(navController, darkTheme)
+                val navController: NavHostController = rememberNavController()
+
+                CoinTossTheme(isDarkTheme, materialYou) {
+                    CompositionLocalProvider(
+                        LocalActivity provides this@MainActivity,
+                        LocalNavController provides navController
+                    ) {
+                        CoinToss(navController, isDarkTheme, adsRemoved)
+                    }
+                }
+
+                LaunchedEffect(Unit) {
+                    if (adsRemoved.not()) {
+                        AdManager.updateConsentStatus(this@MainActivity)
+                    }
                 }
             }
-        }
-
-        if (adsRemoved.not()) {
-            AdManager.updateConsentStatus(this)
         }
 
         lifecycleScope.launch {
@@ -143,12 +149,11 @@ class MainActivity : ComponentActivity() {
     @Composable
     private fun CoinToss(
         navController: NavHostController,
-        invertColors: Boolean
+        invertColors: Boolean,
+        adsRemoved: Boolean,
     ) {
         val currentDestination = navController.currentBackStackEntryAsState().value?.destination
         val currentRoute = NavRoute.valueOf(currentDestination?.route ?: NavRoute.Home.name)
-
-        val adsRemoved = repository.getAdsRemoved.collectAsState(initial = true).value
 
         val primary = if (invertColors) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.primary
         val onPrimary = if (invertColors) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onPrimary
