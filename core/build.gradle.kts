@@ -4,32 +4,32 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id 'kotlin-kapt'
+    id("kotlin-kapt")
 }
 
 android {
-    namespace 'com.helsinkiwizard.core'
+    namespace = "com.helsinkiwizard.core"
     compileSdk = 35
 
     defaultConfig {
         minSdk = 26
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
-        compose true
-        buildConfig true
+        compose = true
+        buildConfig = true
     }
 }
 
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.JVM_17
+        jvmTarget.set(JvmTarget.JVM_17)
     }
 }
 
@@ -45,7 +45,7 @@ dependencies {
     implementation(libs.compose.foundation)
     api(libs.compose.ui.tooling.preview)
 
-    api platform(libs.firebase.bom)
+    api(platform(libs.firebase.bom))
     api(libs.firebase.crashlytics)
     api(libs.firebase.analytics)
     api(libs.firebase.perf)

@@ -10,10 +10,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://jitpack.io" }
+        maven(url = "https://jitpack.io")
     }
 }
 rootProject.name = "CoinToss"
-include ':watch-app'
-include ':core'
-include ':phone-app'
+include(":watch-app")
+include(":core")
+include(":phone-app")

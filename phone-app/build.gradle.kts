@@ -8,47 +8,48 @@ plugins {
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.firebase.perf)
     alias(libs.plugins.hilt)
-    id 'kotlin-kapt'
-    id 'kotlin-parcelize'
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
+
 android {
-    namespace 'com.helsinkiwizard.cointoss'
+    namespace = "com.helsinkiwizard.cointoss"
     compileSdk = 35
 
     defaultConfig {
-        applicationId "com.helsinkiwizard.cointoss"
+        applicationId = "com.helsinkiwizard.cointoss"
         minSdk = 26
         targetSdk = 35
-        versionCode 155
-        versionName "v1.4.4"
+        versionCode = 155
+        versionName = "v1.4.4"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
-        debug {
-            storeFile file("$rootProject.projectDir/debug.keystore")
+        getByName("debug") {
+            storeFile = file("${rootProject.projectDir}/debug.keystore")
         }
     }
 
     buildTypes {
-        debug {
-            manifestPlaceholders = [crashlyticsCollectionEnabled: "false"]
+        getByName("debug") {
+            manifestPlaceholders["crashlyticsCollectionEnabled"] = "false"
         }
-        release {
-            manifestPlaceholders = [crashlyticsCollectionEnabled: "true"]
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        getByName("release") {
+            manifestPlaceholders["crashlyticsCollectionEnabled"] = "true"
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
-        compose true
-        buildConfig true
+        compose = true
+        buildConfig = true
     }
     packaging {
         resources {
@@ -59,7 +60,7 @@ android {
 
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.JVM_17
+        jvmTarget.set(JvmTarget.JVM_17)
         freeCompilerArgs.addAll(
             "-opt-in=kotlin.RequiresOptIn",
             "-opt-in=com.google.android.horologist.tiles.ExperimentalHorologistTilesApi",
@@ -69,7 +70,7 @@ kotlin {
 }
 
 dependencies {
-    implementation project(':core')
+    implementation(project(":core"))
 
     implementation(libs.preference.ktx)
 
