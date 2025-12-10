@@ -1,12 +1,12 @@
 plugins {
-    id "com.android.application"
-    id "org.jetbrains.kotlin.android"
-    id 'org.jetbrains.kotlin.plugin.compose' version '2.2.21'
-    id 'com.google.gms.google-services'
-    id 'com.google.firebase.crashlytics'
-    id 'com.google.firebase.firebase-perf'
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.firebase.perf)
+    alias(libs.plugins.hilt)
     id 'kotlin-kapt'
-    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -65,30 +65,30 @@ android {
 dependencies {
     implementation project(':core')
 
-    implementation 'androidx.activity:activity-compose:1.10.1'
-    implementation 'androidx.lifecycle:lifecycle-process:2.8.7'
-    implementation 'androidx.compose.runtime:runtime-livedata:1.7.8'
+    implementation(libs.activity.compose)
+    implementation(libs.lifecycle.process)
+    implementation(libs.compose.runtime.livedata)
 
-    implementation "androidx.wear:wear-remote-interactions:1.1.0"
-    implementation "androidx.wear.compose:compose-material:$wear_compose_version"
-    implementation "androidx.wear.compose:compose-foundation:$wear_compose_version"
-    implementation "androidx.wear.compose:compose-navigation:$wear_compose_version"
-    implementation 'androidx.wear:wear-tooling-preview:1.0.0'
+    implementation(libs.wear.remote.interactions)
+    implementation(libs.wear.compose.material)
+    implementation(libs.wear.compose.foundation)
+    implementation(libs.wear.compose.navigation)
+    implementation(libs.wear.tooling.preview)
 
-    implementation "com.google.android.horologist:horologist-tiles:$horologist_version"
-    implementation "androidx.wear.tiles:tiles-material:$tiles_version"
-    implementation "androidx.wear.protolayout:protolayout:1.2.1"
+    implementation(libs.horologist.tiles)
+    implementation(libs.wear.tiles.material)
+    implementation(libs.wear.protolayout)
 
-    implementation "com.google.android.horologist:horologist-compose-tools:$horologist_version"
-    implementation "com.google.android.horologist:horologist-compose-layout:$horologist_version"
+    implementation(libs.horologist.compose.tools)
+    implementation(libs.horologist.compose.layout)
 
-    implementation "com.google.accompanist:accompanist-pager:0.25.1"
-    implementation "io.coil-kt:coil-compose:$compose_coil_version"
+    implementation(libs.accompanist.pager)
+    implementation(libs.coil.compose)
 
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-compiler:$hilt_version"
-    implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation_version"
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
 
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    debugImplementation(libs.leakcanary)
 }
