@@ -3,7 +3,6 @@ package com.helsinkiwizard.cointoss.utils
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -205,9 +204,7 @@ object AdManager {
         modifier: Modifier = Modifier
     ) {
         AndroidView(
-            modifier = modifier
-                .fillMaxWidth()
-                .animateContentSize(),
+            modifier = modifier.fillMaxWidth(),
             factory = { context ->
                 AdView(context).apply {
                     val displayMetrics = context.resources.displayMetrics

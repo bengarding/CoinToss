@@ -2,7 +2,6 @@ package com.helsinkiwizard.cointoss.ui
 
 import android.net.Uri
 import android.widget.Toast
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -94,9 +93,7 @@ fun CreateCoinScreen(
     val adsRemoved = viewModel.adsRemoved.collectAsState(initial = true).value
     Column {
         Box(
-            modifier = Modifier
-                .weight(1f)
-                .animateContentSize()
+            modifier = Modifier.weight(1f)
         ) {
             CreateCoinContent(viewModel)
             CreateCoinDialogs(viewModel)

@@ -1,7 +1,6 @@
 package com.helsinkiwizard.cointoss.ui
 
 import android.os.Bundle
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -95,9 +94,7 @@ internal fun CoinListScreen(
     val adsRemoved = viewModel.adsRemoved.collectAsState(initial = true).value
     Column {
         Box(
-            modifier = Modifier
-                .weight(1f)
-                .animateContentSize()
+            modifier = Modifier.weight(1f)
         ) {
             CoinListContent(viewModel)
             CoinListDialogs(viewModel)

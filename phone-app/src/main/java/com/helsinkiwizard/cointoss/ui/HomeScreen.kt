@@ -1,9 +1,7 @@
 package com.helsinkiwizard.cointoss.ui
 
 import android.media.MediaPlayer
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -99,7 +97,7 @@ private fun Content(
     playSound: Boolean,
     onFlip: () -> Unit,
 ) {
-    Column(
+    Box(
         modifier = Modifier.fillMaxSize()
     ) {
         val context = LocalContext.current
@@ -107,10 +105,8 @@ private fun Content(
 
         Box(
             modifier = Modifier
-                .align(Alignment.CenterHorizontally)
+                .align(Alignment.Center)
                 .fillMaxWidth(PercentEighty)
-                .animateContentSize()
-                .weight(1f)
         ) {
             CoinAnimation(
                 coinType = coinType,
@@ -129,8 +125,10 @@ private fun Content(
         if (adsRemoved.not()) {
             BannerAd(
                 adId = MAIN_BANNER_AD_ID,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
+                modifier = Modifier.align(Alignment.BottomCenter)
             )
         }
     }
 }
+
+
