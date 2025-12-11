@@ -411,8 +411,7 @@ private fun CustomCoinItem(
                 CustomCoinSide(
                     uri = coin.tailsUri,
                     name = coin.name,
-                    coinSideString = stringResource(id = R.string.tails),
-                    modifier = Modifier.padding()
+                    coinSideString = stringResource(id = R.string.tails)
                 )
                 IconButtons(
                     showSelectButton = showSelectButton,
@@ -424,11 +423,13 @@ private fun CustomCoinItem(
                     modifier = Modifier.weight(1f)
                 )
             }
-            Text(
-                text = coin.name,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(start = Eight, top = Four)
-            )
+            if (coin.name.isNotEmpty()) {
+                Text(
+                    text = coin.name,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(start = Eight, top = Four)
+                )
+            }
         }
         if (showDivider) {
             HorizontalDivider()
