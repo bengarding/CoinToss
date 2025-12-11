@@ -64,6 +64,7 @@ import com.helsinkiwizard.cointoss.utils.AdManager
 import com.helsinkiwizard.core.theme.LocalActivity
 import com.helsinkiwizard.core.theme.ThirtyTwo
 import com.helsinkiwizard.core.theme.TwentyEight
+import com.helsinkiwizard.core.theme.Zero
 import com.helsinkiwizard.core.viewmodel.UiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -82,7 +83,6 @@ class MainActivity : ComponentActivity() {
     private val viewModel: MainActivityViewModel by viewModels()
 
     private val bottomBarItems = listOf(NavRoute.CoinList, NavRoute.Home, NavRoute.CreateCoin)
-    private val contextMenuItems = listOf(NavRoute.Settings, NavRoute.About, NavRoute.RemoveAds)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen().apply {
@@ -175,9 +175,12 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             ) { paddingValues ->
+                // Screens with a top bar use top padding values. Bottom bar screens set systemBarsPadding()
+                // on their own
+                val topPadding = if (currentRoute in bottomBarItems) Zero else paddingValues.calculateTopPadding()
                 Surface(
                     modifier = Modifier
-                        .padding(paddingValues)
+                        .padding(top = topPadding, bottom = paddingValues.calculateBottomPadding())
                         .fillMaxSize(),
                     color = MaterialTheme.colorScheme.surface
                 ) {
@@ -203,7 +206,7 @@ class MainActivity : ComponentActivity() {
         onPrimary: Color
     ) {
         AnimatedVisibility(
-            visible = currentRoute !in bottomBarItems,
+            visible = currentRoute !in bottomBarItems && currentRoute != NavRoute.RemoveAds,
             enter = expandVertically() + fadeIn(),
             exit = shrinkVertically() + fadeOut()
         ) {

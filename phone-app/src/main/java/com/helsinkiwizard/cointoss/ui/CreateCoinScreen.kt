@@ -6,9 +6,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -31,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -239,6 +243,7 @@ private fun Content(
     viewModel: CreateCoinViewModel
 ) {
     val context = LocalContext.current
+    val density = LocalDensity.current
     val selectedCoin = model.selectedCoin.collectAsState(initial = null).value
     val customCoins = model.customCoins.collectAsState(initial = emptyList()).value
     val showSendToWatchButton = model.showSendToWatchButton.collectAsState(initial = false).value
@@ -249,7 +254,12 @@ private fun Content(
     val capabilityClient by lazy { Wearable.getCapabilityClient(context) }
     val channelClient by lazy { Wearable.getChannelClient(context) }
 
-    LazyColumn(state = listState) {
+    val systemBarsPadding = with(density) { WindowInsets.systemBars.getTop(density).toDp() }
+
+    LazyColumn(
+        state = listState,
+        contentPadding = PaddingValues(top = systemBarsPadding + Eight, bottom = Eight),
+    ) {
         item {
             val keyboardController = LocalSoftwareKeyboardController.current
 
