@@ -314,7 +314,10 @@ private fun Content(
                 )
             }
         }
-        itemsIndexed(items = customCoins) { index, customCoin ->
+        itemsIndexed(
+            items = customCoins,
+            key = { _, customCoin -> customCoin.id }
+        ) { index, customCoin ->
             val showDivider = index != customCoins.size - 1
             CustomCoinItem(
                 coin = customCoin,
