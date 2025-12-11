@@ -73,10 +73,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    companion object {
-        private const val CONTEXT_MENU_WIDTH_FRACTION = .45f
-    }
-
     @Inject
     lateinit var repository: Repository
 
@@ -104,24 +100,32 @@ class MainActivity : ComponentActivity() {
                     ThemeMode.SYSTEM -> isSystemInDarkTheme()
                 }
 
+                val navController: NavHostController = rememberNavController()
+                val currentDestination = navController.currentBackStackEntryAsState().value?.destination
+                val currentRoute = NavRoute.valueOf(currentDestination?.route ?: NavRoute.Home.name)
+
                 val transparent = android.graphics.Color.TRANSPARENT
                 enableEdgeToEdge(
-                    statusBarStyle = SystemBarStyle.dark(transparent),
-                    navigationBarStyle = if (isDarkTheme) {
-                        SystemBarStyle.dark(transparent)
-                    } else {
-                        SystemBarStyle.light(transparent, transparent)
-                    }
+                    statusBarStyle =
+                        when (currentRoute) {
+                            in bottomBarItems if isDarkTheme -> SystemBarStyle.dark(transparent)
+                            in bottomBarItems -> SystemBarStyle.light(transparent, transparent)
+                            else -> SystemBarStyle.dark(transparent)
+                        },
+                    navigationBarStyle =
+                        if (isDarkTheme) {
+                            SystemBarStyle.dark(transparent)
+                        } else {
+                            SystemBarStyle.light(transparent, transparent)
+                        }
                 )
-
-                val navController: NavHostController = rememberNavController()
 
                 CoinTossTheme(isDarkTheme, materialYou) {
                     CompositionLocalProvider(
                         LocalActivity provides this@MainActivity,
                         LocalNavController provides navController
                     ) {
-                        CoinToss(navController, isDarkTheme)
+                        CoinToss(navController, currentRoute, isDarkTheme)
                     }
                 }
 
@@ -147,11 +151,9 @@ class MainActivity : ComponentActivity() {
     @Composable
     private fun CoinToss(
         navController: NavHostController,
+        currentRoute: NavRoute,
         invertColors: Boolean,
     ) {
-        val currentDestination = navController.currentBackStackEntryAsState().value?.destination
-        val currentRoute = NavRoute.valueOf(currentDestination?.route ?: NavRoute.Home.name)
-
         val primary = if (invertColors) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.primary
         val onPrimary = if (invertColors) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onPrimary
 
