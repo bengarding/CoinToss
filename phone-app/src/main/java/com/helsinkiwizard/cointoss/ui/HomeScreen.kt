@@ -1,24 +1,41 @@
 package com.helsinkiwizard.cointoss.ui
 
 import android.media.MediaPlayer
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.helsinkiwizard.cointoss.Constants.MAIN_BANNER_AD_ID
 import com.helsinkiwizard.cointoss.Constants.MAIN_INTERSTITIAL_AD_ID
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.cointoss.navigation.NavRoute
+import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
 import com.helsinkiwizard.cointoss.ui.viewmodel.HomeScreenContent
 import com.helsinkiwizard.cointoss.ui.viewmodel.HomeScreenDialogs
 import com.helsinkiwizard.cointoss.ui.viewmodel.HomeViewModel
@@ -29,15 +46,20 @@ import com.helsinkiwizard.core.coin.CoinAnimation
 import com.helsinkiwizard.core.coin.CoinType
 import com.helsinkiwizard.core.theme.PercentEighty
 import com.helsinkiwizard.core.theme.Twenty
+import com.helsinkiwizard.core.theme.TwentyEight
+import com.helsinkiwizard.core.theme.Two
 import com.helsinkiwizard.core.ui.model.CustomCoinUiModel
 import com.helsinkiwizard.core.viewmodel.DialogState
 import com.helsinkiwizard.core.viewmodel.UiState
+
+private const val CONTEXT_MENU_WIDTH_FRACTION = .45f
+private val contextMenuItems = listOf(NavRoute.Settings, NavRoute.About, NavRoute.RemoveAds)
 
 @Composable
 internal fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val context =  LocalContext.current
+    val context = LocalContext.current
     LaunchedEffect(Unit) {
         AdManager.loadInterstitialAds(context)
     }
@@ -97,9 +119,9 @@ private fun Content(
     customCoinUiModel: CustomCoinUiModel?,
     adsRemoved: Boolean,
     playSound: Boolean,
-    onFlip: () -> Unit,
+    onFlip: () -> Unit
 ) {
-    Column(
+    Box(
         modifier = Modifier.fillMaxSize()
     ) {
         val context = LocalContext.current
@@ -107,10 +129,8 @@ private fun Content(
 
         Box(
             modifier = Modifier
-                .align(Alignment.CenterHorizontally)
+                .align(Alignment.Center)
                 .fillMaxWidth(PercentEighty)
-                .animateContentSize()
-                .weight(1f)
         ) {
             CoinAnimation(
                 coinType = coinType,
@@ -129,8 +149,78 @@ private fun Content(
         if (adsRemoved.not()) {
             BannerAd(
                 adId = MAIN_BANNER_AD_ID,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
+                modifier = Modifier.align(Alignment.BottomCenter)
             )
+        }
+
+        MoreMenu(
+            adsRemoved = adsRemoved,
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .systemBarsPadding()
+        )
+    }
+}
+
+@Composable
+private fun MoreMenu(
+    adsRemoved: Boolean,
+    modifier: Modifier
+) {
+    var expanded by remember { mutableStateOf(false) }
+    val navController = LocalNavController.current
+
+    Box(
+        modifier = modifier
+    ) {
+        IconButton(
+            onClick = { expanded = true }
+        ) {
+            Icon(
+                imageVector = Icons.Default.MoreVert,
+                contentDescription = stringResource(id = R.string.more)
+            )
+        }
+
+        val displayMetrics = LocalConfiguration.current.screenWidthDp.toFloat()
+        val menuWidth = (displayMetrics * CONTEXT_MENU_WIDTH_FRACTION).dp
+
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier.widthIn(min = menuWidth)
+        ) {
+            val menuItems = contextMenuItems.filterNot { adsRemoved && it == NavRoute.RemoveAds }
+            menuItems.forEach { item ->
+                DropdownMenuItem(
+                    text = { Text(stringResource(id = item.titleRes)) },
+                    leadingIcon = {
+                        when {
+                            item.icon != null -> {
+                                Icon(
+                                    imageVector = item.icon,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(TwentyEight)
+                                )
+                            }
+
+                            item.iconRes != null -> {
+                                Icon(
+                                    painter = painterResource(item.iconRes),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(TwentyEight)
+                                        .padding(Two)
+                                )
+                            }
+                        }
+                    },
+                    onClick = {
+                        expanded = false
+                        navController.navigate(item.name)
+                    }
+                )
+            }
         }
     }
 }

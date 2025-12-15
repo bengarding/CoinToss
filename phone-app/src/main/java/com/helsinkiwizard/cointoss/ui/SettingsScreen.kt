@@ -29,7 +29,6 @@ import com.helsinkiwizard.cointoss.ui.composable.PreviewSurface
 import com.helsinkiwizard.cointoss.ui.composable.PrimaryOutlinedButton
 import com.helsinkiwizard.cointoss.ui.composable.PrimarySlider
 import com.helsinkiwizard.cointoss.ui.composable.PrimarySwitch
-import com.helsinkiwizard.core.ui.model.MutableInputWrapper
 import com.helsinkiwizard.cointoss.ui.model.SettingsModel
 import com.helsinkiwizard.cointoss.ui.viewmodel.SettingsContent
 import com.helsinkiwizard.cointoss.ui.viewmodel.SettingsViewModel
@@ -41,6 +40,7 @@ import com.helsinkiwizard.core.theme.LocalActivity
 import com.helsinkiwizard.core.theme.ThirtyTwo
 import com.helsinkiwizard.core.theme.Twelve
 import com.helsinkiwizard.core.theme.Twenty
+import com.helsinkiwizard.core.ui.model.MutableInputWrapper
 import com.helsinkiwizard.core.viewmodel.UiState
 
 @Composable
@@ -156,15 +156,15 @@ private fun CoinSettings(
             modifier = Modifier.padding(horizontal = Twelve)
         )
         PrimarySwitch(
-            label = stringResource(id = R.string.show_send_to_watch_button),
-            checked = showSendToWatchButtonWrapper.value,
-            onCheckChanged = onShowSendToWatchButtonChecked,
-            modifier = Modifier.padding(horizontal = Twenty)
-        )
-        PrimarySwitch(
             label = stringResource(id = R.string.play_sound),
             checked = playSoundEffectWrapper.value,
             onCheckChanged = onPlaySoundEffectChecked,
+            modifier = Modifier.padding(horizontal = Twenty)
+        )
+        PrimarySwitch(
+            label = stringResource(id = R.string.show_send_to_watch_button),
+            checked = showSendToWatchButtonWrapper.value,
+            onCheckChanged = onShowSendToWatchButtonChecked,
             modifier = Modifier.padding(horizontal = Twenty)
         )
     }

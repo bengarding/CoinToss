@@ -1,7 +1,6 @@
 package com.helsinkiwizard.cointoss.ui
 
 import android.os.Bundle
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -11,11 +10,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -39,6 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -97,7 +99,6 @@ internal fun CoinListScreen(
         Box(
             modifier = Modifier
                 .weight(1f)
-                .animateContentSize()
         ) {
             CoinListContent(viewModel)
             CoinListDialogs(viewModel)
@@ -168,15 +169,17 @@ private fun CoinList(
     navController: NavController
 ) {
     val context = LocalContext.current
+    val density = LocalDensity.current
     val coinList = remember {
         CoinType.entries
             .filterNot { it == CoinType.CUSTOM }
             .sortedBy { context.getString(it.nameRes) }
     }
     val customCoin = customCoinFlow.collectAsState(initial = null).value
+    val systemBarsPadding = with(density) { WindowInsets.systemBars.getTop(density).toDp() }
 
     LazyColumn(
-        contentPadding = PaddingValues(vertical = Eight),
+        contentPadding = PaddingValues(top = systemBarsPadding + Eight, bottom = Eight),
         verticalArrangement = Arrangement.spacedBy(Eight),
         modifier = Modifier
             .fillMaxSize()

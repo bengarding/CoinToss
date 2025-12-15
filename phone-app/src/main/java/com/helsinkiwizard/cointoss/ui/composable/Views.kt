@@ -6,17 +6,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
-import com.helsinkiwizard.cointoss.data.ThemeMode
 import com.helsinkiwizard.cointoss.ui.theme.CoinTossTheme
 import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
 import com.helsinkiwizard.core.theme.LocalActivity
 
 @Composable
 fun PreviewSurface(
-    themeMode: ThemeMode = ThemeMode.LIGHT,
+    darkTheme: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    CoinTossTheme(themeMode = themeMode) {
+    CoinTossTheme(darkTheme = darkTheme, dynamicColor = false) {
         Surface {
             CompositionLocalProvider(
                 LocalActivity provides ComponentActivity(),

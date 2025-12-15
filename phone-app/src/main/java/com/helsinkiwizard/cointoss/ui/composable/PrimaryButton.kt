@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import com.helsinkiwizard.cointoss.data.ThemeMode
 import com.helsinkiwizard.core.theme.ButtonHeight
 import com.helsinkiwizard.core.theme.Eight
 import com.helsinkiwizard.core.theme.One
@@ -125,7 +124,7 @@ private fun PrimaryButtonPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun PrimaryButtonDarkPreview() {
-    PreviewSurface(themeMode = ThemeMode.DARK) {
+    PreviewSurface(darkTheme = true) {
         Column(
             verticalArrangement = Arrangement.spacedBy(Twenty),
             modifier = Modifier.padding(Eight)

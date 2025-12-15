@@ -2,14 +2,16 @@ package com.helsinkiwizard.cointoss.ui
 
 import android.net.Uri
 import android.widget.Toast
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -32,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -94,9 +97,7 @@ fun CreateCoinScreen(
     val adsRemoved = viewModel.adsRemoved.collectAsState(initial = true).value
     Column {
         Box(
-            modifier = Modifier
-                .weight(1f)
-                .animateContentSize()
+            modifier = Modifier.weight(1f)
         ) {
             CreateCoinContent(viewModel)
             CreateCoinDialogs(viewModel)
@@ -242,6 +243,7 @@ private fun Content(
     viewModel: CreateCoinViewModel
 ) {
     val context = LocalContext.current
+    val density = LocalDensity.current
     val selectedCoin = model.selectedCoin.collectAsState(initial = null).value
     val customCoins = model.customCoins.collectAsState(initial = emptyList()).value
     val showSendToWatchButton = model.showSendToWatchButton.collectAsState(initial = false).value
@@ -252,7 +254,12 @@ private fun Content(
     val capabilityClient by lazy { Wearable.getCapabilityClient(context) }
     val channelClient by lazy { Wearable.getChannelClient(context) }
 
-    LazyColumn(state = listState) {
+    val systemBarsPadding = with(density) { WindowInsets.systemBars.getTop(density).toDp() }
+
+    LazyColumn(
+        state = listState,
+        contentPadding = PaddingValues(top = systemBarsPadding + Eight, bottom = Eight),
+    ) {
         item {
             val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -307,7 +314,10 @@ private fun Content(
                 )
             }
         }
-        itemsIndexed(items = customCoins) { index, customCoin ->
+        itemsIndexed(
+            items = customCoins,
+            key = { _, customCoin -> customCoin.id }
+        ) { index, customCoin ->
             val showDivider = index != customCoins.size - 1
             CustomCoinItem(
                 coin = customCoin,
@@ -401,8 +411,7 @@ private fun CustomCoinItem(
                 CustomCoinSide(
                     uri = coin.tailsUri,
                     name = coin.name,
-                    coinSideString = stringResource(id = R.string.tails),
-                    modifier = Modifier.padding()
+                    coinSideString = stringResource(id = R.string.tails)
                 )
                 IconButtons(
                     showSelectButton = showSelectButton,
@@ -414,11 +423,13 @@ private fun CustomCoinItem(
                     modifier = Modifier.weight(1f)
                 )
             }
-            Text(
-                text = coin.name,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(start = Eight, top = Four)
-            )
+            if (coin.name.isNotEmpty()) {
+                Text(
+                    text = coin.name,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(start = Eight, top = Four)
+                )
+            }
         }
         if (showDivider) {
             HorizontalDivider()

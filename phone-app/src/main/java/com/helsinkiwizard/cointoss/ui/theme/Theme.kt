@@ -1,7 +1,6 @@
 package com.helsinkiwizard.cointoss.ui.theme
 
 import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -9,36 +8,16 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import com.helsinkiwizard.cointoss.data.Repository
-import com.helsinkiwizard.cointoss.data.ThemeMode
 
 @Composable
 fun CoinTossTheme(
-    repository: Repository? = null, // nullable for previews
-    themeMode: ThemeMode = ThemeMode.LIGHT, // default for previews
-    initialMaterialYou: Boolean? = null, // nullable for previews
+    darkTheme: Boolean,
+    dynamicColor: Boolean,
     content: @Composable () -> Unit
 ) {
-    val isSystemInDarkTheme = isSystemInDarkTheme()
-    val dynamicColor = repository?.getMaterialYou?.collectAsState(initial = initialMaterialYou)?.value
-
-    val darkTheme by remember(themeMode) {
-        mutableStateOf(
-            when (themeMode) {
-                ThemeMode.LIGHT -> false
-                ThemeMode.DARK -> true
-                ThemeMode.SYSTEM -> isSystemInDarkTheme
-            }
-        )
-    }
-
     val colorScheme = when {
-        dynamicColor == true && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) {
                 dynamicDarkColorScheme(context).materialYouDark()

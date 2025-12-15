@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.helsinkiwizard.core.BaseRepository
 import com.helsinkiwizard.core.CoreConstants.EMPTY_STRING
+import com.helsinkiwizard.core.CoreConstants.VALUE_UNDEFINED
 import com.helsinkiwizard.core.ui.model.CustomCoinUiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -49,6 +50,7 @@ class Repository(context: Context) : BaseRepository(context) {
                 null
             } else {
                 CustomCoinUiModel(
+                    id = VALUE_UNDEFINED,
                     headsUri = headsUri.toUri(),
                     tailsUri = tailsUri.toUri(),
                     name = preferences[CUSTOM_COIN_NAME] ?: EMPTY_STRING
