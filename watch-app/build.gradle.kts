@@ -19,8 +19,8 @@ android {
         applicationId = "com.helsinkiwizard.cointoss"
         minSdk = 26
         targetSdk = 35
-        versionCode = 154
-        versionName = "1.4.3"
+        versionCode = 156
+        versionName = "1.4.4"
     }
 
     signingConfigs {
