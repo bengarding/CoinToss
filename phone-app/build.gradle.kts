@@ -62,9 +62,7 @@ kotlin {
     compilerOptions {
         jvmTarget.set(JvmTarget.JVM_17)
         freeCompilerArgs.addAll(
-            "-opt-in=kotlin.RequiresOptIn",
-            "-opt-in=com.google.android.horologist.tiles.ExperimentalHorologistTilesApi",
-            "-opt-in=com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi"
+            "-opt-in=kotlin.RequiresOptIn"
         )
     }
 }
@@ -90,6 +88,7 @@ dependencies {
     implementation(libs.user.messaging.platform)
 
     implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
     implementation(libs.image.cropper)
 
     implementation(libs.room.runtime)

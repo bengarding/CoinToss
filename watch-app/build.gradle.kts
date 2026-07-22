@@ -59,9 +59,7 @@ kotlin {
     compilerOptions {
         jvmTarget.set(JvmTarget.JVM_17)
         freeCompilerArgs.addAll(
-            "-opt-in=kotlin.RequiresOptIn",
-            "-opt-in=com.google.android.horologist.tiles.ExperimentalHorologistTilesApi",
-            "-opt-in=com.google.android.horologist.compose.tools.ExperimentalHorologistComposeToolsApi"
+            "-opt-in=kotlin.RequiresOptIn"
         )
     }
 }
@@ -77,6 +75,7 @@ dependencies {
     implementation(libs.compose.runtime.livedata)
 
     implementation(libs.wear.remote.interactions)
+    implementation(libs.coroutines.guava)
     implementation(libs.wear.compose.material)
     implementation(libs.wear.compose.foundation)
     implementation(libs.wear.compose.navigation)
@@ -89,8 +88,8 @@ dependencies {
     implementation(libs.horologist.compose.tools)
     implementation(libs.horologist.compose.layout)
 
-    implementation(libs.accompanist.pager)
     implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

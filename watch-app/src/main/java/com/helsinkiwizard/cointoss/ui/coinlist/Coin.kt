@@ -4,6 +4,7 @@ import android.media.MediaPlayer
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -17,8 +18,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import androidx.lifecycle.compose.LifecycleResumeEffect
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.PagerState
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.ui.composables.Chevron
 import com.helsinkiwizard.cointoss.utils.FlipGestureDetector
@@ -32,7 +31,6 @@ private const val SENSITIVITY_MULTIPLIER = 100
 private const val ONE_SECOND_MILLIS = 1000L
 private const val TEN_SECONDS = 10
 
-@OptIn(ExperimentalPagerApi::class) // pager
 @Composable
 fun Coin(
     coinType: CoinType,

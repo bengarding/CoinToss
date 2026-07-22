@@ -11,17 +11,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults
+import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.tooling.preview.devices.WearDevices
-import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import com.google.android.horologist.compose.rotaryinput.rotaryWithScroll
 import com.helsinkiwizard.cointoss.BuildConfig
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.ui.composables.PrimaryButton
@@ -93,7 +95,6 @@ private fun AboutContent(viewModel: AboutViewModel) {
     }
 }
 
-@OptIn(ExperimentalHorologistApi::class)
 @Composable
 private fun About(
     dateUpdated: LocalDate = getLastUpdatedDate(LocalContext.current),
@@ -101,12 +102,17 @@ private fun About(
     onButtonClick: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
+    val focusRequester = rememberActiveFocusRequester()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxWidth()
             .verticalScroll(scrollState)
-            .rotaryWithScroll(scrollState)
+            .rotaryScrollable(
+                RotaryScrollableDefaults.behavior(scrollState),
+                focusRequester = focusRequester
+            )
+            .focusRequester(focusRequester)
             .padding(all = Forty)
     ) {
         Image(

@@ -56,7 +56,7 @@ import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.material.scrollAway
 import androidx.wear.tiles.TileService
 import androidx.wear.tooling.preview.devices.WearDevices
-import coil.compose.SubcomposeAsyncImage
+import coil3.compose.SubcomposeAsyncImage
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.helsinkiwizard.cointoss.R
 import com.helsinkiwizard.cointoss.Repository
