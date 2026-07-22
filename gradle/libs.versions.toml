@@ -19,7 +19,9 @@ room = "2.8.4"
 # Coil 3.5.0 is built with Kotlin 2.4 (metadata v2.4) which Hilt 2.58's reader can't parse;
 # 3.4.0 is the latest built with Kotlin 2.3
 coil = "3.4.0"
-billing = "9.1.0"
+# Billing 9.x removed QueryPurchaseHistoryParams which RevenueCat 10.14.1 still references;
+# 8.3.0 matches RevenueCat's own transitive billing dependency
+billing = "8.3.0"
 revenuecat = "10.14.1"
 
 activity-compose = "1.13.0"
