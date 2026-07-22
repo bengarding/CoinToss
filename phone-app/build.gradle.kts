@@ -8,18 +8,18 @@ plugins {
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.firebase.perf)
     alias(libs.plugins.hilt)
-    id("kotlin-kapt")
+    alias(libs.plugins.ksp)
     id("kotlin-parcelize")
 }
 
 android {
     namespace = "com.helsinkiwizard.cointoss"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.helsinkiwizard.cointoss"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 157
         versionName = "v1.4.5"
 
@@ -92,10 +92,10 @@ dependencies {
 
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    kapt(libs.room.compiler)
+    ksp(libs.room.compiler)
 
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
     implementation(libs.navigation.compose)
     implementation(libs.hilt.navigation.compose)

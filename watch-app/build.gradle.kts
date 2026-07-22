@@ -8,17 +8,17 @@ plugins {
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.firebase.perf)
     alias(libs.plugins.hilt)
-    id("kotlin-kapt")
+    alias(libs.plugins.ksp)
 }
 
 android {
     namespace = "com.helsinkiwizard.cointoss"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.helsinkiwizard.cointoss"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 156
         versionName = "1.4.4"
     }
@@ -90,7 +90,7 @@ dependencies {
     implementation(libs.coil.compose)
 
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
 
     androidTestImplementation(libs.compose.ui.test.junit4)
