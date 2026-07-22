@@ -72,6 +72,8 @@ kotlin {
 dependencies {
     implementation(project(":core"))
 
+    implementation(platform(libs.compose.bom))
+
     implementation(libs.preference.ktx)
 
     implementation(libs.compose.ui)

@@ -69,6 +69,9 @@ kotlin {
 dependencies {
     implementation(project(":core"))
 
+    implementation(platform(libs.compose.bom))
+    androidTestImplementation(platform(libs.compose.bom))
+
     implementation(libs.activity.compose)
     implementation(libs.lifecycle.process)
     implementation(libs.compose.runtime.livedata)
