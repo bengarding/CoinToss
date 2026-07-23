@@ -20,16 +20,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.requestFocusOnHierarchyActive
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
@@ -83,7 +81,6 @@ private fun WatchSettingsContent(viewModel: WatchSettingsViewModel) {
     }
 }
 
-@OptIn(ExperimentalWearFoundationApi::class) // rememberActiveFocusRequester
 @Composable
 internal fun Content(
     model: WatchSettingsModel,
@@ -96,7 +93,6 @@ internal fun Content(
         vignette = { Vignette(vignetteState) },
         timeText = { TimeText(modifier = Modifier.scrollAway(listState)) }
     ) {
-        val focusRequester = rememberActiveFocusRequester()
         val coroutineScope = rememberCoroutineScope()
 
         ScalingLazyColumn(
@@ -113,8 +109,8 @@ internal fun Content(
                     }
                     true
                 }
-                .focusRequester(focusRequester)
                 .focusable()
+                .requestFocusOnHierarchyActive()
         ) {
             item {
                 Title()

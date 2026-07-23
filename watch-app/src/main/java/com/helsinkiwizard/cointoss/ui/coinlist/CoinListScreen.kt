@@ -26,7 +26,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import androidx.compose.ui.layout.ContentScale
@@ -37,12 +36,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.requestFocusOnHierarchyActive
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.Icon
@@ -132,7 +130,6 @@ private fun CoinListContent(viewModel: CoinListViewModel) {
     }
 }
 
-@OptIn(ExperimentalWearFoundationApi::class)
 @Composable
 private fun CoinList(viewModel: CoinListViewModel) {
     val customCoin = viewModel.customCoinFlow.collectAsState(initial = null).value
@@ -145,7 +142,6 @@ private fun CoinList(viewModel: CoinListViewModel) {
         timeText = { TimeText(modifier = Modifier.scrollAway(listState)) }
     ) {
         val context = LocalContext.current
-        val focusRequester = rememberActiveFocusRequester()
         val coroutineScope = rememberCoroutineScope()
         val sortedCoins = remember {
             CoinType.entries
@@ -165,8 +161,8 @@ private fun CoinList(viewModel: CoinListViewModel) {
                     }
                     true
                 }
-                .focusRequester(focusRequester)
                 .focusable()
+                .requestFocusOnHierarchyActive()
         ) {
             item { ListTitle() }
             item {

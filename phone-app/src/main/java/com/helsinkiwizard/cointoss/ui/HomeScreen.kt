@@ -30,7 +30,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.helsinkiwizard.cointoss.Constants.MAIN_BANNER_AD_ID
 import com.helsinkiwizard.cointoss.Constants.MAIN_INTERSTITIAL_AD_ID
 import com.helsinkiwizard.cointoss.R

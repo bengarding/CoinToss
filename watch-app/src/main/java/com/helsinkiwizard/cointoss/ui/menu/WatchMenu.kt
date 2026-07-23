@@ -15,14 +15,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import androidx.compose.ui.res.stringResource
-import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
 import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
+import androidx.wear.compose.foundation.requestFocusOnHierarchyActive
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeText
@@ -56,7 +54,6 @@ private object MenuParams {
     )
 }
 
-@OptIn(ExperimentalWearFoundationApi::class)
 @Composable
 internal fun WatchMenu() {
     val listState = rememberScalingLazyListState()
@@ -66,7 +63,6 @@ internal fun WatchMenu() {
         vignette = { Vignette(vignetteState) },
         timeText = { TimeText(modifier = Modifier.scrollAway(listState)) }
     ) {
-        val focusRequester = rememberActiveFocusRequester()
         val coroutineScope = rememberCoroutineScope()
         val navController = LocalNavController.current
 
@@ -83,8 +79,8 @@ internal fun WatchMenu() {
                     }
                     true
                 }
-                .focusRequester(focusRequester)
                 .focusable()
+                .requestFocusOnHierarchyActive()
         ) {
             item {
                 // Empty item so that the first chip shows in the center of the screen

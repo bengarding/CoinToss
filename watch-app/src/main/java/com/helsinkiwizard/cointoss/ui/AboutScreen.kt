@@ -1,6 +1,9 @@
 package com.helsinkiwizard.cointoss.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.gestures.animateScrollBy
+import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -9,18 +12,17 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.wear.compose.foundation.rememberActiveFocusRequester
-import androidx.wear.compose.foundation.rotary.RotaryScrollableDefaults
-import androidx.wear.compose.foundation.rotary.rotaryScrollable
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.wear.compose.foundation.requestFocusOnHierarchyActive
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.tooling.preview.devices.WearDevices
@@ -39,6 +41,7 @@ import com.helsinkiwizard.core.ui.composable.appIconPainterResource
 import com.helsinkiwizard.core.utils.getLastUpdatedDate
 import com.helsinkiwizard.core.viewmodel.DialogState
 import com.helsinkiwizard.core.viewmodel.UiState
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -102,17 +105,22 @@ private fun About(
     onButtonClick: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
-    val focusRequester = rememberActiveFocusRequester()
+    val coroutineScope = rememberCoroutineScope()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxWidth()
             .verticalScroll(scrollState)
-            .rotaryScrollable(
-                RotaryScrollableDefaults.behavior(scrollState),
-                focusRequester = focusRequester
-            )
-            .focusRequester(focusRequester)
+            .onRotaryScrollEvent {
+                // https://developer.android.com/training/wearables/compose/rotary-input
+                coroutineScope.launch {
+                    scrollState.scrollBy(it.verticalScrollPixels)
+                    scrollState.animateScrollBy(0f)
+                }
+                true
+            }
+            .focusable()
+            .requestFocusOnHierarchyActive()
             .padding(all = Forty)
     ) {
         Image(
