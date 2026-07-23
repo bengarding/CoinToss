@@ -1,5 +1,5 @@
 [versions]
-agp = "8.13.2"
+agp = "9.3.0"
 kotlin = "2.3.20"
 ksp = "2.3.10"
 google-services = "4.5.0"
@@ -10,15 +10,11 @@ compose-bom = "2026.06.01"
 wear-compose = "1.6.2"
 tiles = "1.6.1"
 horologist = "0.7.15"
-# Hilt 2.59+ requires AGP 9; 2.58 is the latest compatible with AGP 8.x
-hilt = "2.58"
-# hilt-navigation 1.4.0 requires compileSdk 37 / AGP 9; 1.3.0 is latest for SDK 36
-hilt-navigation = "1.3.0"
+hilt = "2.60.1"
+hilt-navigation = "1.4.0"
 navigation = "2.9.8"
 room = "2.8.4"
-# Coil 3.5.0 is built with Kotlin 2.4 (metadata v2.4) which Hilt 2.58's reader can't parse;
-# 3.4.0 is the latest built with Kotlin 2.3
-coil = "3.4.0"
+coil = "3.5.0"
 # Billing 9.x removed QueryPurchaseHistoryParams which RevenueCat 10.14.1 still references;
 # 8.3.0 matches RevenueCat's own transitive billing dependency
 billing = "8.3.0"
@@ -32,14 +28,13 @@ user-messaging-platform = "4.0.0"
 image-cropper = "4.7.0"
 leakcanary = "2.14"
 coroutines = "1.11.0"
-# lifecycle 2.11.0 compose artifacts require compileSdk 37; 2.10.0 is latest for SDK 36
 
 wear-remote-interactions = "1.2.0"
 wear-tooling-preview = "1.0.0"
 protolayout = "1.4.1"
-lifecycle = "2.10.0"
+lifecycle = "2.11.0"
 
-core-ktx = "1.18.0"
+core-ktx = "1.19.0"
 datastore = "1.2.1"
 play-services-wearable = "20.0.1"
 core-splashscreen = "1.2.0"
@@ -124,7 +119,6 @@ coroutines-guava = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-plugin" }

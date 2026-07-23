@@ -2,19 +2,19 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.firebase.perf)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
-    id("kotlin-parcelize")
+    // parcelize ships inside KGP (on the buildscript classpath), so apply it without a version
+    id("org.jetbrains.kotlin.plugin.parcelize")
 }
 
 android {
     namespace = "com.helsinkiwizard.cointoss"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.helsinkiwizard.cointoss"
