@@ -37,6 +37,7 @@ import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.material.scrollAway
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.core.R as CoreR
 import com.helsinkiwizard.cointoss.navigation.BEZEL_SENSITIVITY_PICKER_RESULT
 import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.navigation.SPEED_PICKER_RESULT
@@ -123,14 +124,14 @@ internal fun Content(
             }
             item {
                 PrimarySwitchChip(
-                    label = stringResource(id = R.string.play_sound),
+                    label = stringResource(id = CoreR.string.play_sound),
                     checked = model.playSound.value,
                     onCheckedChanged = viewModel::onPlaySoundChecked
                 )
             }
             item {
                 PrimarySwitchChip(
-                    label = stringResource(id = R.string.flip_wrist_to_toss),
+                    label = stringResource(id = CoreR.string.flip_wrist_to_toss),
                     checked = model.tossFromWristMotion.value,
                     onCheckedChanged = viewModel::onTossFromWristMovement
                 )
@@ -164,7 +165,7 @@ internal fun Content(
 @Composable
 private fun Title() {
     Text(
-        text = stringResource(id = R.string.settings),
+        text = stringResource(id = CoreR.string.settings),
         fontSize = Text20,
         fontWeight = FontWeight.SemiBold,
         textAlign = TextAlign.Center,

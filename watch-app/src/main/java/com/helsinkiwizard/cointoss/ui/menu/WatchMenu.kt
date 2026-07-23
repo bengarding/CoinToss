@@ -28,6 +28,7 @@ import androidx.wear.compose.material.Vignette
 import androidx.wear.compose.material.VignettePosition
 import androidx.wear.compose.material.scrollAway
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.core.R as CoreR
 import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.ui.composables.PrimaryChip
 import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
@@ -38,17 +39,17 @@ private object MenuParams {
     val menuItems = listOf(
         MenuItem(
             NavRoute.CoinList,
-            R.string.choose_a_coin,
+            CoreR.string.choose_a_coin,
             Icons.Outlined.MonetizationOn
         ),
         MenuItem(
             NavRoute.Settings,
-            R.string.settings,
+            CoreR.string.settings,
             Icons.Outlined.Settings
         ),
         MenuItem(
             NavRoute.About,
-            R.string.about,
+            CoreR.string.about,
             Icons.Outlined.Info
         ),
     )

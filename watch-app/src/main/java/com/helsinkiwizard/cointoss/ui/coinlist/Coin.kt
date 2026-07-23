@@ -19,6 +19,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.rotary.onRotaryScrollEvent
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.core.R as CoreR
 import com.helsinkiwizard.cointoss.ui.composables.Chevron
 import com.helsinkiwizard.cointoss.utils.FlipGestureDetector
 import com.helsinkiwizard.core.coin.CoinAnimation
@@ -62,7 +63,7 @@ fun Coin(
         contentAlignment = Alignment.Center
     ) {
         val activity = LocalActivity.current
-        val soundEffect = remember { MediaPlayer.create(activity, R.raw.coin_toss) }
+        val soundEffect = remember { MediaPlayer.create(activity, CoreR.raw.coin_toss) }
         var tossFromRotaryInput by remember { mutableStateOf(false) }
         var accumulatedDelta by remember { mutableFloatStateOf(0f) }
 

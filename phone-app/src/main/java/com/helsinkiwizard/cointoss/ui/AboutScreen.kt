@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.helsinkiwizard.cointoss.BuildConfig
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.core.R as CoreR
 import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.ui.composable.PreviewSurface
 import com.helsinkiwizard.cointoss.ui.composable.PrimaryButton
@@ -71,14 +72,14 @@ private fun AppInfo(dateUpdated: LocalDate) {
             .verticalScroll(rememberScrollState())
     ) {
         Image(
-            painter = appIconPainterResource(id = R.mipmap.ic_launcher_round),
+            painter = appIconPainterResource(id = CoreR.mipmap.ic_launcher_round),
             contentDescription = null,
             modifier = Modifier
                 .size(AppIconSize)
                 .padding(top = Forty, bottom = Twelve)
         )
         Text(
-            text = stringResource(id = R.string.app_name),
+            text = stringResource(id = CoreR.string.app_name),
             style = MaterialTheme.typography.displayLarge,
             textAlign = TextAlign.Center
         )
@@ -91,7 +92,7 @@ private fun AppInfo(dateUpdated: LocalDate) {
             style = MaterialTheme.typography.bodySmall,
             textAlign = TextAlign.Center
         )
-        val appOwner = stringResource(id = R.string.app_owner)
+        val appOwner = stringResource(id = CoreR.string.app_owner)
         Text(
             text = stringResource(id = R.string.copyright, dateUpdated.year, appOwner),
             style = MaterialTheme.typography.bodySmall,
@@ -104,7 +105,7 @@ private fun AppInfo(dateUpdated: LocalDate) {
 @Composable
 private fun Contact() {
     val context = LocalContext.current
-    val emailAddress = stringResource(id = R.string.email_address)
+    val emailAddress = stringResource(id = CoreR.string.email_address)
     val annotatedString = buildTextWithLink(
         fullText = stringResource(id = R.string.contact),
         linkText = emailAddress,

@@ -54,6 +54,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.helsinkiwizard.cointoss.Constants.COIN_LIST_BANNER_AD_ID
 import com.helsinkiwizard.cointoss.Constants.COIN_LIST_INTERSTITIAL_AD_ID
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.core.R as CoreR
 import com.helsinkiwizard.cointoss.data.Repository
 import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.ui.composable.PreviewSurface
@@ -231,7 +232,7 @@ private fun CustomCoin(
 
         AsyncImage(
             model = coin?.headsUri,
-            contentDescription = coinName.ifNullOrEmpty { stringResource(id = R.string.create_a_coin) },
+            contentDescription = coinName.ifNullOrEmpty { stringResource(id = CoreR.string.create_a_coin) },
             alignment = Alignment.Center,
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -285,8 +286,8 @@ private fun CustomCoin(
         }
         val label = when {
             coinName.isNullOrEmpty().not() -> coinName!!
-            coin != null -> stringResource(id = R.string.custom_coin)
-            else -> stringResource(id = R.string.create_a_coin)
+            coin != null -> stringResource(id = CoreR.string.custom_coin)
+            else -> stringResource(id = CoreR.string.create_a_coin)
         }
         Text(
             text = label,

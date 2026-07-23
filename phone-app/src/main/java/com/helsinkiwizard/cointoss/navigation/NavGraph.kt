@@ -12,6 +12,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.core.R as CoreR
 import com.helsinkiwizard.cointoss.ui.AboutScreen
 import com.helsinkiwizard.cointoss.ui.AttributionsScreen
 import com.helsinkiwizard.cointoss.ui.CoinListScreen
@@ -29,8 +30,8 @@ enum class NavRoute(
 ) {
     Home(R.string.coin_toss, iconRes = R.drawable.ic_coin_toss),
     CoinList(R.string.select, Icons.Outlined.MonetizationOn),
-    Settings(R.string.settings, Icons.Outlined.Settings),
-    About(R.string.about, Icons.Outlined.Info),
+    Settings(CoreR.string.settings, Icons.Outlined.Settings),
+    About(CoreR.string.about, Icons.Outlined.Info),
     Attributions(R.string.attributions),
     CreateCoin(R.string.custom, Icons.Outlined.AddCircleOutline),
     RemoveAds(R.string.remove_ads, iconRes = R.drawable.ic_no_ads)

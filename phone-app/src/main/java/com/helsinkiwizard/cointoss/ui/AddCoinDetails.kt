@@ -39,6 +39,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import coil3.compose.AsyncImage
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.core.R as CoreR
 import com.helsinkiwizard.cointoss.ui.composable.PrimaryButton
 import com.helsinkiwizard.cointoss.ui.composable.PrimaryOutlinedButton
 import com.helsinkiwizard.cointoss.ui.composable.PrimaryTextField
@@ -71,13 +72,13 @@ internal fun AddCoinDetails(
             .padding(horizontal = TwentyFour)
     ) {
         AddCoinImage(
-            textRes = R.string.heads,
+            textRes = CoreR.string.heads,
             bitmap = model.headsBitmap,
             hasError = model.headsError,
             onClick = onHeadsClicked
         )
         AddCoinImage(
-            textRes = R.string.tails,
+            textRes = CoreR.string.tails,
             bitmap = model.tailsBitmap,
             hasError = model.tailsError,
             onClick = onTailsClicked
@@ -191,12 +192,12 @@ private fun AddCoinDetailsButtons(
     isEditing: Boolean
 ) {
     PrimaryButton(
-        text = stringResource(id = R.string.save),
+        text = stringResource(id = CoreR.string.save),
         modifier = Modifier.padding(start = Twenty, top = Twenty, end = Twenty, bottom = Twelve),
         onClick = onSaveClicked
     )
     PrimaryOutlinedButton(
-        text = stringResource(id = if (isEditing) R.string.cancel else R.string.clear),
+        text = stringResource(id = if (isEditing) CoreR.string.cancel else R.string.clear),
         modifier = Modifier.padding(horizontal = Twenty),
         onClick = onClearClicked
     )

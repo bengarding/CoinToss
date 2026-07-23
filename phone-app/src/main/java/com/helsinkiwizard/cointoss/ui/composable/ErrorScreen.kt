@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.core.R as CoreR
 import com.helsinkiwizard.core.theme.Sixteen
 import com.helsinkiwizard.core.theme.ThirtyTwo
 import com.helsinkiwizard.core.theme.TwentyFour
@@ -58,7 +59,7 @@ fun ErrorScreen(
             modifier = Modifier.padding(top = TwentyFour)
         )
         PrimaryOutlinedButton(
-            text = stringResource(id = R.string.cancel),
+            text = stringResource(id = CoreR.string.cancel),
             modifier = Modifier.padding(top = ThirtyTwo),
             onClick = onCancelClicked
         )

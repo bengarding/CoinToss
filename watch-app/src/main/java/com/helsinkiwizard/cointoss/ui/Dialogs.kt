@@ -21,6 +21,7 @@ import androidx.wear.compose.material.dialog.Alert
 import androidx.wear.compose.material.dialog.Confirmation
 import androidx.wear.tooling.preview.devices.WearDevices
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.core.R as CoreR
 import com.helsinkiwizard.core.theme.Eight
 import com.helsinkiwizard.core.theme.Forty
 import com.helsinkiwizard.core.theme.Sixty
@@ -78,7 +79,7 @@ internal fun DownloadMobileAppConfirmation(
             }
             item {
                 Chip(
-                    label = { Text(stringResource(id = R.string.ok)) },
+                    label = { Text(stringResource(id = CoreR.string.ok)) },
                     onClick = onClick,
                 )
             }

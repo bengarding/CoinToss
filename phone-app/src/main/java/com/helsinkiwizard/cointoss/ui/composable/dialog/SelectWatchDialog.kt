@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.gms.wearable.Node
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.core.R as CoreR
 import com.helsinkiwizard.cointoss.ui.composable.PreviewSurface
 import com.helsinkiwizard.cointoss.ui.composable.PrimaryButton
 import com.helsinkiwizard.core.theme.DialogTonalOverlay
@@ -40,7 +41,7 @@ fun SelectWatchDialog(
             },
             confirmButton = {
                 Text(
-                    text = stringResource(id = R.string.cancel),
+                    text = stringResource(id = CoreR.string.cancel),
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier
                         .minimumInteractiveComponentSize()

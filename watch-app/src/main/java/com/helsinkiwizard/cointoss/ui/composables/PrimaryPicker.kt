@@ -22,6 +22,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.rememberPickerState
 import androidx.wear.tooling.preview.devices.WearDevices
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.core.R as CoreR
 import com.helsinkiwizard.cointoss.navigation.BEZEL_SENSITIVITY_PICKER_RESULT
 import com.helsinkiwizard.cointoss.navigation.SPEED_PICKER_RESULT
 import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
@@ -42,7 +43,7 @@ internal fun SpeedPicker(startValue: Float) {
     val startValueIndex = speedList.indexOf(startValue)
 
     PrimaryPicker(
-        label = stringResource(id = R.string.speed_seconds),
+        label = stringResource(id = CoreR.string.speed_seconds),
         items = speedList,
         initiallySelectedOption = startValueIndex.takeIf { it != VALUE_UNDEFINED } ?: DEFAULT_SPEED_INDEX,
         onSelected = { result ->
@@ -125,7 +126,7 @@ internal fun <T> PrimaryPicker(
             verticalAlignment = Alignment.CenterVertically
         ) {
             PrimaryButton(
-                text = stringResource(id = R.string.save),
+                text = stringResource(id = CoreR.string.save),
                 onClick = { onSelected(items[pickerState.selectedOption]) }
             )
         }

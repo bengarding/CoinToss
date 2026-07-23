@@ -28,6 +28,7 @@ import androidx.wear.compose.material.Text
 import androidx.wear.tooling.preview.devices.WearDevices
 import com.helsinkiwizard.cointoss.BuildConfig
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.core.R as CoreR
 import com.helsinkiwizard.cointoss.ui.composables.PrimaryButton
 import com.helsinkiwizard.cointoss.ui.viewmodel.AboutContent
 import com.helsinkiwizard.cointoss.ui.viewmodel.AboutDialogs
@@ -124,14 +125,14 @@ private fun About(
             .padding(all = Forty)
     ) {
         Image(
-            painter = appIconPainterResource(id = R.mipmap.ic_launcher_round),
+            painter = appIconPainterResource(id = CoreR.mipmap.ic_launcher_round),
             contentDescription = null,
             modifier = Modifier
                 .size(AppIconSize)
                 .padding(bottom = Twelve)
         )
         Text(
-            text = stringResource(id = R.string.app_name),
+            text = stringResource(id = CoreR.string.app_name),
             style = MaterialTheme.typography.title1,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(bottom = Twelve)
@@ -146,7 +147,7 @@ private fun About(
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(bottom = Eight)
         )
-        val appOwner = stringResource(id = R.string.app_owner)
+        val appOwner = stringResource(id = CoreR.string.app_owner)
         Text(
             text = stringResource(id = R.string.copyright_split, dateUpdated.year, appOwner),
             style = MaterialTheme.typography.body2,

@@ -34,6 +34,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.helsinkiwizard.cointoss.Constants.MAIN_BANNER_AD_ID
 import com.helsinkiwizard.cointoss.Constants.MAIN_INTERSTITIAL_AD_ID
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.core.R as CoreR
 import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.ui.theme.LocalNavController
 import com.helsinkiwizard.cointoss.ui.viewmodel.HomeScreenContent
@@ -125,7 +126,7 @@ private fun Content(
         modifier = Modifier.fillMaxSize()
     ) {
         val context = LocalContext.current
-        val soundEffect = remember { MediaPlayer.create(context, R.raw.coin_toss) }
+        val soundEffect = remember { MediaPlayer.create(context, CoreR.raw.coin_toss) }
 
         Box(
             modifier = Modifier

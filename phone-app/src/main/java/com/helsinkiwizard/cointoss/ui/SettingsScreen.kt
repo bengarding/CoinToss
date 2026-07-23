@@ -22,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.core.R as CoreR
 import com.helsinkiwizard.cointoss.data.Repository
 import com.helsinkiwizard.cointoss.data.ThemeMode
 import com.helsinkiwizard.cointoss.ui.composable.PillButton
@@ -144,19 +145,19 @@ private fun CoinSettings(
     onPlaySoundEffectChecked: (Boolean) -> Unit,
 ) {
     Column {
-        Title(textRes = R.string.coin)
+        Title(textRes = CoreR.string.coin)
         PrimarySlider(
             value = speedWrapper.value,
             minRange = SPEED_MIN,
             maxRange = SPEED_MAX,
             steps = SPEED_STEPS,
-            title = stringResource(id = R.string.speed_seconds),
+            title = stringResource(id = CoreR.string.speed_seconds),
             onValueChange = { value -> speedWrapper.value = value },
             onValueChangeFinished = onSpeedChangeFinished,
             modifier = Modifier.padding(horizontal = Twelve)
         )
         PrimarySwitch(
-            label = stringResource(id = R.string.play_sound),
+            label = stringResource(id = CoreR.string.play_sound),
             checked = playSoundEffectWrapper.value,
             onCheckChanged = onPlaySoundEffectChecked,
             modifier = Modifier.padding(horizontal = Twenty)

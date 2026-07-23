@@ -57,6 +57,7 @@ import androidx.wear.tooling.preview.devices.WearDevices
 import coil3.compose.SubcomposeAsyncImage
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.core.R as CoreR
 import com.helsinkiwizard.cointoss.Repository
 import com.helsinkiwizard.cointoss.navigation.NavRoute
 import com.helsinkiwizard.cointoss.tile.CoinTileService
@@ -191,7 +192,7 @@ private fun CoinList(viewModel: CoinListViewModel) {
 @Composable
 fun ListTitle() {
     Text(
-        text = stringResource(id = R.string.choose_a_coin),
+        text = stringResource(id = CoreR.string.choose_a_coin),
         fontSize = Text20,
         fontWeight = FontWeight.SemiBold,
         textAlign = TextAlign.Center,
@@ -237,7 +238,7 @@ fun CoinButton(
             if (coin == CUSTOM) {
                 SubcomposeAsyncImage(
                     model = customCoinHeadsUri,
-                    contentDescription = name.ifEmpty { stringResource(id = R.string.custom_coin) },
+                    contentDescription = name.ifEmpty { stringResource(id = CoreR.string.custom_coin) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(color = Color.Black),
@@ -299,7 +300,7 @@ private fun BlankCustomCoin(
             )
             CoinLabel(
                 name = EMPTY_STRING,
-                nameRes = R.string.create_a_coin
+                nameRes = CoreR.string.create_a_coin
             )
         }
     }
@@ -328,9 +329,9 @@ private fun BoxScope.CoinLabel(
 @Composable
 private fun RequestCoin() {
     val context = LocalContext.current
-    val emailAddress = stringResource(id = R.string.email_address)
+    val emailAddress = stringResource(id = CoreR.string.email_address)
     val annotatedString = buildTextWithLink(
-        fullText = stringResource(id = R.string.request_coin),
+        fullText = stringResource(id = CoreR.string.request_coin),
         linkText = emailAddress,
         style = Typography.body1.copy(fontSize = Text12).toSpanStyle(),
         linkStyle = LinkText

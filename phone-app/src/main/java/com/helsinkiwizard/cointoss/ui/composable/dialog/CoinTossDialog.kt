@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.core.R as CoreR
 import com.helsinkiwizard.cointoss.ui.composable.PreviewSurface
 import com.helsinkiwizard.core.theme.DialogTonalOverlay
 import com.helsinkiwizard.core.theme.Twenty
@@ -25,7 +26,7 @@ fun CoinTossDialog(
     text: String? = null,
     content: @Composable (() -> Unit)? = null,
     title: String? = null,
-    confirmButtonText: String = stringResource(id = R.string.ok),
+    confirmButtonText: String = stringResource(id = CoreR.string.ok),
     dismissButtonText: String? = null,
     onConfirmButtonClick: (() -> Unit)? = null,
     onDismissButtonClick: (() -> Unit)? = null,

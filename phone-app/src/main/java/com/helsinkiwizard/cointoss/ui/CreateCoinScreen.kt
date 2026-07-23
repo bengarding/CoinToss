@@ -49,6 +49,7 @@ import com.google.android.gms.wearable.Wearable
 import com.helsinkiwizard.cointoss.Constants.CUSTOM_COIN_BANNER_AD_ID
 import com.helsinkiwizard.cointoss.Constants.CUSTOM_COIN_INTERSTITIAL_AD_ID
 import com.helsinkiwizard.cointoss.R
+import com.helsinkiwizard.core.R as CoreR
 import com.helsinkiwizard.cointoss.data.Repository
 import com.helsinkiwizard.cointoss.ui.composable.ErrorScreen
 import com.helsinkiwizard.cointoss.ui.composable.FullScreenProgressIndicator
@@ -179,7 +180,7 @@ private fun CreateCoinDialogs(viewModel: CreateCoinViewModel) {
                     CoinTossDialog(
                         text = stringResource(id = R.string.are_you_sure_delete_coin),
                         confirmButtonText = stringResource(id = R.string.delete),
-                        dismissButtonText = stringResource(id = R.string.cancel),
+                        dismissButtonText = stringResource(id = CoreR.string.cancel),
                         onConfirmButtonClick = { viewModel.deleteCoin(type.coin) },
                         onDismiss = { viewModel.resetDialogState() },
                     )
@@ -405,13 +406,13 @@ private fun CustomCoinItem(
                 CustomCoinSide(
                     uri = coin.headsUri,
                     name = coin.name,
-                    coinSideString = stringResource(id = R.string.heads),
+                    coinSideString = stringResource(id = CoreR.string.heads),
                     modifier = Modifier.padding(end = Eight)
                 )
                 CustomCoinSide(
                     uri = coin.tailsUri,
                     name = coin.name,
-                    coinSideString = stringResource(id = R.string.tails)
+                    coinSideString = stringResource(id = CoreR.string.tails)
                 )
                 IconButtons(
                     showSelectButton = showSelectButton,
