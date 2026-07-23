@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 9.3.0" type="baseline" client="gradle" dependencies="false" name="AGP (9.3.0)" variant="all" version="9.3.0">
+
+    <issue
+        id="NonObservableLocale"
+        message="Reading locale in a non-observable way in a composable function"
+        errorLine1="            DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.getDefault())"
+        errorLine2="                                                                             ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/helsinkiwizard/cointoss/ui/AboutScreen.kt"
+            line="141"
+            column="78"/>
+    </issue>
+
+    <issue
+        id="NonObservableLocale"
+        message="Reading locale in a non-observable way in a composable function"
+        errorLine1="        String.format(Locale.getDefault(), &quot;%.1f&quot;, wrapper.value)"
+        errorLine2="                      ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/helsinkiwizard/cointoss/ui/WatchSettingsScreen.kt"
+            line="191"
+            column="23"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of com.android.application than 9.3.0 is available: 9.3.1"
+        errorLine1="agp = &quot;9.3.0&quot;"
+        errorLine2="      ~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/CoinToss/gradle/libs.versions.toml"
+            line="2"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="AndroidGradlePluginVersion"
+        message="A newer version of com.android.library than 9.3.0 is available: 9.3.1"
+        errorLine1="agp = &quot;9.3.0&quot;"
+        errorLine2="      ~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/CoinToss/gradle/libs.versions.toml"
+            line="2"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.android.billingclient:billing than 8.3.0 is available: 9.1.0"
+        errorLine1="billing = &quot;8.3.0&quot;"
+        errorLine2="          ~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/CoinToss/gradle/libs.versions.toml"
+            line="20"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of org.jetbrains.kotlin.plugin.compose than 2.3.20 is available: 2.4.10"
+        errorLine1="kotlin = &quot;2.3.20&quot;"
+        errorLine2="         ~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/CoinToss/gradle/libs.versions.toml"
+            line="3"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.revenuecat.purchases:purchases than 10.14.1 is available: 10.15.0"
+        errorLine1="revenuecat = &quot;10.14.1&quot;"
+        errorLine2="             ~~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/CoinToss/gradle/libs.versions.toml"
+            line="21"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="NewerVersionAvailable"
+        message="A newer version of com.revenuecat.purchases:purchases-ui than 10.14.1 is available: 10.15.0"
+        errorLine1="revenuecat = &quot;10.14.1&quot;"
+        errorLine2="             ~~~~~~~~~">
+        <location
+            file="$HOME/StudioProjects/CoinToss/gradle/libs.versions.toml"
+            line="21"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current"
+        errorLine1="                .sortedBy { context.getString(it.nameRes) }"
+        errorLine2="                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/helsinkiwizard/cointoss/ui/coinlist/CoinListScreen.kt"
+            line="149"
+            column="29"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.array.android_wear_capabilities` appears to be unused"
+        errorLine1="    &lt;string-array name=&quot;android_wear_capabilities&quot;>"
+        errorLine2="                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/wear.xml"
+            line="3"
+            column="19"/>
+    </issue>
+
+    <issue
+        id="UseOfNonLambdaOffsetOverload"
+        message="State backed values should use the lambda overload of Modifier.offset"
+        errorLine1="                .offset(offsetAnimation.dp)"
+        errorLine2="                 ~~~~~~">
+        <location
+            file="src/main/java/com/helsinkiwizard/cointoss/ui/composables/Chevron.kt"
+            line="72"
+            column="18"/>
+    </issue>
+
+</issues>

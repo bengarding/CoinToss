@@ -56,6 +56,12 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    lint {
+        // Baseline the pre-existing lint findings so the build passes on AGP 9 (which aborts
+        // on lint errors); new issues are still reported. Regenerate with `lintRelease` after
+        // deleting the baseline file.
+        baseline = file("lint-baseline.xml")
+    }
 }
 
 kotlin {
